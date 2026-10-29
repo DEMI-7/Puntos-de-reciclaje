@@ -22,7 +22,7 @@
 
 </head>
 <body>
-    <form runat="server">
+    <form ID="formPrincipal" runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
@@ -42,7 +42,7 @@
         </asp:ScriptManager>
 
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" runat="server" href="~/">Nombre de la aplicación</a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -59,13 +59,10 @@
                 </div>
             </div>
         </nav>
-        <div class="container body-content">
+
+        <div class="map-layout-wrapper">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - Mi aplicación ASP.NET</p>
-            </footer>
         </div>
     </form>
 </body>

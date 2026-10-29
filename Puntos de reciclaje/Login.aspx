@@ -2,26 +2,20 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row">
-
         <div class="col-6">
-
-
-
-
+            <!-- texto del mail-->
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                <asp:Label ID="LblEmail" runat="server" Text="Direccion de email" for="TxtEmail" class="form-label"></asp:Label>
+                <asp:TextBox ID="TxtEmail" runat="server" class="form-control"></asp:TextBox>
             </div>
+
+            <!-- texto de la contraseña-->
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <asp:Label ID="LblContraseña" runat="server" Text="Contraseña" for="TxtContraseña" class="form-label"></asp:Label>
+                <asp:TextBox ID="TxtContraseña" runat="server" class="form-control" type="password"></asp:TextBox>
             </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+
+            <asp:Button ID="BotonLogin" runat="server" Text="Ingresar" class="btn btn-primary" />
         </div>
     </div>
 </asp:Content>
