@@ -13,5 +13,20 @@ namespace Puntos_de_reciclaje
         {
 
         }
+        
+        protected void BotonLogin_click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TxtEmail.Text) || string.IsNullOrWhiteSpace(TxtContraseña.Text))
+            {
+                return; 
+            }
+
+            //soimulacion de login , sin base de datos; 
+            Session["IdEmpresa"] = 1;
+            Session["NombreEmpresa"] = "EcoRecicla S.A. (emp prueba )";
+
+            // lo mandamos al panel de la empresa
+            Response.Redirect("PanelEmpresa.aspx");
+        }
     }
 }

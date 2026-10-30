@@ -17,7 +17,7 @@
                 <asp:TextBox ID="TxtContraseña" runat="server" class="form-control" type="password"></asp:TextBox>
             </div>
 
-            <asp:Button ID="BotonLogin" runat="server" Text="Ingresar" class="btn btn-primary" />
+            <asp:Button ID="BotonLogin" runat="server" Text="Ingresar" class="btn btn-primary" OnClick="BotonLogin_click" />
         </div>
     </div>
     </div>
