@@ -2,6 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     
+    <div class="container body-content mt-4">
+
+    
     <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
         <h2>Panel de Control</h2>
         <h4 class="text-success">
@@ -36,5 +39,6 @@
 
         </div>
     </div>
+        </div>
 
 </asp:Content>

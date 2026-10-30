@@ -52,8 +52,10 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/">Mapa</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/About">Acerca de</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contacto</a></li>
-
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Panelempresa">Panel empresa</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="Login.aspx">Iniciar sesion</a> </li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/PanelAdministrador.aspx">Panel admin</a></li>
+                        
                     </ul>
                 </div>
             </div>
