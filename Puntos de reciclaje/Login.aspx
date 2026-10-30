@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Puntos_de_reciclaje.Login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="container body-content mt-4">
+         
     <div class="row">
         <div class="col-6">
             <!-- texto del mail-->
@@ -17,5 +19,6 @@
 
             <asp:Button ID="BotonLogin" runat="server" Text="Ingresar" class="btn btn-primary" />
         </div>
+    </div>
     </div>
 </asp:Content>

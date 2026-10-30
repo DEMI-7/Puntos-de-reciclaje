@@ -17,7 +17,6 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
     <!-- links para el css del mapa y para la libreria de leaflet-->
-    <link href="Estilos/EstiloMapa.css" rel="stylesheet" />
     <link rel="stylesheet" href="Libreria/leaflet/leaflet.css" />
 
 </head>
@@ -60,7 +59,8 @@
             </div>
         </nav>
 
-        <div class="map-layout-wrapper">
+        <!-- Contenedor -->
+        <div class="contenedorPrincipal">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
         </div>
