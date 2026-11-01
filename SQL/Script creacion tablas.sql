@@ -16,14 +16,14 @@ TipoUsuario VARCHAR (20) NOT NULL
 EstadoCuenta VARCHAR (20) NOT NULL
 	CONSTRAINT CK_Usuarios_EstadoCuenta
 	CHECK (EstadoCuenta IN ('aprobado','pendiente','rechazado')),
-Activo BIT CONTRAINT DF_Usuarios DEFAULT 1 NOT NULL
+Activo BIT CONSTRAINT DF_Usuarios DEFAULT 1 NOT NULL
 );
 
 CREATE TABLE Reseñas (
 	ID_Reseña BIGINT IDENTITY (1,1) PRIMARY KEY NOT NULL,
 	ID_Usuario BIGINT NOT NULL,
 	ID_PuntoReciclaje BIGINT NOT NULL,
-	Reseña VARCHAR(200) NULL,
+	Reseña VARCHAR(280) NULL,
 	Puntaje TINYINT NOT NULL
 		CONSTRAINT CK_Reseñas_Puntaje
 		CHECK (Puntaje BETWEEN 1 AND 5),
@@ -69,14 +69,16 @@ ALTER TABLE Imagen_Material
 
 ALTER TABLE Material_PuntoReciclaje
 	ADD CONSTRAINT FK_MaterialPunto_PuntoReciclaje FOREIGN KEY (ID_Punto)
-	REFERENCES Puntos_reciclaje (ID_Punto),
+	REFERENCES Puntos_reciclaje (ID_Punto);
+ALTER TABLE Material_PuntoReciclaje
 	ADD CONSTRAINT FK_MaterialPunto_Materiales FOREIGN KEY (ID_Material)
 	REFERENCES Materiales (ID_Material);
 
 ALTER TABLE Reseñas
 	ADD CONSTRAINT FK_Reseñas_Usuarios FOREIGN KEY (ID_Usuario)
-	REFERENCES Usuarios(ID_Usuario),
-	ADD CONSTRAINT FK_Reseñas_PuntoReciclaje FOREIGN KEY (ID_Punto)
+	REFERENCES Usuarios(ID_Usuario);
+ALTER TABLE Reseñas
+	ADD CONSTRAINT FK_Reseñas_PuntoReciclaje FOREIGN KEY (ID_PuntoReciclaje)
 	REFERENCES Puntos_reciclaje(ID_Punto);
 
 ALTER TABLE Puntos_reciclaje
