@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,8 +11,16 @@ namespace Puntos_de_reciclaje
 {
     public partial class _Default : Page
     {
+        List<PuntoReciclaje> listaPuntos = new List<PuntoReciclaje>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                PuntoNegocio negocio = new PuntoNegocio();
+                listaPuntos = negocio.listar();
+            }
+
 
         }
     }

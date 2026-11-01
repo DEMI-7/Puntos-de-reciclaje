@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-namespace Puntos_de_reciclaje.Datos
+namespace Negocio
 {
     public class Accesodatos
     {
@@ -18,7 +18,7 @@ namespace Puntos_de_reciclaje.Datos
 
         public Accesodatos()
         {
-            conexion = new SqlConnection("Server=localhost,1433;Database=CATALOGO_P3_DB;User Id=sa;Password=Grupo0_1234!;TrustServerCertificate=True;");
+            conexion = new SqlConnection("Server=localhost,1433;Database=PuntosReciclaje_DB;User Id=sa;Password=Grupo0_1234!;TrustServerCertificate=True;");
             comando = new SqlCommand();
         }
 

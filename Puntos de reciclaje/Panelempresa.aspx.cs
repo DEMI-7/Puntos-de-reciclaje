@@ -5,8 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-using Puntos_de_reciclaje.Negocio;
-using Puntos_de_reciclaje.Dominio;
+using Negocio;
+using Dominio;
 
 
 namespace Puntos_de_reciclaje
@@ -30,10 +30,10 @@ namespace Puntos_de_reciclaje
 
             try
             {
-                Puntonegocio negocio = new Puntonegocio();
+                PuntoNegocio negocio = new PuntoNegocio();
                 long idEmpresa = Convert.ToInt64(Session["IdEmpresa"] ?? 1);
 
-                List<Puntoreciclaje> lista = negocio.ListarporEmpresa(idEmpresa);
+                List<PuntoReciclaje> lista = negocio.ListarporEmpresa(idEmpresa);
 
             gvPuntos.DataSource = lista;
             gvPuntos.DataBind();

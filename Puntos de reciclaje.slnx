@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="Dominio/Dominio.csproj" Id="7f882b9c-6395-49b0-bcff-fb791d03086b" />
+  <Project Path="Negocio/Negocio.csproj" Id="f7439fed-8e3a-4064-8666-ba4831a80453" />
   <Project Path="Puntos de reciclaje/Puntos de reciclaje.csproj" Id="a8924aee-0bf4-4ced-9a49-7d993c586477" />
 </Solution>

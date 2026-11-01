@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Puntos_de_reciclaje.Dominio
+namespace Dominio
 {
     public class Material
     {
