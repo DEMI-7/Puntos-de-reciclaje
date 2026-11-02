@@ -15,15 +15,8 @@ namespace Dominio
         public string Horario { get; set; }
 
         
-        public List<long> ListaMaterialesID { get; set; } = new List<long>();
+        public List<Material> ListaMateriales { get; set; } = new List<Material>();
         //prop para mostrar en la grilla; 
 
-    }
-
-    // Objeto que representa la relacion de material y punto de reciclaje
-    public class PuntoMaterial
-    {
-        public long IdPunto { get; set; }
-        public long IdMaterial { get; set; }
     }
 }

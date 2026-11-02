@@ -31,8 +31,12 @@
                         // añadimos los marcadores con el bucle
                         var marker = L.marker([punto.Latitud, punto.Longitud]).addTo(mapa);
 
+                        var materialesTexto = punto.ListaMateriales.map(function (mat) {
+                            return mat.Nombre;
+                        }).join(', ');
+
                         // le agregamos la informacion adicional en un popup
-                        marker.bindPopup("<b>Dirección:</b> " + punto.Direccion + "<br><b>Horario:</b> " + punto.Horario + "<br><b>Materiales:</b> " + punto.ListaMaterialesID);
+                        marker.bindPopup("<b>Dirección:</b> " + punto.Direccion + "<br><b>Horario:</b> " + punto.Horario + "<br><b>Materiales:</b> " + materialesTexto);
                     });
 
                 });

@@ -18,34 +18,39 @@ namespace Negocio
 
             try
             {
-                conexion.SetearConsulta("SELECT ID_Punto, ID_UsuarioCreador, Direccion, Latitud, Longitud, Horario FROM Puntos_reciclaje");
+                conexion.SetearConsulta("SELECT p.ID_Punto, p.ID_UsuarioCreador, p.Direccion, p.Latitud, p.Longitud, p.Horario, m.ID_Material, m.Nombre AS NombreMaterial FROM Puntos_reciclaje p LEFT JOIN Material_PuntoReciclaje pm ON p.ID_Punto = pm.ID_Punto LEFT JOIN Materiales m ON pm.ID_Material = m.ID_Material");
                 conexion.EjecutarLectura();
 
                 while (conexion.Lector.Read())
                 {
-                    PuntoReciclaje aux = new PuntoReciclaje();
 
-                    aux.IdPunto = (long)conexion.Lector["ID_Punto"];
-                    aux.IdUsuarioCreador = (long)conexion.Lector["ID_UsuarioCreador"];
-                    aux.Direccion = (string)conexion.Lector["Direccion"];
-                    aux.Latitud = (decimal)conexion.Lector["Latitud"];
-                    aux.Longitud = (decimal)conexion.Lector["Longitud"];
-                    aux.Horario = (string)conexion.Lector["Horario"];
+                    long idPunto = (long)conexion.Lector["ID_Punto"];
 
-                    lista.Add(aux);
-                }
+                    // Verificamos si el punto ya existe en la lista
+                    PuntoReciclaje punto = lista.FirstOrDefault(p => p.IdPunto == idPunto);
 
-
-                List<PuntoMaterial> listaRelaciones = listarRelacionpPuntosMateriales();
-
-                foreach(PuntoReciclaje punto in lista)
-                {
-                    foreach(PuntoMaterial relacion in listaRelaciones)
+                    if (punto == null)
                     {
-                        if(punto.IdPunto == relacion.IdPunto)
-                        {
-                            punto.ListaMaterialesID.Add(relacion.IdMaterial);
-                        }
+                        // Si el punto no existe, lo creamos y lo agregamos a la lista
+                        punto = new PuntoReciclaje();
+
+                        punto.IdPunto = idPunto;
+                        punto.IdUsuarioCreador = (long)conexion.Lector["ID_UsuarioCreador"];
+                        punto.Direccion = (string)conexion.Lector["Direccion"];
+                        punto.Latitud = (decimal)conexion.Lector["Latitud"];
+                        punto.Longitud = (decimal)conexion.Lector["Longitud"];
+                        punto.Horario = (string)conexion.Lector["Horario"];
+
+                        lista.Add(punto);
+                    }
+
+                    // Ahora, para cada punto, obtenemos los materiales asociados
+                    if (conexion.Lector["ID_Material"] != DBNull.Value)
+                    {
+                        Material mat = new Material();
+                        mat.IdMaterial = (long)conexion.Lector["ID_Material"];
+                        mat.Nombre = (string)conexion.Lector["NombreMaterial"];
+                        punto.ListaMateriales.Add(mat);
                     }
                 }
 
@@ -62,41 +67,6 @@ namespace Negocio
             }
 
         }
-
-        private List<PuntoMaterial> listarRelacionpPuntosMateriales()
-        {
-            List<PuntoMaterial> lista = new List<PuntoMaterial>();
-
-            Accesodatos conexion = new Accesodatos();
-
-            try
-            {
-                conexion.SetearConsulta("SELECT ID_Punto, ID_Material FROM Material_PuntoReciclaje");
-                conexion.EjecutarLectura();
-
-                while (conexion.Lector.Read())
-                {
-                    PuntoMaterial aux = new PuntoMaterial();
-
-                    aux.IdPunto = (long)conexion.Lector["ID_Punto"];
-                    aux.IdMaterial = (long)conexion.Lector["ID_Material"];
-
-
-                    lista.Add(aux);
-                }
-
-                return lista;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                conexion.CerrarConexion();
-            }
-        }
-
         public List<PuntoReciclaje> ListarporEmpresa(long idEmpresa)
         {
             List<PuntoReciclaje> lista = new List<PuntoReciclaje>();

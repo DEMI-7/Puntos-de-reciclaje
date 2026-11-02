@@ -7,7 +7,7 @@ namespace Dominio
 {
     public class Material
     {
-        public long Idmaterial { get; set; }
+        public long IdMaterial { get; set; }
         public string Nombre { get; set; }  
         public string Info { get; set; }
 

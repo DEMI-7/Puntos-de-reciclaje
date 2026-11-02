@@ -1,3 +1,5 @@
+USE PuntosReciclaje_DB
+GO
 -- Materiales
 INSERT INTO Materiales (Nombre, Info)
 VALUES
@@ -12,3 +14,10 @@ VALUES
 ('Vidrio','El vidrio es un material que puede reciclarse muchas veces sin perder sus propiedades. Se recolecta, se separa por color, se limpia y se tritura para fundirlo a altas temperaturas. Luego se utiliza para fabricar nuevos envases, botellas, frascos y otros objetos de vidrio.'),
 ('Cartón','El cartón es un material reciclable que se obtiene principalmente de cajas, envases y embalajes. Para reciclarlo, se clasifica, se tritura y se mezcla con agua para formar una pasta de fibras que luego se utiliza para fabricar nuevas cajas, papel y otros productos de cartón.');
 
+
+-- Usuarios
+INSERT INTO Usuarios (Nombre, Email, Contraseña_hash, TipoUsuario, EstadoCuenta) VALUES ('Demian', 'demiangomez504@gmail.com', '12345678', 'admin', 'aprobado')
+
+-- Puntos reciclaje
+INSERT INTO Puntos_reciclaje (ID_UsuarioCreador, Direccion,Latitud, Longitud, Horario) VALUES (1, 'Guillermo Miller 178',-34.534306,-58.792742, 'Lun a Vie de 8AM hasta 16PM' )
+INSERT INTO Material_PuntoReciclaje (ID_Punto, ID_Material) VALUES (1,1), (1,2), (1,3);
