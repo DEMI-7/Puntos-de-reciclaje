@@ -77,7 +77,7 @@ namespace Negocio
                 //materiales : simulamos en un string de momento ; 
 
                 datos.SetearConsulta("SELECT ID_Punto, ID_UsuarioCreador, Direccion, Latitud, Longitud," +
-                    " Horario FROM Puntos_reciclaje WHERE ID_UsuarioCreador = @idEmpresa"); 
+                    " Horario FROM Puntos_reciclaje WHERE ID_UsuarioCreador = @idEmpresa");
 
 
                 datos.agregarParametro("@idEmpresa", idEmpresa);
@@ -89,7 +89,7 @@ namespace Negocio
                 {
                     PuntoReciclaje xx = new PuntoReciclaje();
                     xx.IdPunto = (int)datos.Lector["ID_Punto"];
-                    xx.IdUsuarioCreador  = (long)datos.Lector["ID_UsuarioCreador"];
+                    xx.IdUsuarioCreador = (long)datos.Lector["ID_UsuarioCreador"];
                     xx.Direccion = (string)datos.Lector["Direccion"];
                     xx.Latitud = (decimal)datos.Lector["Latitud"];
                     xx.Longitud = (decimal)datos.Lector["Longitud"];
@@ -112,5 +112,59 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+
+        // REVISAR _________________ -----EZE --------------------------------------------
+        public long Agregar(PuntoReciclaje puntonew)
+
+        {
+            Accesodatos datos = new Accesodatos();
+            try
+            {
+
+
+                //output inserted.id_punto : devuelve el id del punto recien insertado ;
+                datos.SetearConsulta(@"INSERT INTO Puntos_reciclaje (ID_UsuarioCreador, Direccion, 
+                                               Latitud, Longitud, Horario) 
+                               OUTPUT INSERTED.ID_Punto 
+                               VALUES (@idUsuarioCreador, @direccion, @latitud, @longitud, @horario)");
+
+                datos.agregarParametro("@idUsuarioCreador", puntonew.IdUsuarioCreador);
+
+                datos.agregarParametro("@direccion", puntonew.Direccion);
+                datos.agregarParametro("@latitud", puntonew.Latitud);
+
+                datos.agregarParametro("@longitud", puntonew.Longitud);
+
+                datos.agregarParametro("@horario", puntonew.Horario);
+
+                //
+                object resultado = datos.ejecutarAccionScalar();
+                return Convert.ToInt64(resultado); // convertimos el resultado a long y lo devolvemos
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            // no hace falta cerrar conexion porq ejecutarAccionScalar ya lo hace automatic ; 
+
+        }
+        public void AgregarMaterialalPunto(long idpuntobich, long idmaterial)
+        {
+            Accesodatos datos = new Accesodatos();
+            try
+            {
+                datos.SetearConsulta("INSERT INTO Material_PuntoReciclaje (ID_Punto, ID_Material) VALUES (@idPunto, @idMaterial)");
+                datos.agregarParametro("@idPunto", idpuntobich);
+                datos.agregarParametro("@idMaterial", idmaterial);
+                datos.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
     }
 }
