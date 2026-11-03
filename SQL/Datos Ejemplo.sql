@@ -18,7 +18,9 @@ GO
 -- Usuarios
 INSERT INTO Usuarios (Nombre, Email, Contraseña_hash, TipoUsuario, EstadoCuenta) VALUES ('Demian', 'demiangomez504@gmail.com', '12345678', 'admin', 'aprobado')
 
-INSERT INTO dbo.Usuarios (Nombre, Email, Contraseña_hash, TipoUsuario, EstadoCuenta) VALUES
+INSERT INTO Usuarios (Nombre, Email, Contraseña_hash, TipoUsuario, EstadoCuenta) VALUES
+('Ladiar Arcor','arcorpuntoverde@ladiar.com.ar','123456','empresa','pendiente'),
+('Jose C. Paz','josecpazmunicipio@jcp.gob.ar','123456','gubernamental','pendiente'),
 ('Carla Gomez', 'carla@gmail.com', '123456', 'basico', 'aprobado'),
 ('Martin Perez', 'martin@gmail.com', '123456', 'basico', 'aprobado'),
 ('Lucia Fernandez', 'lucia@gmail.com', '123456', 'empresa', 'pendiente'),

@@ -30,6 +30,7 @@ LEFT JOIN Materiales m ON pm.ID_Material = m.ID_Material
 */
 
 
-SELECT ID_Usuario, Nombre, Email, TipoUsuario, EstadoCuenta FROM Usuarios WHERE Activo = 1
+--SELECT ID_Usuario, Nombre, Email, TipoUsuario, EstadoCuenta FROM Usuarios WHERE Activo = 1 AND EstadoCuenta ='aprobado'
 
+--SELECT ID_Usuario, Nombre, Email, TipoUsuario, EstadoCuenta FROM Usuarios WHERE Activo = 1 AND (TipoUsuario ='empresa' OR TipoUsuario='gubernamental') AND EstadoCuenta ='pendiente'
 

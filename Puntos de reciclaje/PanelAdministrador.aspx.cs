@@ -17,15 +17,47 @@ namespace Puntos_de_reciclaje
             if (!IsPostBack)
             {
                 CargarGrillaUsuariosActivos("");
+                CargarGrillaEmpresasPendientes("");
             }
 
+        }
+
+        // Falta gestionar los try catch
+        private void CargarGrillaEmpresasPendientes(string filtro)
+        {
+            UsuarioNegocio negocio = new UsuarioNegocio();
+            usuariosActivos = negocio.ListarEmpresasPendientes();
+
+            if (!string.IsNullOrEmpty(filtro))
+            {
+                usuariosActivos = usuariosActivos.Where(u =>
+                (u.Nombre != null && u.Nombre.ToLower().Contains(filtro.ToLower())) ||
+                (u.Email != null && u.Email.ToLower().Contains(filtro.ToLower()))
+                ).ToList();
+            }
+
+            // controlar si la lista sale vacia
+            if (usuariosActivos.Count > 0)
+            {
+                GrillaEmpresasPendientes.DataSource = usuariosActivos;
+                GrillaEmpresasPendientes.DataBind();
+                GrillaEmpresasPendientes.Visible = true;
+                LblSinResultadosEmpresasPendientes.Visible = false;
+            }
+            else
+            {
+                GrillaEmpresasPendientes.Visible = false;
+                LblSinResultadosEmpresasPendientes.Visible = true;
+            }
+
+            LblCantidadEmpresasPendientes.Text = usuariosActivos.Count.ToString();
         }
 
         // Falta gestionar los try catch
         private void CargarGrillaUsuariosActivos(string filtro)
         {
             UsuarioNegocio negocio = new UsuarioNegocio();
-            usuariosActivos = negocio.listarActivos();
+            usuariosActivos = negocio.ListarActivos();
 
             if (!string.IsNullOrEmpty(filtro))
             {
@@ -49,7 +81,7 @@ namespace Puntos_de_reciclaje
                 LblSinResultados.Visible = true;
             }
 
-            LblCantidadUsuarios.Text = usuariosActivos.Count.ToString();
+            LblCantidadUsuariosActivos.Text = usuariosActivos.Count.ToString();
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
@@ -64,6 +96,20 @@ namespace Puntos_de_reciclaje
             // cambiar indice de pagina
             GrillaUsuarioActivos.PageIndex = e.NewPageIndex;
             CargarGrillaUsuariosActivos(TxtBuscar.Text.Trim());
+        }
+
+        protected void GrillaEmpresasPendientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            // cambiar indice de pagina
+            GrillaEmpresasPendientes.PageIndex = e.NewPageIndex;
+            CargarGrillaEmpresasPendientes(TxtBuscarEmpresas.Text.Trim());
+        }
+
+        protected void BtnBuscarEmpresas_Click(object sender, EventArgs e)
+        {
+            // Volvemos a cargar la grilla pero pasandole el contenido del textbox
+            CargarGrillaEmpresasPendientes(TxtBuscarEmpresas.Text.Trim());
+            GrillaEmpresasPendientes.PageIndex = 0;
         }
     }
 }
