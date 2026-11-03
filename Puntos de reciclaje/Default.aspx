@@ -25,15 +25,25 @@
 
                     // traemos la lista en formato json que se creó en el code behind
                     var puntos = <%= ListaPuntosJson %>;
+                    console.log(puntos);
 
                     puntos.forEach(function (punto) {
 
                         // añadimos los marcadores con el bucle
                         var marker = L.marker([punto.Latitud, punto.Longitud]).addTo(mapa);
 
-                        var materialesTexto = punto.ListaMateriales.map(function (mat) {
-                            return mat.Nombre;
-                        }).join(', ');
+                        var materialesTexto = "Sin materiales asociados";
+
+                        // Mostramos en consola qué trae este punto específico para salir de dudas
+                        console.log("Evaluando ID:", punto.IdPunto, "Materiales:", punto.ListaMateriales);
+
+                        // Validación estricta
+                        if (punto.ListaMateriales && punto.ListaMateriales.length > 0) {
+                            materialesTexto = punto.ListaMateriales.map(function (mat) {
+                                return mat.Nombre;
+                            }).join(', ');
+                        }
+
 
                         // le agregamos la informacion adicional en un popup
                         marker.bindPopup("<b>Dirección:</b> " + punto.Direccion + "<br><b>Horario:</b> " + punto.Horario + "<br><b>Materiales:</b> " + materialesTexto);

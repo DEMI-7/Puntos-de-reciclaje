@@ -19,6 +19,8 @@
     <!-- links para el css del mapa y para la libreria de leaflet-->
     <link rel="stylesheet" href="Libreria/leaflet/leaflet.css" />
 
+    <link href="Estilos/EstiloGrillas.css" rel="stylesheet" />
+
 </head>
 <body>
     <form ID="formPrincipal" runat="server">

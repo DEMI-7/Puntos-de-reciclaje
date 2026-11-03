@@ -120,6 +120,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="CrearPunto.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="Estilos\EstiloGrillas.css" />
     <Content Include="Estilos\EstiloMapa.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
