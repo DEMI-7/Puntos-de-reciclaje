@@ -12,6 +12,7 @@ namespace Puntos_de_reciclaje
     public partial class PanelAdmintrador : System.Web.UI.Page
     {
         List<Usuario> usuariosActivos;
+        List<Usuario> usuariosEmpresasPendientes;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -26,20 +27,20 @@ namespace Puntos_de_reciclaje
         private void CargarGrillaEmpresasPendientes(string filtro)
         {
             UsuarioNegocio negocio = new UsuarioNegocio();
-            usuariosActivos = negocio.ListarEmpresasPendientes();
+            usuariosEmpresasPendientes = negocio.ListarEmpresasPendientes();
 
             if (!string.IsNullOrEmpty(filtro))
             {
-                usuariosActivos = usuariosActivos.Where(u =>
+                usuariosEmpresasPendientes = usuariosEmpresasPendientes.Where(u =>
                 (u.Nombre != null && u.Nombre.ToLower().Contains(filtro.ToLower())) ||
                 (u.Email != null && u.Email.ToLower().Contains(filtro.ToLower()))
                 ).ToList();
             }
 
             // controlar si la lista sale vacia
-            if (usuariosActivos.Count > 0)
+            if (usuariosEmpresasPendientes.Count > 0)
             {
-                GrillaEmpresasPendientes.DataSource = usuariosActivos;
+                GrillaEmpresasPendientes.DataSource = usuariosEmpresasPendientes;
                 GrillaEmpresasPendientes.DataBind();
                 GrillaEmpresasPendientes.Visible = true;
                 LblSinResultadosEmpresasPendientes.Visible = false;
@@ -50,7 +51,7 @@ namespace Puntos_de_reciclaje
                 LblSinResultadosEmpresasPendientes.Visible = true;
             }
 
-            LblCantidadEmpresasPendientes.Text = usuariosActivos.Count.ToString();
+            LblCantidadEmpresasPendientes.Text = usuariosEmpresasPendientes.Count.ToString();
         }
 
         // Falta gestionar los try catch
@@ -110,6 +111,11 @@ namespace Puntos_de_reciclaje
             // Volvemos a cargar la grilla pero pasandole el contenido del textbox
             CargarGrillaEmpresasPendientes(TxtBuscarEmpresas.Text.Trim());
             GrillaEmpresasPendientes.PageIndex = 0;
+        }
+
+        protected void BtnVerBajas_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PanelAdminBajas.aspx", false);
         }
     }
 }

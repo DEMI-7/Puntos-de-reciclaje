@@ -137,6 +137,7 @@
     <Content Include="Libreria\leaflet\leaflet-src.js.map" />
     <Content Include="Libreria\leaflet\leaflet.js.map" />
     <Content Include="Login.aspx" />
+    <Content Include="PanelAdminBajas.aspx" />
     <Content Include="PanelAdministrador.aspx" />
     <Content Include="PanelEmpresa.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -213,6 +214,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PanelAdminBajas.aspx.cs">
+      <DependentUpon>PanelAdminBajas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PanelAdminBajas.aspx.designer.cs">
+      <DependentUpon>PanelAdminBajas.aspx</DependentUpon>
     </Compile>
     <Compile Include="PanelAdministrador.aspx.cs">
       <DependentUpon>PanelAdministrador.aspx</DependentUpon>

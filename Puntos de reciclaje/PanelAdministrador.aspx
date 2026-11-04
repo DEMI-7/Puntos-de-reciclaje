@@ -38,6 +38,7 @@
                 <asp:BoundField DataField="ID_Usuario" HeaderText="ID" />
                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                 <asp:BoundField DataField="Email" HeaderText="Correo Electrónico" />
+                <asp:BoundField DataField="TipoUsuario" HeaderText="Tipo de Usuario" />
 
                 <%-- Columna de Botones de Acción para dar de baja una cuenta --%>
                 <asp:TemplateField HeaderText="Acciones">
@@ -104,5 +105,10 @@
 
         -->
         
+        <div class="text-center">
+            <asp:Button ID="BtnVerBajas" runat="server" CssClass="btn btn-outline-primary" Text="Ver dados de baja" OnClick="BtnVerBajas_Click"/>
+        </div>
+
+        <hr />
     </div>
 </asp:Content>
