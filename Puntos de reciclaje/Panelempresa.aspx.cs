@@ -45,9 +45,9 @@ namespace Puntos_de_reciclaje
             }
         }
 
-        protected void btnNuevoPunto_Click(object sender, EventArgs e)
+        protected void BtnNuevoPunto_Click(object sender, EventArgs e)
         {
-          // Response.Redirect("NuevoPunto.aspx");
+          Response.Redirect("CrearPunto.aspx", false);
         }
     }
     

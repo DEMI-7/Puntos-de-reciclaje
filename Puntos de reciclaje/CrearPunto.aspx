@@ -27,8 +27,12 @@
                     </asp:CheckBoxList>
                 </div>
 
-                <asp:HiddenField ID="HfLatitud" runat="server" />
-                <asp:HiddenField ID="HfLongitud" runat="server" />
+                 <!-- Envolvemos la zona de guardado y usamos  UpdatePanel -->
+                <asp:UpdatePanel ID="UpdatePanelGuardar" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+
+                <asp:HiddenField ID="HfLatitud" runat="server" ClientIDMode="Static" />
+                 <asp:HiddenField ID="HfLongitud" runat="server" ClientIDMode="Static" />
 
                 <!-- etiqueta para mostrar errores de validación -->
 
@@ -37,6 +41,8 @@
 
                 <asp:Button ID="btnGuardar" runat="server" Text="Guardar Punto" CssClass="btn btn-success btn-lg w-100" OnClick="BtnGuardar_Click" />
                 <a href="PanelEmpresa.aspx" class="btn btn-link w-100 mt-2">Cancelar</a>
+                         </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
 
             <div class="col-md-7">
@@ -57,9 +63,10 @@
             } else {
                 marker = L.marker(e.latlng).addTo(map);
             }
-            // Pasamos las coordenadas a los campos ocultos de C#
-            document.getElementById('<%= HfLatitud.ClientID %>').value = e.latlng.lat;
-            document.getElementById('<%= HfLongitud.ClientID %>').value = e.latlng.lng;
+            // Pasamos las coordenadas 
+            document.getElementById('HfLatitud').value = lat.toString().replace(',', '.');
+
+            document.getElementById('HfLongitud').value = lng.toString().replace(',', '.');
         });
     </script>
 

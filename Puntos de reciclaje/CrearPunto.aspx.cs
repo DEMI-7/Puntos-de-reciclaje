@@ -67,9 +67,9 @@ namespace Puntos_de_reciclaje
                 nuevoPunto.Horario = txtHorario.Text;
 
                 nuevoPunto.Direccion = txtDireccion.Text;
-                nuevoPunto.Latitud = Convert.ToDecimal(HfLatitud.Value);
+                nuevoPunto.Latitud = Math.Round(Convert.ToDecimal(HfLatitud.Value),8);
 
-                nuevoPunto.Longitud = Convert.ToDecimal(HfLongitud.Value);
+                nuevoPunto.Longitud = Math.Round(Convert.ToDecimal(HfLongitud.Value),8);
 
               PuntoNegocio negocioPuntobich = new PuntoNegocio();
 
@@ -85,7 +85,7 @@ namespace Puntos_de_reciclaje
                     }
                 }
                 //redirigimos hacia panel empresa.aspx ; 
-                Response.Redirect("PanelEmpresa.aspx");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect", "window.location='PanelEmpresa.aspx';", true);
             }
             catch (Exception ex)
             {

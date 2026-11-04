@@ -16,7 +16,7 @@
         <hr />
 
         <div class="mb-4">
-            <asp:Button ID="btnNuevoPunto" runat="server" Text="+ Crear Nuevo Punto de Reciclaje" CssClass="btn btn-success" OnClick="btnNuevoPunto_Click" />
+            <asp:Button ID="btnNuevoPunto" runat="server" Text="+ Crear Nuevo Punto de Reciclaje" CssClass="btn btn-success" OnClick="BtnNuevoPunto_Click" />
         </div>
 
         <div class="card shadow-sm">

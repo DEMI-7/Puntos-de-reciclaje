@@ -131,9 +131,11 @@ namespace Negocio
                 datos.agregarParametro("@idUsuarioCreador", puntonew.IdUsuarioCreador);
 
                 datos.agregarParametro("@direccion", puntonew.Direccion);
-                datos.agregarParametro("@latitud", puntonew.Latitud);
+                //agregamos mathround para que tome el valor decicmal con 8 y no mas, para 
+                //evitar desbordamiento en basd; 
+                datos.agregarParametro("@latitud",Math.Round(puntonew.Latitud,8));
 
-                datos.agregarParametro("@longitud", puntonew.Longitud);
+                datos.agregarParametro("@longitud", Math.Round(puntonew.Longitud,8));
 
                 datos.agregarParametro("@horario", puntonew.Horario);
 
