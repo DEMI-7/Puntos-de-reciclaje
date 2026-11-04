@@ -30,7 +30,12 @@
                 <asp:HiddenField ID="HfLatitud" runat="server" />
                 <asp:HiddenField ID="HfLongitud" runat="server" />
 
-                <asp:Button ID="btnGuardar" runat="server" Text="Guardar Punto" CssClass="btn btn-success btn-lg w-100" OnClick="btnGuardar_Click" />
+                <!-- etiqueta para mostrar errores de validación -->
+
+
+               <asp:label id="lblError" runat="server" cssclass="text-danger fw-bol d d-block mb -2" visible="false"></asp:label>
+
+                <asp:Button ID="btnGuardar" runat="server" Text="Guardar Punto" CssClass="btn btn-success btn-lg w-100" OnClick="BtnGuardar_Click" />
                 <a href="PanelEmpresa.aspx" class="btn btn-link w-100 mt-2">Cancelar</a>
             </div>
 
