@@ -8,11 +8,16 @@
 
         <div class="map-layout-wrapper">
 
+            <div class="panel-filtros">
+                <h4>Filtrar por material</h4>
+                <div id="contenedor-checkboxes"></div>
+            </div>
+
             <!-- el div tiene el mapa y despues cargamos los scripts-->
             <div id="mapa"></div>
             <script src="Libreria/leaflet/leaflet-src.js"></script>
-            <!-- <script src="Scripts/scriptMapa.js"></script> -->
 
+            <!-- Script que carga los puntos -->
             <script>
                 // con add event listener espera a que termine de cargar la pagina para comenzar a dibujar los puntos
                 document.addEventListener("DOMContentLoaded", function () { 
@@ -23,9 +28,15 @@
                     // Aca le damos un origen de datos a nuestro objeto de mapa, en este caso de openstreetmap.org
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapa)
 
+
+                    // ---------------------------
+                    // Dibujar los puntos en el mapa
+                    //---------------------------
+
                     // traemos la lista en formato json que se creó en el code behind
                     var puntos = <%= ListaPuntosJson %>;
-                    console.log(puntos);
+
+                    var marcadoresCreados = [];
 
                     puntos.forEach(function (punto) {
 
@@ -34,9 +45,6 @@
 
                         var materialesTexto = "Sin materiales asociados";
 
-                        // Mostramos en consola qué trae este punto específico para salir de dudas
-                        console.log("Evaluando ID:", punto.IdPunto, "Materiales:", punto.ListaMateriales);
-
                         // Validación estricta
                         if (punto.ListaMateriales && punto.ListaMateriales.length > 0) {
                             materialesTexto = punto.ListaMateriales.map(function (mat) {
@@ -44,13 +52,69 @@
                             }).join(', ');
                         }
 
-
                         // le agregamos la informacion adicional en un popup
                         marker.bindPopup("<b>Dirección:</b> " + punto.Direccion + "<br><b>Horario:</b> " + punto.Horario + "<br><b>Materiales:</b> " + materialesTexto);
+
+                        // guarda la referencia para usar en el filtro
+                        marcadoresCreados.push({
+                            marker: marker,
+                            idsMateriales: punto.ListaMateriales ? punto.ListaMateriales.map(m => m.IdMaterial) : []
+                        });
                     });
+
+                    // -----------------------
+                    // Cargar los botoncitos para los filrtos
+                    // ----------------------
+
+                    var listaMateriales = <%= ListaMaterialesJson %>;
+
+                    var contenedorCheckboxes = document.getElementById('contenedor-checkboxes');
+                    contenedorCheckboxes.innerHTML = "";
+
+                    listaMateriales.forEach(function (mat) {
+                        var label = document.createElement('label');
+                        label.className = 'filtro-item';
+
+                        var checkBox = document.createElement('input');
+                        checkBox.type = 'checkbox';
+                        checkBox.value = mat.IdMaterial;
+                        checkBox.className = 'check-material';
+
+                        label.appendChild(checkBox);
+                        label.appendChild(document.createTextNode(" " + mat.Nombre));
+
+                        contenedorCheckboxes.appendChild(label);
+                    });
+
+                    // -------------------
+                    // Evento para aplicar los filtros
+                    // ------------------
+
+                    document.addEventListener('change', function (e) {
+                        if (e.target && e.target.classList.contains('check-material')) {
+
+                            var seleccionados = Array.from(document.querySelectorAll('.check-material:checked')).map(cb => parseInt(cb.value));
+
+                            marcadoresCreados.forEach(item => {
+                                if (seleccionados.length == 0) {
+                                    item.marker.addTo(mapa);
+                                } else {
+                                    var coincide = item.idsMateriales.some(idMat => seleccionados.includes(idMat));
+                                    if (coincide) {
+                                        item.marker.addTo(mapa);
+                                    } else {
+                                        mapa.removeLayer(item.marker);
+                                    }
+                                }
+                            });
+                        }
+                    });
+
 
                 });
             </script>
+
+
         </div>
 
     </main>
