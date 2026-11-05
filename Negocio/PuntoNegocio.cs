@@ -115,42 +115,44 @@ namespace Negocio
 
         // REVISAR _________________ -----EZE --------------------------------------------
         public long Agregar(PuntoReciclaje puntonew)
-
         {
             Accesodatos datos = new Accesodatos();
             try
             {
-
-
-                //output inserted.id_punto : devuelve el id del punto recien insertado ;
-                datos.SetearConsulta(@"INSERT INTO Puntos_reciclaje (ID_UsuarioCreador, Direccion, 
-                                               Latitud, Longitud, Horario) 
+                datos.SetearConsulta(@"INSERT INTO Puntos_reciclaje (ID_UsuarioCreador, Direccion, Latitud, Longitud, Horario) 
                                OUTPUT INSERTED.ID_Punto 
                                VALUES (@idUsuarioCreador, @direccion, @latitud, @longitud, @horario)");
 
                 datos.agregarParametro("@idUsuarioCreador", puntonew.IdUsuarioCreador);
-
                 datos.agregarParametro("@direccion", puntonew.Direccion);
-                //agregamos mathround para que tome el valor decicmal con 8 y no mas, para 
-                //evitar desbordamiento en basd; 
-                datos.agregarParametro("@latitud",Math.Round(puntonew.Latitud,8));
-
-                datos.agregarParametro("@longitud", Math.Round(puntonew.Longitud,8));
-
                 datos.agregarParametro("@horario", puntonew.Horario);
 
-                //
-                object resultado = datos.ejecutarAccionScalar();
-                return Convert.ToInt64(resultado); // convertimos el resultado a long y lo devolvemos
+                // Usamos SqlParameter para forzar el tipo exacto y que no falle
+                System.Data.SqlClient.SqlParameter paramLat = new System.Data.SqlClient.SqlParameter("@latitud", System.Data.SqlDbType.Decimal);
+                paramLat.Precision = 12;
+                paramLat.Scale = 8;
+                paramLat.Value = puntonew.Latitud;
 
+                System.Data.SqlClient.SqlParameter paramLng = new System.Data.SqlClient.SqlParameter("@longitud", System.Data.SqlDbType.Decimal);
+                paramLng.Precision = 12;
+                paramLng.Scale = 8;
+                paramLng.Value = puntonew.Longitud;
+
+                // Si tu clase AccesoDatos no tiene este método, podés usar el AddWithValue normal, 
+                // pero asegurándote de que los decimales ya vengan bien redondeados de la página.
+                datos.agregarParametro("@latitud", paramLat.Value);
+                datos.agregarParametro("@longitud", paramLng.Value);
+
+                object resultado = datos.ejecutarAccionScalar();
+                return Convert.ToInt64(resultado);
             }
             catch (Exception)
             {
                 throw;
             }
-            // no hace falta cerrar conexion porq ejecutarAccionScalar ya lo hace automatic ; 
-
         }
+
+
         public void AgregarMaterialalPunto(long idpuntobich, long idmaterial)
         {
             Accesodatos datos = new Accesodatos();
