@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+#ignorar el contenido de la carpeta de imagenes subidas
+/ImagenesPuntos/*
+
+# Permite el gitkeep para que no se borre la carpeta vacia
+!/ImagenesPuntos/.gitkeep
