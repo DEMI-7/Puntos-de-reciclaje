@@ -13,6 +13,18 @@
                 <div id="contenedor-checkboxes"></div>
             </div>
 
+            <div class="panel-info" id="panel-info-punto" style="display: none;">
+                <h4>Información:</h4>
+
+                <div class="imagen-punto-contenedor">
+                    <img id="ImgPunto" src="" alt="Imagen del punto de reciclaje" />
+                </div>
+
+                <p><b>Direccion:</b> <span id="LblDireccion">-</span></p>
+                <p><b>Horario:</b> <span id="LblHorario">-</span></p>
+                <p><b>Materiales:</b> <span id="LblMateriales">-</span></p>
+            </div>
+
             <!-- el div tiene el mapa y despues cargamos los scripts-->
             <div id="mapa"></div>
             <script src="Libreria/leaflet/leaflet-src.js"></script>
@@ -23,7 +35,10 @@
                 document.addEventListener("DOMContentLoaded", function () { 
 
                     // mapa es una variable y L.map es una funcion de leaflet para crear un objeto de tipo mapa
-                    const mapa = L.map('mapa').setView([-34.534306, -58.792742], 13)
+                    const mapa = L.map('mapa', { zoomControl: false }).setView([-34.534306, -58.792742], 13)
+                    L.control.zoom({
+                        position: 'bottomright'
+                    }).addTo(mapa);
 
                     // Aca le damos un origen de datos a nuestro objeto de mapa, en este caso de openstreetmap.org
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapa)
@@ -53,7 +68,34 @@
                         }
 
                         // le agregamos la informacion adicional en un popup
-                        marker.bindPopup("<b>Dirección:</b> " + punto.Direccion + "<br><b>Horario:</b> " + punto.Horario + "<br><b>Materiales:</b> " + materialesTexto);
+                        //marker.bindPopup("<b>Dirección:</b> " + punto.Direccion + "<br><b>Horario:</b> " + punto.Horario + "<br><b>Materiales:</b> " + materialesTexto);
+
+                        // la funcion marker on click obtiene los datos del punto que clickeamos y la muestra en la ventanita flotante
+                        marker.on('click', function () {
+                            var panel = document.getElementById('panel-info-punto');
+                            panel.style.display = 'block';
+
+                            var imagen = document.getElementById('ImgPunto');
+
+                            imagen.src = ''; // Limpia la imagen anterior
+                            imagen.style.display = 'none'; // Oculta la imagen por defecto
+
+
+                            if (punto.ListaUrlImagenes && punto.ListaUrlImagenes.length > 0) {
+
+                                var urlPrimera = punto.ListaUrlImagenes[0].UrlImagen;
+                                imagen.src = urlPrimera;
+                                imagen.style.display = 'block';
+
+                            } else {
+                                imagen.style.display = 'none;'
+                            }
+
+                            document.getElementById('LblDireccion').innerText = punto.Direccion;
+                            document.getElementById('LblHorario').innerText = punto.Horario;
+                            document.getElementById('LblMateriales').innerText = materialesTexto;
+
+                        })
 
                         // guarda la referencia para usar en el filtro
                         marcadoresCreados.push({

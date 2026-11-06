@@ -54,6 +54,16 @@ namespace Negocio
                     }
                 }
 
+                // Ahora traemos las imagenes y las asociamos a los puntos
+                ImagenPuntoNegocio negocioImagen = new ImagenPuntoNegocio();
+                List<ImagenPuntoReciclaje> imagenes = negocioImagen.Listar(lista);
+                foreach (PuntoReciclaje p in lista)
+                {
+                    p.ListaUrlImagenes = imagenes.Where(img => img.IdPunto == p.IdPunto)
+                        .Select(img => img)
+                        .ToList();
+                }
+
 
                 return lista;
             }

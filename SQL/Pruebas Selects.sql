@@ -29,6 +29,9 @@ LEFT JOIN Material_PuntoReciclaje pm ON p.ID_Punto = pm.ID_Punto
 LEFT JOIN Materiales m ON pm.ID_Material = m.ID_Material
 */
 
+SELECT ID_Imagen, ID_PuntoReciclaje, URL_Imagen FROM Imagen_PuntoReciclaje WHERE ID_PuntoReciclaje IN (1,3,4,5);
+
+--INSERT INTO Imagen_PuntoReciclaje (ID_PuntoReciclaje, URL_Imagen) VALUES (1,'https://www.weboeba.com/ppatricios/img_vp/23vp_plazajcpaz.jpg')
 
 --SELECT ID_Usuario, Nombre, Email, TipoUsuario, EstadoCuenta FROM Usuarios WHERE Activo = 1 AND EstadoCuenta ='aprobado'
 
