@@ -144,6 +144,8 @@ namespace Negocio
                     aux.EstadoCuenta = (string)conexion.Lector["EstadoCuenta"];
 
                     lista.Add(aux);
+
+
                 }
             }
             catch (Exception)
@@ -155,10 +157,22 @@ namespace Negocio
             {
                 conexion.CerrarConexion();
             }
-
-
-
             return lista;
+        }
+
+        public void AprobarEmpresa(long idUsuario)
+        {
+            Accesodatos conexion = new Accesodatos();
+            try
+            {
+                conexion.SetearConsulta("UPDATE Usuarios SET EstadoCuenta = 'aprobado' WHERE ID_Usuario = @idUsuario");
+                conexion.agregarParametro("@idUsuario", idUsuario);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
