@@ -18,5 +18,7 @@ namespace Dominio
         public List<Material> ListaMateriales { get; set; } = new List<Material>();
         //prop para mostrar en la grilla; 
 
+        public List<ImagenPuntoReciclaje> ListaUrlImagenes { get; set; } = new List<ImagenPuntoReciclaje>();
     }
+
 }

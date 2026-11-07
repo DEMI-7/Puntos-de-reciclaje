@@ -33,15 +33,15 @@ namespace Puntos_de_reciclaje
 
                 cblMateriales.DataSource = lista;
 
-                cblMateriales.DataValueField = "Nombre";
+                cblMateriales.DataValueField = "IdMaterial";
 
-                cblMateriales.DataTextField = "IdMaterial";
+                cblMateriales.DataTextField = "Nombre";
 
                 cblMateriales.DataBind();
             }
             catch (Exception ex)
             {
-               //  lblError.Text = "Error #404 " + ex.Message;
+                lblError.Text = "Error #404 " + ex.Message;
             }
             
         }
@@ -51,27 +51,46 @@ namespace Puntos_de_reciclaje
 
             lblError.Visible = false;
 
-            try
-            {
-                if (string.IsNullOrWhiteSpace (txtDireccion.Text)|| string.IsNullOrWhiteSpace(HfLatitud.Value) )
+
+
+
+            string latStr = Request.Form["latitudMapa"];
+            string lngStr = Request.Form["longitudMapa"];
+
+           
+
+           
+                if (string.IsNullOrWhiteSpace(txtDireccion.Text) || string.IsNullOrWhiteSpace(latStr))
                 {
-                    lblError.Text = "Por favor, ingresa una direccion y selecciona una ubicacion en el mapa. Puto.";
+                    //   lblError.Text = "Dirección: " + txtDireccion.Text + " | Latitud: " + HfLatitud.Value;
+                    lblError.Text = "Por favor, ingresa una direccion y selecciona una ubicacion en el mapa.";
                     lblError.Visible = true;
 
-                    return; 
+                    return;
                 }
-                PuntoReciclaje nuevoPunto = new PuntoReciclaje();
+                try
+                {
+
+                    // creamos el objeto ; 
+
+                    PuntoReciclaje nuevoPunto = new PuntoReciclaje();
                 nuevoPunto.IdUsuarioCreador = Convert.ToInt64(Session["IdEmpresa"] ?? 1);
 
            
                 nuevoPunto.Horario = txtHorario.Text;
 
                 nuevoPunto.Direccion = txtDireccion.Text;
-                nuevoPunto.Latitud = Math.Round(Convert.ToDecimal(HfLatitud.Value),8);
 
-                nuevoPunto.Longitud = Math.Round(Convert.ToDecimal(HfLongitud.Value),8);
 
-              PuntoNegocio negocioPuntobich = new PuntoNegocio();
+                // Usamos CultureInfo.InvariantCulture para que C# entienda que el punto es decimal
+                System.Globalization.CultureInfo cultura = System.Globalization.CultureInfo.InvariantCulture;
+
+                nuevoPunto.Latitud = Math.Round(Convert.ToDecimal(latStr.Replace(',', '.'), cultura), 8);
+                nuevoPunto.Longitud = Math.Round(Convert.ToDecimal(lngStr.Replace(',', '.'), cultura), 8);
+
+                //guardamos el punto 
+
+                PuntoNegocio negocioPuntobich = new PuntoNegocio();
 
                 long idPuntogenerado = negocioPuntobich.Agregar(nuevoPunto);
 
@@ -84,6 +103,7 @@ namespace Puntos_de_reciclaje
                         negocioPuntobich.AgregarMaterialalPunto(idPuntogenerado, idMaterial);
                     }
                 }
+
                 //redirigimos hacia panel empresa.aspx ; 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect", "window.location='PanelEmpresa.aspx';", true);
             }

@@ -31,8 +31,8 @@
                 <asp:UpdatePanel ID="UpdatePanelGuardar" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
 
-                <asp:HiddenField ID="HfLatitud" runat="server" ClientIDMode="Static" />
-                 <asp:HiddenField ID="HfLongitud" runat="server" ClientIDMode="Static" />
+                <input type="hidden" id="latitudMapa" name="latitudMapa" />
+                   <input type="hidden" id="longitudMapa" name="longitudMapa" />
 
                 <!-- etiqueta para mostrar errores de validación -->
 
@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-
+     <!-- java scrip - mapa -  -->
     <script src="Libreria/leaflet/leaflet-src.js"></script>
     <script>
         var map = L.map('mapaCrear').setView([-34.534306, -58.792742], 13);
@@ -64,9 +64,9 @@
                 marker = L.marker(e.latlng).addTo(map);
             }
             // Pasamos las coordenadas 
-            document.getElementById('HfLatitud').value = lat.toString().replace(',', '.');
+            document.getElementById('latitudMapa').value = e.latlng.lat.toString().replace(',', '.');
 
-            document.getElementById('HfLongitud').value = lng.toString().replace(',', '.');
+            document.getElementById('longitudMapa').value = e.latlng.lng.toString().replace(',', '.');
         });
     </script>
 

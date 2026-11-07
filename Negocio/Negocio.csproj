@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accesodatos.cs" />
+    <Compile Include="ImagenPuntoNegocio.cs" />
     <Compile Include="MaterialNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PuntoNegocio.cs" />

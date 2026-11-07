@@ -1,0 +1,10 @@
+USE PuntosReciclaje_DB;
+GO
+
+ALTER TABLE Puntos_reciclaje 
+ALTER COLUMN Latitud DECIMAL(12,8) NOT NULL;
+GO
+
+ALTER TABLE Puntos_reciclaje 
+ALTER COLUMN Longitud DECIMAL(12,8) NOT NULL;
+GO
