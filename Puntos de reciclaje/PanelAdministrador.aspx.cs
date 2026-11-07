@@ -121,6 +121,11 @@ namespace Puntos_de_reciclaje
                 long idUsuario = Convert.ToInt64(e.CommandArgument);
                 negocio.AprobarEmpresa(idUsuario);
             }
+            else if (e.CommandName == "Rechazar")
+            {
+                long idUsuario = Convert.ToInt64(e.CommandArgument);
+                negocio.RechazarEmpresa(idUsuario);
+            }
             //recarga de grillas, sale de pendiente y se mueve a activos
             CargarGrillaEmpresasPendientes(TxtBuscarEmpresas.Text.Trim());
             CargarGrillaUsuariosActivos(TxtBuscar.Text.Trim());
