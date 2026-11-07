@@ -27,6 +27,7 @@
             AllowPaging="true"
             PageSize="7"
             OnPageIndexChanging="GrillaUsuarioActivos_PageIndexChanging"
+            OnRowCommand="GrillaUsuarioActivos_RowCommand"
             CssClass="table table-bordered table-striped table-hover align-middle"
             GridLines="Both">
 

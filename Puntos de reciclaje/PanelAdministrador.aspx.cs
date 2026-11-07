@@ -98,6 +98,19 @@ namespace Puntos_de_reciclaje
             GrillaUsuarioActivos.PageIndex = e.NewPageIndex;
             CargarGrillaUsuariosActivos(TxtBuscar.Text.Trim());
         }
+        protected void GrillaUsuarioActivos_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            UsuarioNegocio negocio = new UsuarioNegocio();
+
+            if (e.CommandName == "Desactivar")
+            {
+                long idUsuario = Convert.ToInt64(e.CommandArgument);
+                negocio.DesactivarUsuario(idUsuario);
+            }
+
+            // Recargamos la grilla: el usuario sale de activos
+            CargarGrillaUsuariosActivos(TxtBuscar.Text.Trim());
+        }
 
         protected void GrillaEmpresasPendientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
