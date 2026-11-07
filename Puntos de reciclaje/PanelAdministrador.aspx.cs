@@ -112,6 +112,19 @@ namespace Puntos_de_reciclaje
             CargarGrillaEmpresasPendientes(TxtBuscarEmpresas.Text.Trim());
             GrillaEmpresasPendientes.PageIndex = 0;
         }
+        protected void GrillaEmpresasPendientes_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            UsuarioNegocio negocio = new UsuarioNegocio();
+
+            if (e.CommandName == "Aceptar")
+            {
+                long idUsuario = Convert.ToInt64(e.CommandArgument);
+                negocio.AprobarEmpresa(idUsuario);
+            }
+            //recarga de grillas, sale de pendiente y se mueve a activos
+            CargarGrillaEmpresasPendientes(TxtBuscarEmpresas.Text.Trim());
+            CargarGrillaUsuariosActivos(TxtBuscar.Text.Trim());
+        }
 
         protected void BtnVerBajas_Click(object sender, EventArgs e)
         {

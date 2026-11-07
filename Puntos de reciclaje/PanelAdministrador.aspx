@@ -75,6 +75,7 @@
             AllowPaging="true"
             PageSize="7"
             OnPageIndexChanging="GrillaEmpresasPendientes_PageIndexChanging"
+            OnRowCommand="GrillaEmpresasPendientes_RowCommand"
             CssClass="table table-bordered table-striped table-hover align-middle"
             GridLines="Both">
 
