@@ -193,8 +193,7 @@ namespace Negocio
             Accesodatos conexion = new Accesodatos();
             try
             {
-                conexion.SetearConsulta("UPDATE Usuarios SET EstadoCuenta = 'pendiente' WHERE ID_Usuario = @idUsuario");
-                conexion.agregarParametro("@idUsuario", idUsuario);
+                conexion.SetearConsulta("UPDATE Usuarios SET EstadoCuenta = 'pendiente', Activo = 1 WHERE ID_Usuario = @idUsuario"); conexion.agregarParametro("@idUsuario", idUsuario);
                 conexion.ejecutarAccion();
             }
             catch (Exception)
