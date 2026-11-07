@@ -12,8 +12,10 @@
                 <asp:Label ID="lblNombreEmpresa" runat="server" Text="Cargando..."></asp:Label>
             </h4>
         </div>
-        
+  
         <hr />
+        <!-- Boton lblerror  -->
+        <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-bold d-block mb-3" Visible="false"></asp:Label>
 
         <div class="mb-4">
             <asp:Button ID="btnNuevoPunto" runat="server" Text="+ Crear Nuevo Punto de Reciclaje" CssClass="btn btn-success" OnClick="BtnNuevoPunto_Click" />
@@ -25,12 +27,36 @@
             </div>
             <div class="card-body">
               
-                <asp:GridView ID="gvPuntos" runat="server" CssClass="table table-hover table-striped" AutoGenerateColumns="False" EmptyDataText="Todavía no tenés puntos creados.">
+
+                <asp:GridView ID="gvPuntos" runat="server" CssClass="table table-hover table-striped" AutoGenerateColumns="False" EmptyDataText="Todavía no tenés puntos creados." OnRowCommand="GvPuntos_RowCommand">
                     <Columns>
+
+
+                        <asp:TemplateField HeaderText="Acciones">
+
+    <ItemTemplate>
+        <!-- Boton and metodo  Eliminar -->
+        <asp:Button ID="BtnEliminar" runat="server" Text="Eliminar" 
+            CssClass="btn btn-sm btn-dark" 
+            CommandName="EliminarPunto" 
+            CommandArgument='<%# Eval("IdPunto") %>' 
+            OnClientClick="return confirm('¿Estás seguro de que queres eliminar este punto?');" />
+
+         <!-- Boton editar ;  -->
+        <a href='<%# "CrearPunto.aspx?id=" + Eval("IdPunto") %>' class="btn btn-sm btn-primary">Editar</a>
+
+                      </ItemTemplate>
+                </asp:TemplateField>
+
                         <asp:BoundField DataField="IdPunto" HeaderText="ID" />
+
                         <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
+
                         <asp:BoundField DataField="Horario" HeaderText="Horario" />
-                        <asp:BoundField DataField="Materiales" HeaderText="Materiales" />
+                       
+
+                       <%-- <asp:BoundField DataField="Materiales" HeaderText="Materiales" /> --%>
+
                     </Columns>
                 </asp:GridView>
             </div>

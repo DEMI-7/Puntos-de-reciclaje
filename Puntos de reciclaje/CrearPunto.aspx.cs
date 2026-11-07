@@ -18,10 +18,58 @@ namespace Puntos_de_reciclaje
             if (!IsPostBack)
             {
                CargarMateriales();
+
+                if (Request.QueryString["id"] != null)
+                {
+                    long idPunto = Convert.ToInt64(Request.QueryString["id"]);
+                    Cargardatosparaeditar(idPunto);
+                    btnGuardar.Text = "Actualizar Punto de Reciclaje";
+
+                }
             }
 
         }
-       //  revisar ; 
+
+        private void Cargardatosparaeditar(long idPunto)
+        {
+            PuntoNegocio negocio = new PuntoNegocio();
+            try
+            {
+                long idEmpresa = Convert.ToInt64(Session["IdEmpresa"] ?? 1);
+                var lista = negocio.ListarporEmpresa(idEmpresa);
+                var punto = lista.FirstOrDefault(p => p.IdPunto == idPunto);
+
+                if (punto != null)
+                {
+                    txtDireccion.Text = punto.Direccion;
+                    txtHorario.Text = punto.Horario;
+
+                    // formateamos los decimales con punto para  java  segun ia ; 
+                    string lat = punto.Latitud.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    string lng = punto.Longitud.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+                    // mandamoss un script para mover el mapa a la ubicación del punto
+
+                    string script = $@"
+                var pLat = parseFloat('{lat}');
+                var pLng = parseFloat('{lng}');
+                document.getElementById('latitudMapa').value = pLat;
+                document.getElementById('longitudMapa').value = pLng;
+                moverMapa(pLat, pLng);
+            ";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "CargarMapa", script, true);
+                }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Error al cargar los datos: " + ex.Message;
+                lblError.Visible = true;
+            }
+        }
+
+
+
+        //  revisar ; 
         private void CargarMateriales()
         {
 
@@ -88,12 +136,21 @@ namespace Puntos_de_reciclaje
                 nuevoPunto.Latitud = Math.Round(Convert.ToDecimal(latStr.Replace(',', '.'), cultura), 8);
                 nuevoPunto.Longitud = Math.Round(Convert.ToDecimal(lngStr.Replace(',', '.'), cultura), 8);
 
+
                 //guardamos el punto 
 
                 PuntoNegocio negocioPuntobich = new PuntoNegocio();
 
-                long idPuntogenerado = negocioPuntobich.Agregar(nuevoPunto);
+                if (Request.QueryString["id"]!= null)
+                {
+                    nuevoPunto.IdPunto = Convert.ToInt64(Request.QueryString["id"]);
+                    negocioPuntobich.Modificar(nuevoPunto);
 
+                }
+                else
+                {
+                    long idPuntogenerado = negocioPuntobich.Agregar(nuevoPunto);
+               
                 foreach (ListItem xx in cblMateriales.Items)
                   
                 {
@@ -103,9 +160,12 @@ namespace Puntos_de_reciclaje
                         negocioPuntobich.AgregarMaterialalPunto(idPuntogenerado, idMaterial);
                     }
                 }
+                }
 
                 //redirigimos hacia panel empresa.aspx ; 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect", "window.location='PanelEmpresa.aspx';", true);
+
+
             }
             catch (Exception ex)
             {

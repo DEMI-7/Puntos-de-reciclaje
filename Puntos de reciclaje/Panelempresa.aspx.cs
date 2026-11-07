@@ -49,6 +49,38 @@ namespace Puntos_de_reciclaje
         {
           Response.Redirect("CrearPunto.aspx", false);
         }
+
+        protected void GvPuntos_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "EliminarPunto")
+            {
+                try
+                {
+                    long idPunto = Convert.ToInt64(e.CommandArgument);
+                    PuntoNegocio negocio = new PuntoNegocio();
+
+                    negocio.Eliminar(idPunto);
+
+                    // Recargamos la lista de puntos después de eliminar
+                    cargarPuntos();
+
+                }
+                catch (Exception ex)
+                {
+                    lblNombreEmpresa.Text = "Error al eliminar el punto: " + ex.Message;
+                    lblError.Visible = true;
+                    
+
+                }
+
+            }
+
+
+
+
+
+        }
     }
-    
-         }
+}
+
+

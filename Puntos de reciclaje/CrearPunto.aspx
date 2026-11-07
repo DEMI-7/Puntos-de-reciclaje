@@ -68,6 +68,20 @@
 
             document.getElementById('longitudMapa').value = e.latlng.lng.toString().replace(',', '.');
         });
+
+function moverMapa(lat, lng) {
+    if (lat && lng) {
+        var nuevaPosicion = [lat, lng];
+        map.setView(nuevaPosicion, 16); // aplicamos zoom cercano
+
+        if (marker) {
+            marker.setLatLng(nuevaPosicion);
+        } else {
+            marker = L.marker(nuevaPosicion).addTo(map);
+        }
+    }
+}
+
     </script>
 
 </asp:Content>

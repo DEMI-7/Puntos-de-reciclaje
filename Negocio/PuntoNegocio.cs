@@ -98,7 +98,7 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     PuntoReciclaje xx = new PuntoReciclaje();
-                    xx.IdPunto = (int)datos.Lector["ID_Punto"];
+                    xx.IdPunto = (long)datos.Lector["ID_Punto"];
                     xx.IdUsuarioCreador = (long)datos.Lector["ID_UsuarioCreador"];
                     xx.Direccion = (string)datos.Lector["Direccion"];
                     xx.Latitud = (decimal)datos.Lector["Latitud"];
@@ -123,7 +123,7 @@ namespace Negocio
             }
         }
 
-        // REVISAR _________________ -----EZE --------------------------------------------
+       
         public long Agregar(PuntoReciclaje puntonew)
         {
             Accesodatos datos = new Accesodatos();
@@ -137,7 +137,7 @@ namespace Negocio
                 datos.agregarParametro("@direccion", puntonew.Direccion);
                 datos.agregarParametro("@horario", puntonew.Horario);
 
-                // Usamos SqlParameter para forzar el tipo exacto y que no falle
+                
                 System.Data.SqlClient.SqlParameter paramLat = new System.Data.SqlClient.SqlParameter("@latitud", System.Data.SqlDbType.Decimal);
                 paramLat.Precision = 12;
                 paramLat.Scale = 8;
@@ -148,8 +148,7 @@ namespace Negocio
                 paramLng.Scale = 8;
                 paramLng.Value = puntonew.Longitud;
 
-                // Si tu clase AccesoDatos no tiene este método, podés usar el AddWithValue normal, 
-                // pero asegurándote de que los decimales ya vengan bien redondeados de la página.
+                
                 datos.agregarParametro("@latitud", paramLat.Value);
                 datos.agregarParametro("@longitud", paramLng.Value);
 
@@ -171,6 +170,65 @@ namespace Negocio
                 datos.SetearConsulta("INSERT INTO Material_PuntoReciclaje (ID_Punto, ID_Material) VALUES (@idPunto, @idMaterial)");
                 datos.agregarParametro("@idPunto", idpuntobich);
                 datos.agregarParametro("@idMaterial", idmaterial);
+                datos.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        public void Eliminar (long idPunto)
+        {
+            Accesodatos datos = new Accesodatos();
+
+            try
+            {
+                //primero borramos las relaciones digamos (imagenes materiales ; )  q tenga el punto ;
+
+                datos.SetearConsulta("DELETE FROM Material_PuntoReciclaje WHERE ID_Punto = @idPunto");
+                datos.agregarParametro("@idPunto", idPunto);
+
+                datos.ejecutarAccion();
+
+                //borramos el punto  ; 
+                // antes limpiamos los parametros de la consulta anterior; 
+
+                datos.limpiarParametros();
+                datos.SetearConsulta("DELETE FROM Puntos_reciclaje WHERE ID_Punto = @idPunto");
+
+                datos.agregarParametro("@idPunto", idPunto);
+                datos.ejecutarAccion(); 
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void Modificar(PuntoReciclaje punto)
+        {
+            Accesodatos datos = new Accesodatos();
+            try
+            {
+                datos.SetearConsulta(@"UPDATE Puntos_reciclaje 
+                               SET Direccion = @direccion, Latitud = @latitud, Longitud = @longitud, Horario = @horario 
+                               WHERE ID_Punto = @idPunto");
+
+                datos.agregarParametro("@direccion", punto.Direccion);
+
+                // Usamos Math.Round para evitar el error de overflow en el UPDATE
+
+                datos.agregarParametro("@latitud", Math.Round(punto.Latitud, 8));
+
+                datos.agregarParametro("@longitud", Math.Round(punto.Longitud, 8));
+
+                datos.agregarParametro("@horario", punto.Horario);
+
+                datos.agregarParametro("@idPunto", punto.IdPunto);
+
                 datos.ejecutarAccion();
             }
             catch (Exception)
