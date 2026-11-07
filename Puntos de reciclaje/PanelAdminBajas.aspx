@@ -27,6 +27,7 @@
             AllowPaging="true"
             PageSize="7"
             OnPageIndexChanging="GrillaUsuarioDesactivados_PageIndexChanging"
+            OnRowCommand="GrillaUsuarioDesactivados_RowCommand"
             CssClass="table table-bordered table-striped table-hover align-middle"
             GridLines="Both">
 
@@ -43,7 +44,7 @@
                 <%-- Columna de Botones de Acción para dar de baja una cuenta --%>
                 <asp:TemplateField HeaderText="Acciones">
                     <ItemTemplate>
-                        <asp:Button ID="btnActivar" runat="server" Text="Activar" CssClass="btn btn-danger btn-sm" CommandName="Activar" CommandArgument='<%# Eval("ID_Usuario") %>' />
+                        <asp:Button ID="btnActivar" runat="server" Text="Activar" CssClass="btn btn-success btn-sm" CommandName="Activar" CommandArgument='<%# Eval("ID_Usuario") %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

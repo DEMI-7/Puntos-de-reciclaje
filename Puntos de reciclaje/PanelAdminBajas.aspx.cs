@@ -125,5 +125,18 @@ namespace Puntos_de_reciclaje
             GrillaUsuarioDesactivados.PageIndex = e.NewPageIndex;
             CargarGrillaUsuariosDesactivados(TxtBuscar.Text.Trim());
         }
+        protected void GrillaUsuarioDesactivados_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            UsuarioNegocio negocio = new UsuarioNegocio();
+
+            if (e.CommandName == "Activar")
+            {
+                long idUsuario = Convert.ToInt64(e.CommandArgument);
+                negocio.ActivarUsuario(idUsuario);
+            }
+
+            // Recargamos la grilla: el usuario sale de desactivados
+            CargarGrillaUsuariosDesactivados(TxtBuscar.Text.Trim());
+        }
     }
 }

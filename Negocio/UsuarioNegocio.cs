@@ -216,5 +216,19 @@ namespace Negocio
                 throw;
             }
         }
+        public void ActivarUsuario(long idUsuario)
+        {
+            Accesodatos conexion = new Accesodatos();
+            try
+            {
+                conexion.SetearConsulta("UPDATE Usuarios SET Activo = 1 WHERE ID_Usuario = @idUsuario");
+                conexion.agregarParametro("@idUsuario", idUsuario);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
