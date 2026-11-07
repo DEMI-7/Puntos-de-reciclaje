@@ -106,6 +106,18 @@ namespace Puntos_de_reciclaje
             GrillaEmpresasRechazadas.PageIndex = e.NewPageIndex;
             CargarGrillaEmpresasRechazadas(TxtBuscarEmpresas.Text.Trim());
         }
+        protected void GrillaEmpresasRechazadas_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            UsuarioNegocio negocio = new UsuarioNegocio();
+
+            if (e.CommandName == "Pendiente")
+            {
+                long idUsuario = Convert.ToInt64(e.CommandArgument);
+                negocio.MandarAPendiente(idUsuario);
+            }
+            //recarga la grilla para sacar a la empresa de rechazada 
+            CargarGrillaEmpresasRechazadas(TxtBuscarEmpresas.Text.Trim());
+        }
 
         protected void GrillaUsuarioDesactivados_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

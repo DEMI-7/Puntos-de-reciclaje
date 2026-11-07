@@ -75,6 +75,7 @@
             AllowPaging="true"
             PageSize="7"
             OnPageIndexChanging="GrillaEmpresasRechazadas_PageIndexChanging"
+            OnRowCommand="GrillaEmpresasRechazadas_RowCommand"
             CssClass="table table-bordered table-striped table-hover align-middle"
             GridLines="Both">
 
