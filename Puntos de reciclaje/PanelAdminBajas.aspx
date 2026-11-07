@@ -38,13 +38,16 @@
             <Columns>
                 <asp:BoundField DataField="ID_Usuario" HeaderText="ID" />
                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                <asp:BoundField DataField="Email" HeaderText="Correo Electrónico" />
-                <asp:BoundField DataField="TipoUsuario" HeaderText="Tipo de Usuario" />
+                <asp:BoundField DataField="Email" HeaderText="Correo electrónico" />
+                <asp:BoundField DataField="TipoUsuario" HeaderText="Tipo de usuario" />
 
                 <%-- Columna de Botones de Acción para dar de baja una cuenta --%>
                 <asp:TemplateField HeaderText="Acciones">
                     <ItemTemplate>
                         <asp:Button ID="btnActivar" runat="server" Text="Activar" CssClass="btn btn-success btn-sm" CommandName="Activar" CommandArgument='<%# Eval("ID_Usuario") %>' />
+                        <%-- muestra solo el boton de pasar a pendiente si es empresa o gubernamental --%>
+                        <asp:Button ID="BtnPasarPendiente" runat="server" Text="Pasar a pendiente" CssClass="btn btn-warning btn-sm" CommandName="Pendiente" CommandArgument='<%# Eval("ID_Usuario") %>'
+                            Visible='<%# Eval("TipoUsuario").ToString() == "empresa" || Eval("TipoUsuario").ToString() == "gubernamental" %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
@@ -86,13 +89,13 @@
             <Columns>
                 <asp:BoundField DataField="ID_Usuario" HeaderText="ID" />
                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                <asp:BoundField DataField="Email" HeaderText="Correo Electrónico" />
-                <asp:BoundField DataField="TipoUsuario" HeaderText="Tipo de Usuario" />
+                <asp:BoundField DataField="Email" HeaderText="Correo electrónico" />
+                <asp:BoundField DataField="TipoUsuario" HeaderText="Tipo de usuario" />
 
                 <%-- Columna de Botones de Acción para dar de baja una cuenta --%>
                 <asp:TemplateField HeaderText="Acciones">
                     <ItemTemplate>
-                        <asp:Button ID="BtnSetearPendiente" runat="server" Text="Mandar a pendientes" CssClass="btn btn-danger btn-sm" CommandName="Pendiente" CommandArgument='<%# Eval("ID_Usuario") %>' />
+                        <asp:Button ID="BtnSetearPendiente" runat="server" Text="Mandar a pendientes" CssClass="btn btn-warning btn-sm" CommandName="Pendiente" CommandArgument='<%# Eval("ID_Usuario") %>' />
 
                     </ItemTemplate>
                 </asp:TemplateField>

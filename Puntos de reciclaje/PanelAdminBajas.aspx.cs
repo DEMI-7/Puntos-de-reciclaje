@@ -134,6 +134,11 @@ namespace Puntos_de_reciclaje
                 long idUsuario = Convert.ToInt64(e.CommandArgument);
                 negocio.ActivarUsuario(idUsuario);
             }
+            else if (e.CommandName == "Pendiente")
+            {
+                long idUsuario = Convert.ToInt64(e.CommandArgument);
+                negocio.MandarAPendiente(idUsuario);
+            }
 
             // Recargamos la grilla: el usuario sale de desactivados
             CargarGrillaUsuariosDesactivados(TxtBuscar.Text.Trim());
