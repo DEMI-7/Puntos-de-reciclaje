@@ -123,6 +123,16 @@
     <Content Include="Estilos\EstiloPaginaAprender.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="ImagenesMateriales\Aluminio_logo.png" />
+    <Content Include="ImagenesMateriales\Cartón_logo.png" />
+    <Content Include="ImagenesMateriales\Cobre_logo.png" />
+    <Content Include="ImagenesMateriales\Hierro_logo.png" />
+    <Content Include="ImagenesMateriales\Madera_logo.png" />
+    <Content Include="ImagenesMateriales\Neumáticos_logo.png" />
+    <Content Include="ImagenesMateriales\Papel_logo.png" />
+    <Content Include="ImagenesMateriales\Plástico_logo.png" />
+    <Content Include="ImagenesMateriales\TetraPak_logo.png" />
+    <Content Include="ImagenesMateriales\Vidrio_logo.png" />
     <Content Include="Libreria\leaflet\images\layers-2x.png" />
     <Content Include="Libreria\leaflet\images\layers.png" />
     <Content Include="Libreria\leaflet\images\marker-icon-2x.png" />
@@ -145,6 +155,7 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ImagenesMateriales\.gitkeep" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

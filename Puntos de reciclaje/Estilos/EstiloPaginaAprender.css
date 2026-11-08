@@ -1,27 +1,27 @@
 ﻿/* Permite el desplazamiento horizontal */
-.slider-categorias {
+.slider-materiales {
     overflow-x: auto;
     scroll-snap-type: x mandatory; /* Hace que se "ancle" suavemente en cada elemento */
     -webkit-overflow-scrolling: touch; /* Desplazamiento fluido en iOS */
 }
 
     /* Opcional: oculta o suaviza la barra de desplazamiento */
-    .slider-categorias::-webkit-scrollbar {
+    .slider-materiales::-webkit-scrollbar {
         height: 6px;
     }
 
-    .slider-categorias::-webkit-scrollbar-thumb {
+    .slider-materiales::-webkit-scrollbar-thumb {
         background: #ccc;
         border-radius: 10px;
     }
 
 /* Ancho fijo de cada tarjeta de categoría */
-.card-categoria {
+.card-materiales {
     width: 180px; /* Ajusta este valor según el tamaño que prefieras */
     scroll-snap-align: start;
     transition: transform 0.2s ease;
 }
 
-    .card-categoria:hover {
+    .card-materiales:hover {
         transform: translateY(-4px); /* Efecto elevación al pasar el mouse */
     }

@@ -53,7 +53,7 @@ namespace Negocio
 
             try
             {
-                conexion.SetearConsulta("SELECT ID_Material, Nombre, Info FROM Materiales");
+                conexion.SetearConsulta("SELECT ID_Material, Nombre, Info, UrlLogo FROM Materiales");
                 conexion.EjecutarLectura();
 
                 while (conexion.Lector.Read())
@@ -63,6 +63,14 @@ namespace Negocio
                     aux.IdMaterial = (long)conexion.Lector["ID_Material"];
                     aux.Nombre = (string)conexion.Lector["Nombre"];
                     aux.Info = (string)conexion.Lector["Info"];
+                    if (conexion.Lector["UrlLogo"] != DBNull.Value)
+                    {
+                        aux.UrlLogo = (string)conexion.Lector["UrlLogo"];
+                    }
+                    else
+                    {
+                        aux.UrlLogo = "";
+                    }
 
                     lista.Add(aux);
                 }
