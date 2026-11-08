@@ -57,6 +57,7 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Panelempresa">Panel empresa</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="Login.aspx">Iniciar sesion</a> </li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/PanelAdministrador.aspx">Panel admin</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="Aprender.aspx">Aprender</a></li>
                         
                     </ul>
                 </div>

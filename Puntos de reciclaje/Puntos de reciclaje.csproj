@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Aprender.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -119,6 +120,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Estilos\EstiloGrillas.css" />
     <Content Include="Estilos\EstiloMapa.css" />
+    <Content Include="Estilos\EstiloPaginaAprender.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Libreria\leaflet\images\layers-2x.png" />
@@ -186,6 +188,13 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Aprender.aspx.cs">
+      <DependentUpon>Aprender.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Aprender.aspx.designer.cs">
+      <DependentUpon>Aprender.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
