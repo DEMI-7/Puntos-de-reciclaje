@@ -36,13 +36,22 @@ namespace Puntos_de_reciclaje
             try
             {
                 long idEmpresa = Convert.ToInt64(Session["IdEmpresa"] ?? 1);
-                var lista = negocio.ListarporEmpresa(idEmpresa);
-                var punto = lista.FirstOrDefault(p => p.IdPunto == idPunto);
+                var lista = negocio.listar();
+                var punto = lista.FirstOrDefault(p => p.IdPunto == idPunto && p.IdUsuarioCreador == idEmpresa);
 
                 if (punto != null)
                 {
                     txtDireccion.Text = punto.Direccion;
                     txtHorario.Text = punto.Horario;
+                    // marcamos los materiales que ya tiene el punto
+                    foreach (ListItem xx in cblMateriales.Items)
+                    {
+                        long idMaterial = Convert.ToInt64(xx.Value);
+                        if (punto.ListaMateriales.Any(m => m.IdMaterial == idMaterial))
+                        {
+                            xx.Selected = true;
+                        }
+                    }
 
                     // formateamos los decimales con punto para  java  segun ia ; 
                     string lat = punto.Latitud.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -141,28 +150,34 @@ namespace Puntos_de_reciclaje
 
                 PuntoNegocio negocioPuntobich = new PuntoNegocio();
 
-                if (Request.QueryString["id"]!= null)
+                long idPuntogenerado;
+
+                if (Request.QueryString["id"] != null)
                 {
+                    // En editar actualizamos el punto y borramos sus materiales anteriores
                     nuevoPunto.IdPunto = Convert.ToInt64(Request.QueryString["id"]);
                     negocioPuntobich.Modificar(nuevoPunto);
+                    negocioPuntobich.EliminarMaterialesDelPunto(nuevoPunto.IdPunto);
 
+                    idPuntogenerado = nuevoPunto.IdPunto;
                 }
                 else
                 {
-                    long idPuntogenerado = negocioPuntobich.Agregar(nuevoPunto);
-               
+                    // En crear, insertamos el punto nuevo
+                    idPuntogenerado = negocioPuntobich.Agregar(nuevoPunto);
+                }
+
+                // En ambos casos guardamos los materiales tildados
                 foreach (ListItem xx in cblMateriales.Items)
-                  
                 {
-                    if (  xx.Selected )
+                    if (xx.Selected)
                     {
-                        long idMaterial = Convert.ToInt64(xx.Value); 
+                        long idMaterial = Convert.ToInt64(xx.Value);
                         negocioPuntobich.AgregarMaterialalPunto(idPuntogenerado, idMaterial);
                     }
                 }
-                }
 
-                //redirigimos hacia panel empresa.aspx ; 
+                // Lo redirigimos hacia panel empresa.aspx 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect", "window.location='PanelEmpresa.aspx';", true);
 
 

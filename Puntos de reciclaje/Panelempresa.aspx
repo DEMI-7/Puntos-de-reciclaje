@@ -37,7 +37,7 @@
     <ItemTemplate>
         <!-- Boton and metodo  Eliminar -->
         <asp:Button ID="BtnEliminar" runat="server" Text="Eliminar" 
-            CssClass="btn btn-sm btn-dark" 
+            CssClass="btn btn-sm btn-danger" 
             CommandName="EliminarPunto" 
             CommandArgument='<%# Eval("IdPunto") %>' 
             OnClientClick="return confirm('¿Estás seguro de que queres eliminar este punto?');" />

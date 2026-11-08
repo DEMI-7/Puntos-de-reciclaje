@@ -192,6 +192,12 @@ namespace Negocio
 
                 datos.ejecutarAccion();
 
+                // borramos las imagenes del punto ;
+                datos.limpiarParametros();
+                datos.SetearConsulta("DELETE FROM Imagen_PuntoReciclaje WHERE ID_PuntoReciclaje = @idPunto");
+                datos.agregarParametro("@idPunto", idPunto);
+                datos.ejecutarAccion();
+
                 //borramos el punto  ; 
                 // antes limpiamos los parametros de la consulta anterior; 
 
@@ -231,12 +237,25 @@ namespace Negocio
 
                 datos.ejecutarAccion();
             }
+
             catch (Exception)
             {
                 throw;
             }
         }
-
-
+        public void EliminarMaterialesDelPunto(long idPunto)
+        {
+            Accesodatos datos = new Accesodatos();
+            try
+            {
+                datos.SetearConsulta("DELETE FROM Material_PuntoReciclaje WHERE ID_Punto = @idPunto");
+                datos.agregarParametro("@idPunto", idPunto);
+                datos.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
