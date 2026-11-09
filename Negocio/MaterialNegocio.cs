@@ -85,7 +85,6 @@ namespace Negocio
                         .ToList();
                 }
 
-
                 return lista;
             }
             catch (Exception)
@@ -96,7 +95,6 @@ namespace Negocio
             {
                 conexion.CerrarConexion();
             }
-
         }
     }
 }

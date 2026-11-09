@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="Libreria/leaflet/leaflet.css" />
 
     <link href="Estilos/EstiloGrillas.css" rel="stylesheet" />
-
+    <script src="Scripts/bootstrap.min.js"></script>
 </head>
 <body>
     <form ID="formPrincipal" runat="server">

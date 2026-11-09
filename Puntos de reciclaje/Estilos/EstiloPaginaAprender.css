@@ -1,27 +1,26 @@
 ﻿/* Permite el desplazamiento horizontal */
 .slider-materiales {
     overflow-x: auto;
-    scroll-snap-type: x mandatory; /* Hace que se "ancle" suavemente en cada elemento */
-    -webkit-overflow-scrolling: touch; /* Desplazamiento fluido en iOS */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 }
 
-    /* Opcional: oculta o suaviza la barra de desplazamiento */
-    .slider-materiales::-webkit-scrollbar {
-        height: 6px;
-    }
+.slider-materiales::-webkit-scrollbar {
+    height: 6px;
+}
 
-    .slider-materiales::-webkit-scrollbar-thumb {
-        background: #ccc;
-        border-radius: 10px;
-    }
+.slider-materiales::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
 
-/* Ancho fijo de cada tarjeta de categoría */
+/* Ancho fijo de cada tarjeta de material */
 .card-materiales {
-    width: 180px; /* Ajusta este valor según el tamaño que prefieras */
+    width: 180px;
     scroll-snap-align: start;
     transition: transform 0.2s ease;
 }
-
-    .card-materiales:hover {
-        transform: translateY(-4px); /* Efecto elevación al pasar el mouse */
-    }
+/* Efecto elevación al pasar el mouse */
+.card-materiales:hover {
+    transform: translateY(-4px);
+}
