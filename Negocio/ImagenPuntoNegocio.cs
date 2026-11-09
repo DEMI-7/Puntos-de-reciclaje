@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Negocio
 {
     public class ImagenPuntoNegocio
@@ -48,5 +49,25 @@ namespace Negocio
             }
 
         }
+
+        public void Agregar(ImagenPuntoReciclaje imagen)
+        {
+            Accesodatos datobich = new Accesodatos();
+            try
+            {
+                datobich.SetearConsulta("INSERT INTO Imagen_PuntoReciclaje (ID_PuntoReciclaje, URL_Imagen) VALUES (@idPunto, @url)");
+                datobich.agregarParametro("@idPunto", imagen.IdPunto);
+                datobich.agregarParametro("@url", imagen.UrlImagen);
+                datobich.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+
+            }
+        }
+
+
+
     }
 }

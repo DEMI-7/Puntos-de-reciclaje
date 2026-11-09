@@ -52,9 +52,11 @@
 
                         <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
 
+                        
+
                         <asp:BoundField DataField="Horario" HeaderText="Horario" />
                        
-
+                        
                        <%-- <asp:BoundField DataField="Materiales" HeaderText="Materiales" /> --%>
 
                     </Columns>

@@ -10,7 +10,8 @@
         <hr />
 
         <div class="row">
-            <div class="col-md-5">
+             
+               <div class="col-md-5">
                 <div class="mb-3">
                     <label class="form-label">Dirección:</label>
                     <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" placeholder="Ej: Av. San Martín 123"></asp:TextBox>
@@ -22,29 +23,39 @@
                 </div>
 
                 <div class="mb-3">
+                    <label class="form-label">Foto del lugar (Opcional):</label>
+                    <asp:FileUpload ID="fuImagen" runat="server" CssClass="form-control" />
+                </div>
+
+                <div class="mb-3">
                     <label class="form-label">Materiales que recibe:</label>
                     <asp:CheckBoxList ID="cblMateriales" runat="server" CssClass="form-check" RepeatLayout="UnorderedList">
                     </asp:CheckBoxList>
                 </div>
 
-                 <!-- Envolvemos la zona de guardado y usamos  UpdatePanel -->
+                <!-- Envolvemos la zona de guardado en un UpdatePanel -->
                 <asp:UpdatePanel ID="UpdatePanelGuardar" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
+                        <!-- Campos ocultos del mapa -->
+                        <input type="hidden" id="latitudMapa" name="latitudMapa" />
+                        <input type="hidden" id="longitudMapa" name="longitudMapa" />
 
-                <input type="hidden" id="latitudMapa" name="latitudMapa" />
-                   <input type="hidden" id="longitudMapa" name="longitudMapa" />
+                        <!-- Etiqueta para mostrar errores -->
+                        <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-bold d-block mb-2" Visible="false"></asp:Label>
 
-                <!-- etiqueta para mostrar errores de validación -->
-
-
-               <asp:label id="lblError" runat="server" cssclass="text-danger fw-bol d d-block mb -2" visible="false"></asp:label>
-
-                <asp:Button ID="btnGuardar" runat="server" Text="Guardar Punto" CssClass="btn btn-success btn-lg w-100" OnClick="BtnGuardar_Click" />
-                <a href="PanelEmpresa.aspx" class="btn btn-link w-100 mt-2">Cancelar</a>
-                         </ContentTemplate>
+                        <!-- Boton Guardar -->
+                        <asp:Button ID="btnGuardar" runat="server" Text="Guardar Punto" CssClass="btn btn-success btn-lg w-100" OnClick="BtnGuardar_Click" />
+                    </ContentTemplate>
+                    <Triggers>
+                      
+                        <asp:PostBackTrigger ControlID="btnGuardar" />
+                    </Triggers>
                 </asp:UpdatePanel>
+                
+                <!-- Botón Cancelar (Afuera del UpdatePanel) -->
+                <a href="PanelEmpresa.aspx" class="btn btn-link w-100 mt-2">Cancelar</a>
             </div>
-
+     
             <div class="col-md-7">
                 <div id="mapaCrear"></div>
             </div>

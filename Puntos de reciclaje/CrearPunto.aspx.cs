@@ -102,72 +102,50 @@ namespace Puntos_de_reciclaje
             }
             
         }
-
         protected void BtnGuardar_Click(object sender, EventArgs e)
         {
-
             lblError.Visible = false;
-
-
-
 
             string latStr = Request.Form["latitudMapa"];
             string lngStr = Request.Form["longitudMapa"];
 
-           
+            if (string.IsNullOrWhiteSpace(txtDireccion.Text) || string.IsNullOrWhiteSpace(latStr))
+            {
+                lblError.Text = "Por favor, ingresa una direccion y selecciona una ubicacion en el mapa.";
+                lblError.Visible = true;
+                return;
+            }
 
-           
-                if (string.IsNullOrWhiteSpace(txtDireccion.Text) || string.IsNullOrWhiteSpace(latStr))
-                {
-                    //   lblError.Text = "Dirección: " + txtDireccion.Text + " | Latitud: " + HfLatitud.Value;
-                    lblError.Text = "Por favor, ingresa una direccion y selecciona una ubicacion en el mapa.";
-                    lblError.Visible = true;
-
-                    return;
-                }
-                try
-                {
-
-                    // creamos el objeto ; 
-
-                    PuntoReciclaje nuevoPunto = new PuntoReciclaje();
+            // TRY GENERAL
+            try
+            {
+                // 1. Crear objeto
+                PuntoReciclaje nuevoPunto = new PuntoReciclaje();
                 nuevoPunto.IdUsuarioCreador = Convert.ToInt64(Session["IdEmpresa"] ?? 1);
-
-           
                 nuevoPunto.Horario = txtHorario.Text;
-
                 nuevoPunto.Direccion = txtDireccion.Text;
 
-
-                // Usamos CultureInfo.InvariantCulture para que C# entienda que el punto es decimal
                 System.Globalization.CultureInfo cultura = System.Globalization.CultureInfo.InvariantCulture;
-
                 nuevoPunto.Latitud = Math.Round(Convert.ToDecimal(latStr.Replace(',', '.'), cultura), 8);
                 nuevoPunto.Longitud = Math.Round(Convert.ToDecimal(lngStr.Replace(',', '.'), cultura), 8);
 
-
-                //guardamos el punto 
-
                 PuntoNegocio negocioPuntobich = new PuntoNegocio();
-
                 long idPuntogenerado;
 
+                // 2. Guardar o Modificar Punto
                 if (Request.QueryString["id"] != null)
                 {
-                    // En editar actualizamos el punto y borramos sus materiales anteriores
                     nuevoPunto.IdPunto = Convert.ToInt64(Request.QueryString["id"]);
                     negocioPuntobich.Modificar(nuevoPunto);
                     negocioPuntobich.EliminarMaterialesDelPunto(nuevoPunto.IdPunto);
-
                     idPuntogenerado = nuevoPunto.IdPunto;
                 }
                 else
                 {
-                    // En crear, insertamos el punto nuevo
                     idPuntogenerado = negocioPuntobich.Agregar(nuevoPunto);
                 }
 
-                // En ambos casos guardamos los materiales tildados
+                // 3. Guardar Materiales
                 foreach (ListItem xx in cblMateriales.Items)
                 {
                     if (xx.Selected)
@@ -177,16 +155,47 @@ namespace Puntos_de_reciclaje
                     }
                 }
 
-                // Lo redirigimos hacia panel empresa.aspx 
+                // 4. Guardar Imagen (TRY INTERNO)
+                if (fuImagen.HasFile)
+                {
+                    try
+                    {
+                        string carpetaDestino = Server.MapPath("~/ImagenesPuntos/");
+
+                        if (!System.IO.Directory.Exists(carpetaDestino))
+                        {
+                            System.IO.Directory.CreateDirectory(carpetaDestino);
+                        }
+
+                        string nombreArchivo = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(fuImagen.FileName);
+                        string rutaFisica = carpetaDestino + nombreArchivo;
+                        fuImagen.SaveAs(rutaFisica);
+
+                        ImagenPuntoReciclaje nuevaFoto = new ImagenPuntoReciclaje();
+                        nuevaFoto.IdPunto = idPuntogenerado;
+                        nuevaFoto.UrlImagen = "~/ImagenesPuntos/" + nombreArchivo;
+
+                        ImagenPuntoNegocio negocioImagen = new ImagenPuntoNegocio();
+                        negocioImagen.Agregar(nuevaFoto);
+                    }
+                    catch (Exception ex)
+                    {
+                        lblError.Text = "Error al guardar la foto: " + ex.Message;
+                        lblError.Visible = true;
+                        return; // Si falla la foto, cortamos todo
+                    }
+                }
+
+                // 5. Redirigir (si todo salio bien)
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect", "window.location='PanelEmpresa.aspx';", true);
-
-
             }
             catch (Exception ex)
             {
-                 lblError.Text = "Error #404 " + ex.Message;
-                 lblError.Visible = true;
+                // CATCH GENERAL (Errores de Base de Datos)
+                lblError.Text = "Error #404 " + ex.Message;
+                lblError.Visible = true;
             }
         }
+
     }
 }
