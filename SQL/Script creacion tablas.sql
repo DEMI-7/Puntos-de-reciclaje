@@ -54,7 +54,8 @@ CREATE TABLE Material_PuntoReciclaje (
 CREATE TABLE Materiales (
 	ID_Material BIGINT IDENTITY (1,1) PRIMARY KEY NOT NULL,
 	Nombre VARCHAR (100) NOT NULL,
-	Info NVARCHAR (MAX)
+	Info NVARCHAR (MAX),
+	Activo BIT CONSTRAINT DF_Materiales DEFAULT 1 NOT NULL
 );
 
 CREATE TABLE Imagen_Material (
