@@ -148,6 +148,7 @@
     <Content Include="Login.aspx" />
     <Content Include="PanelAdminBajas.aspx" />
     <Content Include="PanelAdministrador.aspx" />
+    <Content Include="PanelAdminMateriales.aspx" />
     <Content Include="PanelEmpresa.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -250,6 +251,13 @@
     </Compile>
     <Compile Include="PanelAdministrador.aspx.designer.cs">
       <DependentUpon>PanelAdministrador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PanelAdminMateriales.aspx.cs">
+      <DependentUpon>PanelAdminMateriales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PanelAdminMateriales.aspx.designer.cs">
+      <DependentUpon>PanelAdminMateriales.aspx</DependentUpon>
     </Compile>
     <Compile Include="PanelEmpresa.aspx.cs">
       <DependentUpon>PanelEmpresa.aspx</DependentUpon>
