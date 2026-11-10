@@ -1,7 +1,10 @@
-#ignorar el contenido de la carpeta de imagenes subidas
-ImagenesPuntos/*
-ImagenesMateriales/*
+# Ignorar cualquier archivo de imagen en todo el proyecto sin importar la carpeta
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.svg
 
-# Permite el gitkeep para que no se borre la carpeta vacia
-ImagenesPuntos/.gitkeep
-ImagenesMateriales/.gitkeep
+# (Opcional) Asegurarte de que los .gitkeep sigan permitidos por si acaso
+!**/.gitkeep
