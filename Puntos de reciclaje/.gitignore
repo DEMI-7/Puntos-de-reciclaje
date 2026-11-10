@@ -1,0 +1,7 @@
+#ignorar el contenido de la carpeta de imagenes subidas
+ImagenesPuntos/*
+ImagenesMateriales/*
+
+# Permite el gitkeep para que no se borre la carpeta vacia
+ImagenesPuntos/.gitkeep
+ImagenesMateriales/.gitkeep
