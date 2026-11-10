@@ -18,7 +18,7 @@ namespace Negocio
 
             try
             {
-                conexion.SetearConsulta("SELECT ID_Material, Nombre, Info FROM Materiales");
+                conexion.SetearConsulta("SELECT ID_Material, Nombre, Info FROM Materiales Where Activo = 1");
                 conexion.EjecutarLectura();
 
                 while (conexion.Lector.Read())
@@ -53,7 +53,7 @@ namespace Negocio
 
             try
             {
-                conexion.SetearConsulta("SELECT ID_Material, Nombre, Info, UrlLogo FROM Materiales");
+                conexion.SetearConsulta("SELECT ID_Material, Nombre, Info, UrlLogo FROM Materiales Where Activo = 1");
                 conexion.EjecutarLectura();
 
                 while (conexion.Lector.Read())
@@ -94,6 +94,53 @@ namespace Negocio
             finally
             {
                 conexion.CerrarConexion();
+            }
+        }
+
+        public void Agregar(Material nuevo)
+        {
+            Accesodatos conexion = new Accesodatos();
+            try
+            {
+                conexion.SetearConsulta("Insert Into Materiales (Nombre, Info) Values (@nombre, @info)");
+                conexion.agregarParametro("@nombre", nuevo.Nombre);
+                conexion.agregarParametro("@info", nuevo.Info);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public void Modificar(Material material)
+        {
+            Accesodatos conexion = new Accesodatos();
+            try
+            {
+                conexion.SetearConsulta("Update Materiales Set Nombre = @nombre, Info = @info WHERE ID_Material = @idMaterial");
+                conexion.agregarParametro("@nombre", material.Nombre);
+                conexion.agregarParametro("@info", material.Info);
+                conexion.agregarParametro("@idMaterial", material.IdMaterial);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void Eliminar(long idMaterial)
+        {
+            Accesodatos conexion = new Accesodatos();
+            try
+            {
+                conexion.SetearConsulta("Update Materiales Set Activo = 0 Where ID_Material = @idMaterial");
+                conexion.agregarParametro("@idMaterial", idMaterial);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }
