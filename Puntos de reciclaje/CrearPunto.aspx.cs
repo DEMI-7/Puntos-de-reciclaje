@@ -68,12 +68,19 @@ namespace Puntos_de_reciclaje
             ";
                     ScriptManager.RegisterStartupScript(this, GetType(), "CargarMapa", script, true);
                 }
+                if (punto.ListaUrlImagenes != null && punto.ListaUrlImagenes.Count > 0)
+                {
+                    rptImagenes.DataSource = punto.ListaUrlImagenes;
+                    rptImagenes.DataBind();
+                }
+
             }
             catch (Exception ex)
             {
                 lblError.Text = "Error al cargar los datos: " + ex.Message;
                 lblError.Visible = true;
             }
+
         }
 
 
@@ -197,5 +204,29 @@ namespace Puntos_de_reciclaje
             }
         }
 
+        protected void rptImagenes_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "EliminarImg")
+            {
+                try
+                {
+                    long idImagen = Convert.ToInt64(e.CommandArgument);
+
+                    ImagenPuntoNegocio negocioImg = new ImagenPuntoNegocio();
+
+                    // 1. Borramos de la BD
+                    negocioImg.Eliminar(idImagen);
+
+                    // 2. Recargamos la página para que desaparezca de la vista
+                    long idPunto = Convert.ToInt64(Request.QueryString["id"]);
+                    Cargardatosparaeditar(idPunto);
+                }
+                catch (Exception ex)
+                {
+                    lblError.Text = "Error al borrar la imagen: " + ex.Message;
+                    lblError.Visible = true;
+                }
+            }
+        }
     }
 }

@@ -26,6 +26,21 @@
                     <label class="form-label">Foto del lugar (Opcional):</label>
                     <asp:FileUpload ID="fuImagen" runat="server" CssClass="form-control" />
                 </div>
+                    <!-- Panel para ver y borrar fotos existentes (solo en edición) -->
+                <div class="mb-3">
+                    <asp:Repeater ID="rptImagenes" runat="server" OnItemCommand="rptImagenes_ItemCommand">
+                        <HeaderTemplate><div class="d-flex flex-wrap"></HeaderTemplate>
+                        <ItemTemplate>
+                            <div class="me-2 mb-2 text-center border p-1 rounded" style="background-color:#f8f9fa;">
+                                <asp:Image ID="img" runat="server" ImageUrl='<%# Eval("UrlImagen") %>' Width="80px" Height="60px" CssClass="rounded mb-1" />
+                                <br />
+                                <asp:LinkButton ID="btnBorrarImg" runat="server" CommandName="EliminarImg" CommandArgument='<%# Eval("IdImagen") %>' CssClass="btn btn-sm btn-danger w-100"
+                                    OnClientClick="return confirm('¿Borrar esta foto?');" style="font-size: 10px;">Borrar</asp:LinkButton>
+                            </div>
+                        </ItemTemplate>
+                        <FooterTemplate></div></FooterTemplate>
+                    </asp:Repeater>
+                </div>
 
                 <div class="mb-3">
                     <label class="form-label">Materiales que recibe:</label>

@@ -67,6 +67,25 @@ namespace Negocio
             }
         }
 
+        public void Eliminar(long idImagen)
+        {
+            Accesodatos datos = new Accesodatos();
+
+            try
+            {
+                datos.SetearConsulta("DELETE FROM Imagen_PuntoReciclaje WHERE ID_Imagen = @idImagen");
+
+                datos.agregarParametro("@idImagen", idImagen);
+                datos.ejecutarAccion();
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
 
     }
