@@ -109,6 +109,7 @@
         
         <div class="text-center">
             <asp:Button ID="BtnVerBajas" runat="server" CssClass="btn btn-outline-primary" Text="Ver dados de baja" OnClick="BtnVerBajas_Click"/>
+            <asp:Button ID="BtnMateriales" runat="server" CssClass="btn btn-outline-primary" Text="Administrar materiales" OnClick="BtnMateriales_Click"/>
         </div>
 
         <hr />

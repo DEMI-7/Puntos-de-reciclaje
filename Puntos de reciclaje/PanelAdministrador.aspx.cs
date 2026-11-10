@@ -148,5 +148,9 @@ namespace Puntos_de_reciclaje
         {
             Response.Redirect("PanelAdminBajas.aspx", false);
         }
+        protected void BtnMateriales_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PanelAdminMateriales.aspx", false);
+        }
     }
 }
