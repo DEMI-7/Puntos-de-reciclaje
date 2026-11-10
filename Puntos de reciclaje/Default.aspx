@@ -8,11 +8,13 @@
 
         <div class="map-layout-wrapper">
 
+            <!-- PANEL DE FILTROS -->
             <div class="panel-filtros">
                 <h4>Filtrar por material</h4>
                 <div id="contenedor-checkboxes"></div>
             </div>
 
+            <!-- PANEL INFO -->
             <div class="panel-info" id="panel-info-punto" style="display: none;">
                 <h4>Información:</h4>
 

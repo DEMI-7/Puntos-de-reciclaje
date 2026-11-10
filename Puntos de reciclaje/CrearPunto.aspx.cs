@@ -173,7 +173,7 @@ namespace Puntos_de_reciclaje
 
                         ImagenPuntoReciclaje nuevaFoto = new ImagenPuntoReciclaje();
                         nuevaFoto.IdPunto = idPuntogenerado;
-                        nuevaFoto.UrlImagen = "~/ImagenesPuntos/" + nombreArchivo;
+                        nuevaFoto.UrlImagen = "ImagenesPuntos/" + nombreArchivo;
 
                         ImagenPuntoNegocio negocioImagen = new ImagenPuntoNegocio();
                         negocioImagen.Agregar(nuevaFoto);
