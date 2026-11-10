@@ -16,10 +16,32 @@
 
             <!-- PANEL INFO -->
             <div class="panel-info" id="panel-info-punto" style="display: none;">
-                <h4>Información:</h4>
 
-                <div class="imagen-punto-contenedor">
-                    <img id="ImgPunto" src="" alt="Imagen del punto de reciclaje" />
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h4 class="m-0 fw-bold">Información:</h4>
+
+                    <!-- Boton de cruz para cerrar el menu -->
+                    <button type="button" class="btn-close" aria-label="Cerrar" onclick="CerrarPanelInfo()"></button>
+                </div>
+
+                <!-- Ahora el contenedor de imagenes tiene un carroussel para las imagenes -->
+                <div class="imagen-punto-contenedor position-relative mb-3">
+                    <img id="ImgPunto" src="." alt="Imagen del punto de reciclaje" class="img-fluid rounded w-100" style="height: 200px; object-fit: cover;" />
+                
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <!-- Boton anterior-->
+                        <button type="button" class="btn btn-outline-dark btn-sm px-3" onclick="cambiarImagenPunto(-1)">
+                            <i class="bi bi-chevron-left">&lt; </i>
+                        </button>
+                    
+                        <span id="contadorImagenes" class="text-muted small">1 / 1</span>
+
+                         <!-- Boton siguiente-->
+                        <button type="button" class="btn btn-outline-dark btn-sm px-3" onclick="cambiarImagenPunto(1)">
+                            <i class="bi bi-chevron-right"> &gt;</i>
+                        </button>
+                    </div>
+
                 </div>
 
                 <p><b>Direccion:</b> <span id="LblDireccion">-</span></p>
@@ -33,6 +55,51 @@
 
             <!-- Script que carga los puntos -->
             <script>
+                // VARIABLES GLOBAL PARA MANIPULAR EL CARRUSEL DE IMAGENES
+                var imagenesPuntoActual = [];
+                var indiceImagenActual = 0;
+
+                // FUNCION DE CERRAR EL PANEL DE INFO
+                function CerrarPanelInfo() {
+                    var panel = document.getElementById('panel-info-punto');
+                    panel.style.display = 'none';
+                    imagenesPuntoActual = [];
+                    indiceImagenActual = 0;
+                }
+
+                // FUNCION CAMBIAR IMAGEN CON LOS BOTONES
+                function cambiarImagenPunto(direccion) { 
+                    if (imagenesPuntoActual.length === 0) return; // si no tiene imagenes
+                    indiceImagenActual += direccion;
+
+                    //control de limites
+                    if (indiceImagenActual >= imagenesPuntoActual.length) { 
+                        indiceImagenActual = 0; // reinicia si se pasa
+                    } else if (indiceImagenActual < 0) {
+                        indiceImagenActual = imagenesPuntoActual.length - 1; // va al final si ya esta en la primera
+                    }
+                    // se actualiza la imagen y el contador
+                    actualizarImagenPanel();
+                }
+
+                // ACTUALIZA LA IMAGEN MOSTRADA EN EL PANEL
+                function actualizarImagenPanel() {
+                    var imagen = document.getElementById('ImgPunto');
+                    var contador = document.getElementById('contadorImagenes');
+
+                    if (imagenesPuntoActual.length > 0) {
+                        imagen.src = imagenesPuntoActual[indiceImagenActual].UrlImagen;
+                        imagen.style.display = 'block';
+                        if (contador) { 
+                            contador.innerText = (indiceImagenActual + 1) + " / " + imagenesPuntoActual.length;
+                        }
+                    } else {
+                        imagen.style.display = 'none';
+                        if (contador) contador.innerText = "0 / 0";
+                    }
+                }
+
+
                 // con add event listener espera a que termine de cargar la pagina para comenzar a dibujar los puntos
                 document.addEventListener("DOMContentLoaded", function () { 
 
@@ -45,6 +112,7 @@
                     // Aca le damos un origen de datos a nuestro objeto de mapa, en este caso de openstreetmap.org
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapa)
 
+                    
 
                     // ---------------------------
                     // Dibujar los puntos en el mapa
@@ -69,9 +137,7 @@
                             }).join(', ');
                         }
 
-                        // le agregamos la informacion adicional en un popup
-                        //marker.bindPopup("<b>Dirección:</b> " + punto.Direccion + "<br><b>Horario:</b> " + punto.Horario + "<br><b>Materiales:</b> " + materialesTexto);
-
+                        // EVENTO CLICK E EL MARCADOR QUE ABRE EL PANEL DE INFO CON LOS DATOS DEL PUNTO
                         // la funcion marker on click obtiene los datos del punto que clickeamos y la muestra en la ventanita flotante
                         marker.on('click', function () {
                             var panel = document.getElementById('panel-info-punto');
@@ -79,19 +145,11 @@
 
                             var imagen = document.getElementById('ImgPunto');
 
-                            imagen.src = ''; // Limpia la imagen anterior
-                            imagen.style.display = 'none'; // Oculta la imagen por defecto
+                            // guardo las imagenes de este punto en las variables globales
+                            imagenesPuntoActual = punto.ListaUrlImagenes || [];
+                            indiceImagenActual = 0;
 
-
-                            if (punto.ListaUrlImagenes && punto.ListaUrlImagenes.length > 0) {
-
-                                var urlPrimera = punto.ListaUrlImagenes[0].UrlImagen;
-                                imagen.src = urlPrimera;
-                                imagen.style.display = 'block';
-
-                            } else {
-                                imagen.style.display = 'none;'
-                            }
+                            actualizarImagenPanel();
 
                             document.getElementById('LblDireccion').innerText = punto.Direccion;
                             document.getElementById('LblHorario').innerText = punto.Horario;
