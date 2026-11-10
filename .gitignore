@@ -363,9 +363,9 @@ MigrationBackup/
 FodyWeavers.xsd
 
 #ignorar el contenido de la carpeta de imagenes subidas
-/ImagenesPuntos/*
-/ImagenesMateriales/*
+"Puntos de reciclaje/ImagenesPuntos/*"
+"Puntos de reciclaje/ImagenesMateriales/*"
 
 # Permite el gitkeep para que no se borre la carpeta vacia
-!/ImagenesPuntos/.gitkeep
-!/ImagenesMateriales/.gitkeep
+!"Puntos de reciclaje/ImagenesPuntos/.gitkeep"
+!"Puntos de reciclaje/ImagenesMateriales/.gitkeep"
