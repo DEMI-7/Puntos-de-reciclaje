@@ -107,9 +107,88 @@ namespace Puntos_de_reciclaje
                 long idUsuario = Convert.ToInt64(e.CommandArgument);
                 negocio.DesactivarUsuario(idUsuario);
             }
+            else if (e.CommandName == "Editar")
+            {
+                long idUsuario = Convert.ToInt64(e.CommandArgument);
+                // buscamos el usuario y cargamos sus datos en el formulario
+                Usuario usuario = negocio.ListarActivos().FirstOrDefault(u => u.ID_Usuario == idUsuario);
+
+                if (usuario != null)
+                {
+                    HfIdUsuario.Value = usuario.ID_Usuario.ToString();
+                    TxtNombreUsuario.Text = usuario.Nombre;
+                    TxtEmailUsuario.Text = usuario.Email;
+                    DdlTipoUsuario.SelectedValue = usuario.TipoUsuario;
+
+                    LblErrorUsuario.Visible = false;
+                    PnlEditarUsuario.Visible = true;
+                }
+            }
 
             // Recargamos la grilla: el usuario sale de activos
             CargarGrillaUsuariosActivos(TxtBuscar.Text.Trim());
+        }
+
+        // validacion con ayuda de la IA para que se cargue siempre mail
+        protected void BtnGuardarUsuario_Click(object sender, EventArgs e)
+        {
+            LblErrorUsuario.Visible = false;
+
+            string nombre = TxtNombreUsuario.Text.Trim();
+            string email = TxtEmailUsuario.Text.Trim();
+
+            // validamos que no esten vacios
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(email))
+            {
+                LblErrorUsuario.Text = "Por favor, completá el nombre y el correo electrónico.";
+                LblErrorUsuario.Visible = true;
+                return;
+            }
+
+            // validamos que el email tenga arroba y punto
+            if (!email.Contains("@") || !email.Contains("."))
+            {
+                LblErrorUsuario.Text = "El correo electrónico no tiene un formato válido.";
+                LblErrorUsuario.Visible = true;
+                return;
+            }
+
+            try
+            {
+                UsuarioNegocio negocio = new UsuarioNegocio();
+                long idUsuario = Convert.ToInt64(HfIdUsuario.Value);
+
+                // validamos que ningun otro usuario tenga ese email
+                if (negocio.ExisteEmail(email, idUsuario))
+                {
+                    LblErrorUsuario.Text = "Ya existe otro usuario con ese correo electrónico.";
+                    LblErrorUsuario.Visible = true;
+                    return;
+                }
+
+                Usuario usuario = new Usuario();
+                usuario.ID_Usuario = idUsuario;
+                usuario.Nombre = nombre;
+                usuario.Email = email;
+                usuario.TipoUsuario = DdlTipoUsuario.SelectedValue;
+
+                negocio.Modificar(usuario);
+
+                // ocultamos el formulario y recargamos la grilla
+                PnlEditarUsuario.Visible = false;
+                CargarGrillaUsuariosActivos(TxtBuscar.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                LblErrorUsuario.Text = "Error al guardar el usuario: " + ex.Message;
+                LblErrorUsuario.Visible = true;
+            }
+        }
+
+        protected void BtnCancelarUsuario_Click(object sender, EventArgs e)
+        {
+            HfIdUsuario.Value = "";
+            PnlEditarUsuario.Visible = false;
         }
 
         protected void GrillaEmpresasPendientes_PageIndexChanging(object sender, GridViewPageEventArgs e)

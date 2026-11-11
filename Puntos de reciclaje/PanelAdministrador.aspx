@@ -4,6 +4,45 @@
     <div class="container body-content mt-4">
         <h3> Panel de administración.</h3>
 
+                <!-- -----------------------------------------------------------------------------------
+            Formulario para modificar un usuario (se muestra al tocar Editar)
+        -->
+        <asp:Panel ID="PnlEditarUsuario" runat="server" Visible="false" CssClass="card shadow-sm mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Modificar usuario</h5>
+            </div>
+            <div class="card-body">
+
+                <!-- guarda el ID del usuario que se esta editando -->
+                <asp:HiddenField ID="HfIdUsuario" runat="server" />
+
+                <div class="mb-3">
+                    <label class="form-label">Nombre:</label>
+                    <asp:TextBox ID="TxtNombreUsuario" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Correo electrónico:</label>
+                    <asp:TextBox ID="TxtEmailUsuario" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tipo de usuario:</label>
+                    <asp:DropDownList ID="DdlTipoUsuario" runat="server" CssClass="form-select">
+                        <asp:ListItem Text="Admin" Value="admin"></asp:ListItem>
+                        <asp:ListItem Text="Empresa" Value="empresa"></asp:ListItem>
+                        <asp:ListItem Text="Gubernamental" Value="gubernamental"></asp:ListItem>
+                        <asp:ListItem Text="Básico" Value="basico"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+
+                <asp:Label ID="LblErrorUsuario" runat="server" CssClass="text-danger fw-bold d-block mb-3" Visible="false"></asp:Label>
+
+                <asp:Button ID="BtnGuardarUsuario" runat="server" Text="Guardar" CssClass="btn btn-success" OnClick="BtnGuardarUsuario_Click" />
+                <asp:Button ID="BtnCancelarUsuario" runat="server" Text="Cancelar" CssClass="btn btn-outline-secondary" OnClick="BtnCancelarUsuario_Click" />
+            </div>
+        </asp:Panel>
+
         <!-- -----------------------------------------------------------------------------------
             Cabecera con el título, el contador y el buscador
             Parte de usuarios activos
@@ -44,6 +83,7 @@
                 <%-- Columna de Botones de Acción para dar de baja una cuenta --%>
                 <asp:TemplateField HeaderText="Acciones">
                     <ItemTemplate>
+                        <asp:Button ID="BtnEditarUsuario" runat="server" Text="Editar" CssClass="btn btn-primary btn-sm" CommandName="Editar" CommandArgument='<%# Eval("ID_Usuario") %>' />
                         <asp:Button ID="btnDesactivar" runat="server" Text="Desactivar" CssClass="btn btn-danger btn-sm" CommandName="Desactivar" CommandArgument='<%# Eval("ID_Usuario") %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
