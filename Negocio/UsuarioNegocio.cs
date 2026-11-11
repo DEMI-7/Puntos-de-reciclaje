@@ -229,5 +229,41 @@ namespace Negocio
                 throw;
             }
         }
+        public void Modificar(Usuario usuario)
+        {
+            Accesodatos conexion = new Accesodatos();
+            try
+            {
+                conexion.SetearConsulta("UPDATE Usuarios SET Nombre = @nombre, Email = @email, TipoUsuario = @tipoUsuario WHERE ID_Usuario = @idUsuario");
+                conexion.agregarParametro("@nombre", usuario.Nombre);
+                conexion.agregarParametro("@email", usuario.Email);
+                conexion.agregarParametro("@tipoUsuario", usuario.TipoUsuario);
+                conexion.agregarParametro("@idUsuario", usuario.ID_Usuario);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool ExisteEmail(string email, long idUsuario)
+        {
+            Accesodatos conexion = new Accesodatos();
+            try
+            {
+                conexion.SetearConsulta("SELECT COUNT(*) FROM Usuarios WHERE Email = @email AND ID_Usuario <> @idUsuario");
+                conexion.agregarParametro("@email", email);
+                conexion.agregarParametro("@idUsuario", idUsuario);
+
+                int cantidad = Convert.ToInt32(conexion.ejecutarAccionScalar());
+                return cantidad > 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
