@@ -55,6 +55,19 @@ namespace Puntos_de_reciclaje
                     LblTituloFormulario.Text = "Modificar material";
                 }
             }
+            else if (e.CommandName == "Eliminar")
+            {
+                long idMaterial = Convert.ToInt64(e.CommandArgument);
+                negocio.Eliminar(idMaterial);
+
+                // si justo estabamos editando este material, limpiamos el formulario
+                if (HfIdMaterial.Value == idMaterial.ToString())
+                {
+                    LimpiarFormulario();
+                }
+
+                CargarGrillaMateriales();
+            }
         }
 
         protected void BtnGuardar_Click(object sender, EventArgs e)

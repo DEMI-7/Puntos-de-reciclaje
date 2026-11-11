@@ -63,6 +63,8 @@
                 <asp:TemplateField HeaderText="Acciones">
                     <ItemTemplate>
                         <asp:Button ID="BtnEditar" runat="server" Text="Editar" CssClass="btn btn-primary btn-sm" CommandName="Editar" CommandArgument='<%# Eval("IdMaterial") %>' />
+                         <asp:Button ID="BtnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger btn-sm" CommandName="Eliminar" CommandArgument='<%# Eval("IdMaterial") %>'
+                            OnClientClick="return confirm('¿Estás seguro de que querés eliminar este material?');" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
