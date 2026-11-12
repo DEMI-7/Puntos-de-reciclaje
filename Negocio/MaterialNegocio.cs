@@ -102,9 +102,10 @@ namespace Negocio
             Accesodatos conexion = new Accesodatos();
             try
             {
-                conexion.SetearConsulta("Insert Into Materiales (Nombre, Info) Values (@nombre, @info)");
+                conexion.SetearConsulta("Insert Into Materiales (Nombre, Info, UrlLogo) Values (@nombre, @info, @urlLogo)");
                 conexion.agregarParametro("@nombre", nuevo.Nombre);
                 conexion.agregarParametro("@info", nuevo.Info);
+                conexion.agregarParametro("@urlLogo", nuevo.UrlLogo);
                 conexion.ejecutarAccion();
             }
             catch (Exception)
@@ -117,10 +118,11 @@ namespace Negocio
             Accesodatos conexion = new Accesodatos();
             try
             {
-                conexion.SetearConsulta("Update Materiales Set Nombre = @nombre, Info = @info WHERE ID_Material = @idMaterial");
+                conexion.SetearConsulta("Update Materiales Set Nombre = @nombre, Info = @info, UrlLogo = @urlLogo WHERE ID_Material = @idMaterial");
                 conexion.agregarParametro("@nombre", material.Nombre);
                 conexion.agregarParametro("@info", material.Info);
                 conexion.agregarParametro("@idMaterial", material.IdMaterial);
+                conexion.agregarParametro("@urlLogo", material.UrlLogo);
                 conexion.ejecutarAccion();
             }
             catch (Exception)

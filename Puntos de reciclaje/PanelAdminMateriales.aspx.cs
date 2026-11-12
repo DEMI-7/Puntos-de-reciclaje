@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace Puntos_de_reciclaje
 {
@@ -22,7 +24,7 @@ namespace Puntos_de_reciclaje
         private void CargarGrillaMateriales()
         {
             MaterialNegocio negocio = new MaterialNegocio();
-            List<Material> lista = negocio.listar();
+            List<Material> lista = negocio.ListarConImagenes();
 
             GrillaMateriales.DataSource = lista;
             GrillaMateriales.DataBind();
@@ -45,7 +47,7 @@ namespace Puntos_de_reciclaje
                 long idMaterial = Convert.ToInt64(e.CommandArgument);
 
                 // buscamos el material en la lista y cargamos sus datos en el formulario
-                Material material = negocio.listar().FirstOrDefault(m => m.IdMaterial == idMaterial);
+                Material material = negocio.ListarConImagenes().FirstOrDefault(m => m.IdMaterial == idMaterial);
 
                 if (material != null)
                 {
@@ -53,6 +55,8 @@ namespace Puntos_de_reciclaje
                     TxtNombre.Text = material.Nombre;
                     TxtInfo.Text = material.Info;
                     LblTituloFormulario.Text = "Modificar material";
+                    ImgLogo.ImageUrl = material.UrlLogo;
+                    HfUrlLogo.Value = material.UrlLogo;
                 }
             }
             else if (e.CommandName == "Eliminar")
@@ -87,8 +91,11 @@ namespace Puntos_de_reciclaje
                 Material material = new Material();
                 material.Nombre = TxtNombre.Text.Trim();
                 material.Info = TxtInfo.Text.Trim();
+                material.UrlLogo = HfUrlLogo.Value;
 
                 MaterialNegocio negocio = new MaterialNegocio();
+
+                ActualizarSubirLogo(material);
 
                 if (!string.IsNullOrEmpty(HfIdMaterial.Value))
                 {
@@ -130,5 +137,53 @@ namespace Puntos_de_reciclaje
         {
             Response.Redirect("PanelAdministrador.aspx", false);
         }
+
+
+        private void ActualizarSubirLogo(Material mat)
+        {
+            // si el upload file esta vacio directamente no ejecuta ninguna logica referida a los archivos de imagenes
+            if (!SubirImagenLogo.HasFile)
+            {
+                return;
+            }
+
+            try
+            {
+                string carpetaDestino = Server.MapPath("~/ImagenesMateriales/");
+
+                if (!System.IO.Directory.Exists(carpetaDestino))
+                {
+                    System.IO.Directory.CreateDirectory(carpetaDestino);
+                }
+
+                // primero me fijo si la imagen ya existia y la borro
+                if (!string.IsNullOrEmpty(mat.UrlLogo))
+                {
+                    string rutaAnteriorFisica = Server.MapPath("~/" + mat.UrlLogo.TrimStart('~', '/'));
+
+                    if (System.IO.File.Exists(rutaAnteriorFisica))
+                    {
+                        System.IO.File.Delete(rutaAnteriorFisica);
+                    }
+                }
+
+                // despues la guardo si es una imagen nueva
+                string nombreArchivo = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(SubirImagenLogo.FileName);
+                string rutaFisica = carpetaDestino + nombreArchivo;
+
+                SubirImagenLogo.SaveAs(rutaFisica);
+
+                mat.UrlLogo = "ImagenesMateriales/" + nombreArchivo;
+
+            }
+            catch (Exception)
+            {
+                LblError.Text = "Error al subir la imagen";
+                LblError.Visible = true;
+                return;
+            }
+        }
+
+        
     }
 }
