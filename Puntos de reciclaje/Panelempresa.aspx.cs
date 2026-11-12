@@ -41,7 +41,8 @@ namespace Puntos_de_reciclaje
             }
             catch (Exception ex)
             {
-                lblNombreEmpresa.Text = "Error #404 " + ex.Message;
+                lblError.Text = "Error al cargar los puntos: " + ex.Message;
+                lblError.Visible = true;
             }
         }
 
@@ -67,7 +68,7 @@ namespace Puntos_de_reciclaje
                 }
                 catch (Exception ex)
                 {
-                    lblNombreEmpresa.Text = "Error al eliminar el punto: " + ex.Message;
+                    lblError.Text = "Error al eliminar el punto: " + ex.Message;
                     lblError.Visible = true;
                     
 
