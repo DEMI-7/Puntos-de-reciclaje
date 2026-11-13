@@ -7,6 +7,8 @@
         <main aria-labelledby="title">
             <h2 id="title"><%: Title %>.</h2>
             <h3>Your contact page.</h3>
+            <h3>Cualquier pregunta, Consultar con el Ceo de este proyecto, Ezequiel Bernal.</h3>
+            <h3>Gracias.</h3>
             <address>
                 One Microsoft Way<br />
                 Redmond, WA 98052-6399<br />
