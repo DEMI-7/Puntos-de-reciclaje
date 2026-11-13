@@ -96,6 +96,51 @@ namespace Puntos_de_reciclaje
         protected global::System.Web.UI.WebControls.Label LblError;
 
         /// <summary>
+        /// Control tituloImagenesMat.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tituloImagenesMat;
+
+        /// <summary>
+        /// Control FuImagenesMateriales.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload FuImagenesMateriales;
+
+        /// <summary>
+        /// Control BtnSubirFoto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnSubirFoto;
+
+        /// <summary>
+        /// Control LblMensajeSubidaImagen.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblMensajeSubidaImagen;
+
+        /// <summary>
+        /// Control rptImagenes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptImagenes;
+
+        /// <summary>
         /// Control BtnGuardar.
         /// </summary>
         /// <remarks>

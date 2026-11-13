@@ -8,28 +8,34 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace Puntos_de_reciclaje
 {
     public partial class PanelAdminMateriales : System.Web.UI.Page
     {
+        List<Material> listaMateriales;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 CargarGrillaMateriales();
             }
+            LblMensajeSubidaImagen.Style["visibility"] = "hidden";
+            BtnSubirFoto.Style["visibility"] = "hidden";
+            FuImagenesMateriales.Style["visibility"] = "hidden";
+            tituloImagenesMat.Style["visibility"] = "hidden";
         }
 
         private void CargarGrillaMateriales()
         {
             MaterialNegocio negocio = new MaterialNegocio();
-            List<Material> lista = negocio.ListarConImagenes();
+            listaMateriales = negocio.ListarConImagenes();
 
-            GrillaMateriales.DataSource = lista;
+            GrillaMateriales.DataSource = listaMateriales;
             GrillaMateriales.DataBind();
 
-            LblCantidadMateriales.Text = lista.Count.ToString();
+            LblCantidadMateriales.Text = listaMateriales.Count.ToString();
         }
 
         protected void GrillaMateriales_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -57,6 +63,15 @@ namespace Puntos_de_reciclaje
                     LblTituloFormulario.Text = "Modificar material";
                     ImgLogo.ImageUrl = material.UrlLogo;
                     HfUrlLogo.Value = material.UrlLogo;
+
+                    rptImagenes.DataSource = material.ListaUrlImagenes;
+                    rptImagenes.DataBind();
+
+                    BtnSubirFoto.Style["visibility"] = "visible";
+                    FuImagenesMateriales.Style["visibility"] = "visible";
+                    tituloImagenesMat.Style["visibility"] = "visible";
+
+
                 }
             }
             else if (e.CommandName == "Eliminar")
@@ -131,6 +146,12 @@ namespace Puntos_de_reciclaje
             TxtInfo.Text = "";
             LblTituloFormulario.Text = "Nuevo material";
             LblError.Visible = false;
+            tituloImagenesMat.Style["visibility"] = "hidden";
+            LblMensajeSubidaImagen.Style["visibility"] = "hidden";
+            FuImagenesMateriales.Style["visibility"] = "hidden";
+            BtnSubirFoto.Style["visibility"] = "hidden";
+            rptImagenes.DataSource = null;
+            rptImagenes.DataBind();
         }
 
         protected void BtnVolver_Click(object sender, EventArgs e)
@@ -184,6 +205,88 @@ namespace Puntos_de_reciclaje
             }
         }
 
-        
+        protected void BtnSubirFoto_Click(object sender, EventArgs e)
+        {
+            // si el upload file esta vacio directamente no ejecuta ninguna logica referida a los archivos de imagenes
+            if (!FuImagenesMateriales.HasFile || string.IsNullOrEmpty(HfIdMaterial.Value))
+            {
+                LblMensajeSubidaImagen.Text = "Primero seleccione un archivo";
+                LblMensajeSubidaImagen.Style["visibility"] = "visible";
+                LblMensajeSubidaImagen.ForeColor = Color.Red;
+                return;
+            }
+
+            try
+            {
+                ImagenMaterial imagen = new ImagenMaterial();
+                imagen.ID_Material = Convert.ToInt64(HfIdMaterial.Value);
+                imagen.URL_Imagen = "";
+
+                string carpetaDestino = Server.MapPath("~/ImagenesMateriales/");
+
+                if (!System.IO.Directory.Exists(carpetaDestino))
+                {
+                    System.IO.Directory.CreateDirectory(carpetaDestino);
+                }
+
+                
+                string nombreArchivo = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(FuImagenesMateriales.FileName);
+                string rutaFisica = carpetaDestino + nombreArchivo;
+
+                FuImagenesMateriales.SaveAs(rutaFisica);
+
+                imagen.URL_Imagen = "ImagenesMateriales/" + nombreArchivo;
+
+                ImagenMaterialNegocio negocio = new ImagenMaterialNegocio();
+                negocio.SubirImagenPaginaMaterial(imagen);
+                LblMensajeSubidaImagen.Text = "Imagen subida correctamente";
+                LblMensajeSubidaImagen.Style["visibility"] = "visible";
+                LblMensajeSubidaImagen.ForeColor = Color.Green;
+                BtnSubirFoto.Style["visibility"] = "visible";
+                tituloImagenesMat.Style["visibility"] = "visible";
+
+                CargarGrillaMateriales();
+                Material material = listaMateriales.FirstOrDefault(m => m.IdMaterial == Convert.ToInt64(HfIdMaterial.Value));
+                rptImagenes.DataSource = material.ListaUrlImagenes;
+                rptImagenes.DataBind();
+
+            }
+            catch (Exception)
+            {
+                LblError.Text = "Error al subir la imagen";
+                LblError.Visible = true;
+                return;
+            }
+            finally
+            {
+                FuImagenesMateriales.Attributes.Clear();
+            }
+        }
+
+        protected void rptImagenes_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            // Verificamos si el comando ejecutado es el de eliminar
+            if (e.CommandName == "EliminarImg")
+            {
+                ImagenMaterialNegocio negocio = new ImagenMaterialNegocio();
+                // Capturar el id en el comand argument
+                int idFoto = Convert.ToInt32(e.CommandArgument);
+                // borrado logico
+                negocio.BorradoLogicoImagenMaterial(idFoto);
+
+                // recargar repetear
+                CargarGrillaMateriales();
+                Material material = listaMateriales.FirstOrDefault(m => m.IdMaterial == Convert.ToInt64(HfIdMaterial.Value));
+                rptImagenes.DataSource = material.ListaUrlImagenes;
+                rptImagenes.DataBind();
+
+                LblMensajeSubidaImagen.Text = "Imagen eliminada correctamente";
+                LblMensajeSubidaImagen.Style["visibility"] = "visible";
+                LblMensajeSubidaImagen.ForeColor = Color.DarkRed;
+                BtnSubirFoto.Style["visibility"] = "visible";
+                FuImagenesMateriales.Style["visibility"] = "visible";
+                tituloImagenesMat.Style["visibility"] = "visible";
+            }
+        }
     }
 }
