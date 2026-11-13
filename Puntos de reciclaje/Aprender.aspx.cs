@@ -14,20 +14,11 @@ namespace Puntos_de_reciclaje
         List<Material> listaMateriales;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["MaterialesSesion"] != null)
-            {
-                listaMateriales = (List<Material>)Session["MaterialesSesion"];
-            }
-            else
-            {
-                // Si no está, la buscamos en la DB y la guardamos en la Sesión
-                MaterialNegocio negocio = new MaterialNegocio();
-                listaMateriales = negocio.ListarConImagenes();
-                Session["MaterialesSesion"] = listaMateriales;
-            }
-
             if (!IsPostBack)
             {
+                MaterialNegocio negocio = new MaterialNegocio();
+                listaMateriales = negocio.ListarConImagenes();
+
                 Repetidor.DataSource = listaMateriales;
                 Repetidor.DataBind();
 
@@ -36,21 +27,21 @@ namespace Puntos_de_reciclaje
                     Material primerMaterial = listaMateriales[0];
                     Session["IdMaterialSeleccionado"] = primerMaterial.IdMaterial;
                 }
-            }
 
-            // Si hay algo guardado en la sesión al recargar, mostramos su info
-            if (Session["IdMaterialSeleccionado"] != null)
-            {
-                long idMaterial = Convert.ToInt64(Session["IdMaterialSeleccionado"]);
-
-                Material mat = listaMateriales.FirstOrDefault(m => m.IdMaterial == idMaterial);
-
-                if (mat != null)
+                // Si hay algo guardado en la sesión al recargar, mostramos su info
+                if (Session["IdMaterialSeleccionado"] != null)
                 {
-                    txtTitulo.Text = mat.Nombre;
-                    txtInfo.Text = mat.Info;
-                    RepetidorImgMateriales.DataSource = mat.ListaUrlImagenes;
-                    RepetidorImgMateriales.DataBind();
+                    long idMaterial = Convert.ToInt64(Session["IdMaterialSeleccionado"]);
+
+                    Material mat = listaMateriales.FirstOrDefault(m => m.IdMaterial == idMaterial);
+
+                    if (mat != null)
+                    {
+                        txtTitulo.Text = mat.Nombre;
+                        txtInfo.Text = mat.Info;
+                        RepetidorImgMateriales.DataSource = mat.ListaUrlImagenes;
+                        RepetidorImgMateriales.DataBind();
+                    }
                 }
             }
         }
