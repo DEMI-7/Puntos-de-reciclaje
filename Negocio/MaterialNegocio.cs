@@ -53,7 +53,7 @@ namespace Negocio
 
             try
             {
-                conexion.SetearConsulta("SELECT ID_Material, Nombre, Info, UrlLogo FROM Materiales Where Activo = 1");
+                conexion.SetearConsulta("SELECT ID_Material, Nombre, Info FROM Materiales");
                 conexion.EjecutarLectura();
 
                 while (conexion.Lector.Read())

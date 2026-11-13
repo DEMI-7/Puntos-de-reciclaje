@@ -49,6 +49,34 @@
                 <p><b>Materiales:</b> <span id="LblMateriales">-</span></p>
             </div>
 
+
+            <hr />
+                <h5 class="fw-bold">Reseñas</h5>
+                
+                <!-- Contenedor donde se cargaran las reseñas con Js  -->
+                <div id="lista-resenas" style="max-height: 200px; overflow-y: auto;" class="mb-3">
+                   
+                </div>
+
+                <!--  -->
+                <div class="card bg-light p-2 mb-3">
+                    <label class="form-label fw-bold small">Dejá tu reseña:</label>
+                    <div class="mb-2">
+                        <select id="selectPuntaje" class="form-select form-select-sm">
+                            <option value="5">⭐⭐⭐⭐⭐ (Buenardopolis)</option>
+                            <option value="4">⭐⭐⭐⭐ (Muy bueno)</option>
+                            <option value="3">⭐⭐⭐ (Bueno)</option>
+                            <option value="2">⭐⭐ (Regular)</option>
+                            <option value="1">⭐ (Malardo)</option>
+                        </select>
+                    </div>
+                    <textarea id="txtComentario" class="form-control form-control-sm mb-2" rows="2" placeholder="¿Qué te pareció este punto?"></textarea>
+                    <button type="button" class="btn btn-success btn-sm w-100" onclick="EnviarResena()">Enviar Reseña</button>
+                </div>
+
+
+
+
             <!-- el div tiene el mapa y despues cargamos los scripts-->
             <div id="mapa"></div>
             <script src="Libreria/leaflet/leaflet-src.js"></script>
