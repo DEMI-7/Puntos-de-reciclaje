@@ -11,7 +11,7 @@ namespace Puntos_de_reciclaje
 {
 
 
-    public partial class PanelAdminBajas
+    public partial class PanelAdminUsuariosBajas
     {
 
         /// <summary>
@@ -58,51 +58,6 @@ namespace Puntos_de_reciclaje
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblSinResultados;
-
-        /// <summary>
-        /// Control LblCantidadEmpresasRechazadas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblCantidadEmpresasRechazadas;
-
-        /// <summary>
-        /// Control TxtBuscarEmpresas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtBuscarEmpresas;
-
-        /// <summary>
-        /// Control BtnBuscarEmpresas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnBuscarEmpresas;
-
-        /// <summary>
-        /// Control GrillaEmpresasRechazadas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GrillaEmpresasRechazadas;
-
-        /// <summary>
-        /// Control LblSinResultadosEmpresasRechazadas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblSinResultadosEmpresasRechazadas;
 
         /// <summary>
         /// Control BtnVolver.

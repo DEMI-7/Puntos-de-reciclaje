@@ -9,7 +9,7 @@ using Negocio;
 
 namespace Puntos_de_reciclaje
 {
-    public partial class PanelAdmintrador : System.Web.UI.Page
+    public partial class PanelAdminUsuariosActivos : System.Web.UI.Page
     {
         List<Usuario> usuariosActivos;
         List<Usuario> usuariosEmpresasPendientes;
@@ -18,42 +18,9 @@ namespace Puntos_de_reciclaje
             if (!IsPostBack)
             {
                 CargarGrillaUsuariosActivos("");
-                CargarGrillaEmpresasPendientes("");
             }
 
         }
-
-        // Falta gestionar los try catch
-        private void CargarGrillaEmpresasPendientes(string filtro)
-        {
-            UsuarioNegocio negocio = new UsuarioNegocio();
-            usuariosEmpresasPendientes = negocio.ListarEmpresasPendientes();
-
-            if (!string.IsNullOrEmpty(filtro))
-            {
-                usuariosEmpresasPendientes = usuariosEmpresasPendientes.Where(u =>
-                (u.Nombre != null && u.Nombre.ToLower().Contains(filtro.ToLower())) ||
-                (u.Email != null && u.Email.ToLower().Contains(filtro.ToLower()))
-                ).ToList();
-            }
-
-            // controlar si la lista sale vacia
-            if (usuariosEmpresasPendientes.Count > 0)
-            {
-                GrillaEmpresasPendientes.DataSource = usuariosEmpresasPendientes;
-                GrillaEmpresasPendientes.DataBind();
-                GrillaEmpresasPendientes.Visible = true;
-                LblSinResultadosEmpresasPendientes.Visible = false;
-            }
-            else
-            {
-                GrillaEmpresasPendientes.Visible = false;
-                LblSinResultadosEmpresasPendientes.Visible = true;
-            }
-
-            LblCantidadEmpresasPendientes.Text = usuariosEmpresasPendientes.Count.ToString();
-        }
-
         // Falta gestionar los try catch
         private void CargarGrillaUsuariosActivos(string filtro)
         {
@@ -191,45 +158,17 @@ namespace Puntos_de_reciclaje
             PnlEditarUsuario.Visible = false;
         }
 
-        protected void GrillaEmpresasPendientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            // cambiar indice de pagina
-            GrillaEmpresasPendientes.PageIndex = e.NewPageIndex;
-            CargarGrillaEmpresasPendientes(TxtBuscarEmpresas.Text.Trim());
-        }
-
-        protected void BtnBuscarEmpresas_Click(object sender, EventArgs e)
-        {
-            // Volvemos a cargar la grilla pero pasandole el contenido del textbox
-            CargarGrillaEmpresasPendientes(TxtBuscarEmpresas.Text.Trim());
-            GrillaEmpresasPendientes.PageIndex = 0;
-        }
-        protected void GrillaEmpresasPendientes_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            UsuarioNegocio negocio = new UsuarioNegocio();
-
-            if (e.CommandName == "Aceptar")
-            {
-                long idUsuario = Convert.ToInt64(e.CommandArgument);
-                negocio.AprobarEmpresa(idUsuario);
-            }
-            else if (e.CommandName == "Rechazar")
-            {
-                long idUsuario = Convert.ToInt64(e.CommandArgument);
-                negocio.RechazarEmpresa(idUsuario);
-            }
-            //recarga de grillas, sale de pendiente y se mueve a activos
-            CargarGrillaEmpresasPendientes(TxtBuscarEmpresas.Text.Trim());
-            CargarGrillaUsuariosActivos(TxtBuscar.Text.Trim());
-        }
+        
 
         protected void BtnVerBajas_Click(object sender, EventArgs e)
         {
-            Response.Redirect("PanelAdminBajas.aspx", false);
+            Response.Redirect("PanelAdminUsuariosBajas.aspx", false);
         }
-        protected void BtnMateriales_Click(object sender, EventArgs e)
+
+        protected void BtnVolver_Click(object sender, EventArgs e)
         {
-            Response.Redirect("PanelAdminMateriales.aspx", false);
+            Response.Redirect("PanelAdminCentral.aspx", false);
+
         }
     }
 }

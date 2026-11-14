@@ -16,17 +16,17 @@ namespace Puntos_de_reciclaje.PaginasAdmin
 
         protected void BtnUsuariosActivos_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("PanelAdminUsuariosActivos.aspx", false);
         }
 
         protected void BtnEmpresasPendientes_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("PanelAdminEmpresasPendientes.aspx", false);
         }
 
         protected void BtnAdministrarMateriales_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("PanelAdminMateriales.aspx", false);
         }
     }
 }

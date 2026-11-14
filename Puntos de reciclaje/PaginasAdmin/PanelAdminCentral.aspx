@@ -13,7 +13,7 @@
                         <img src="../ImagenesSistema/usuarios%20logo.png" class="card-img-top imagen-centrada" />
                     </div>
                     <div class="card-body text-center d-flex flex-column justify-content-between">
-                        <asp:Button ID="BtnUsuariosActivos" runat="server" CssClass="btn btn-success" Text="Usuarios activos" OnClick="BtnUsuariosActivos_Click" />
+                        <asp:Button ID="BtnUsuariosActivos" runat="server" CssClass="btn btn-success" Text="Administrar usuarios" OnClick="BtnUsuariosActivos_Click" />
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                         <img src="../ImagenesSistema/empresas.png" class="card-img-top imagen-centrada" />
                     </div>
                     <div class="card-body text-center d-flex flex-column justify-content-between">
-                        <asp:Button ID="BtnEmpresasPendientes" runat="server" CssClass="btn btn-success" Text="Pendiente aprobación" OnClick="BtnEmpresasPendientes_Click" />
+                        <asp:Button ID="BtnEmpresasPendientes" runat="server" CssClass="btn btn-success" Text="Administrar empresas" OnClick="BtnEmpresasPendientes_Click" />
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                         <img src="../ImagenesSistema/materialesAdmin.png" class="card-img-top imagen-centrada" />
                     </div>
                     <div class="card-body text-center d-flex flex-column justify-content-between">
-                        <asp:Button ID="BtnAdministrarMateriales" runat="server" CssClass="btn btn-success" Text="Administrar Materiales" OnClick="BtnAdministrarMateriales_Click" />
+                        <asp:Button ID="BtnAdministrarMateriales" runat="server" CssClass="btn btn-success" Text="Administrar materiales" OnClick="BtnAdministrarMateriales_Click" />
                     </div>
                 </div>
             </div>

@@ -11,7 +11,7 @@ namespace Puntos_de_reciclaje
 {
 
 
-    public partial class PanelAdmintrador
+    public partial class PanelAdminUsuariosActivos
     {
 
         /// <summary>
@@ -132,49 +132,13 @@ namespace Puntos_de_reciclaje
         protected global::System.Web.UI.WebControls.Label LblSinResultados;
 
         /// <summary>
-        /// Control LblCantidadEmpresasPendientes.
+        /// Control BtnVolver.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblCantidadEmpresasPendientes;
-
-        /// <summary>
-        /// Control TxtBuscarEmpresas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtBuscarEmpresas;
-
-        /// <summary>
-        /// Control BtnBuscarEmpresas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnBuscarEmpresas;
-
-        /// <summary>
-        /// Control GrillaEmpresasPendientes.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GrillaEmpresasPendientes;
-
-        /// <summary>
-        /// Control LblSinResultadosEmpresasPendientes.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblSinResultadosEmpresasPendientes;
+        protected global::System.Web.UI.WebControls.Button BtnVolver;
 
         /// <summary>
         /// Control BtnVerBajas.
@@ -184,14 +148,5 @@ namespace Puntos_de_reciclaje
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnVerBajas;
-
-        /// <summary>
-        /// Control BtnMateriales.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnMateriales;
     }
 }

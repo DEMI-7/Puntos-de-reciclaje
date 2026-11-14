@@ -156,7 +156,7 @@ namespace Puntos_de_reciclaje
 
         protected void BtnVolver_Click(object sender, EventArgs e)
         {
-            Response.Redirect("PanelAdministrador.aspx", false);
+            Response.Redirect("PanelAdminCentral.aspx", false);
         }
 
 
