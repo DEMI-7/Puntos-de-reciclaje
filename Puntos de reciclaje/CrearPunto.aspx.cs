@@ -13,11 +13,14 @@ namespace Puntos_de_reciclaje
 {
     public partial class CrearPunto : System.Web.UI.Page
     {
+        //carga primero el nombre de los dias
+        private string[] nombresDias = { "lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo" };
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                CargarMateriales();
+               CargarDesplegablesHorario();
 
                 if (Request.QueryString["id"] != null)
                 {
@@ -42,7 +45,7 @@ namespace Puntos_de_reciclaje
                 if (punto != null)
                 {
                     txtDireccion.Text = punto.Direccion;
-                    txtHorario.Text = punto.Horario;
+                    //txtHorario.Text = punto.Horario;
                     // marcamos los materiales que ya tiene el punto
                     foreach (ListItem xx in cblMateriales.Items)
                     {
@@ -109,6 +112,40 @@ namespace Puntos_de_reciclaje
             }
             
         }
+
+        private void CargarDesplegablesHorario()
+        {
+            // horas de 00:00 a 23:00, las dos listas iguales
+            for (int i = 0; i <= 23; i++)
+            {
+                string hora = i.ToString("00") + ":00";
+                ddlHoraDesde.Items.Add(hora);
+                ddlHoraHasta.Items.Add(hora);
+            }
+
+            // horario por defecto
+            ddlHoraDesde.SelectedValue = "09:00";
+            ddlHoraHasta.SelectedValue = "18:00";
+        }
+
+        private string ArmarTextoDias(List<int> dias)
+        {
+            string texto;
+
+            if (dias.Count == 7)
+            {
+                texto = "todos los días";
+            }
+            else
+            {
+                // dias sueltos: "lunes, miércoles, viernes"
+                texto = string.Join(", ", dias.Select(d => nombresDias[d]));
+            }
+
+            // primera letra en mayuscula
+            return char.ToUpper(texto[0]) + texto.Substring(1);
+        }
+
         protected void BtnGuardar_Click(object sender, EventArgs e)
         {
             lblError.Visible = false;
@@ -122,6 +159,17 @@ namespace Puntos_de_reciclaje
                 lblError.Visible = true;
                 return;
             }
+            //lista de dias tildados
+            List<int> diasSeleccionados = new List<int>();
+            foreach (ListItem dia in cblDias.Items)
+            {
+                if (dia.Selected)
+                {
+                    diasSeleccionados.Add(Convert.ToInt32(dia.Value));
+                }
+            }
+            //texto de horario
+            string horario = ArmarTextoDias(diasSeleccionados) + " de " + ddlHoraDesde.SelectedValue + " a " + ddlHoraHasta.SelectedValue;
 
             // TRY GENERAL
             try
@@ -129,7 +177,7 @@ namespace Puntos_de_reciclaje
                 // 1. Crear objeto
                 PuntoReciclaje nuevoPunto = new PuntoReciclaje();
                 nuevoPunto.IdUsuarioCreador = Convert.ToInt64(Session["IdEmpresa"] ?? 1);
-                nuevoPunto.Horario = txtHorario.Text;
+                nuevoPunto.Horario = horario;
                 nuevoPunto.Direccion = txtDireccion.Text;
 
                 System.Globalization.CultureInfo cultura = System.Globalization.CultureInfo.InvariantCulture;
