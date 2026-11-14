@@ -6,7 +6,7 @@
     </style>
 
     <div class="container body-content mt-4">
-        <h2>Publicar Nuevo Punto de Reciclaje</h2>
+        <h2><asp:Label ID="lblTitulo" runat="server" Text="Publicar nuevo punto de reciclaje"></asp:Label></h2>
         <hr />
 
         <div class="row">
@@ -77,7 +77,7 @@
                         <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-bold d-block mb-2" Visible="false"></asp:Label>
 
                         <!-- Boton Guardar -->
-                        <asp:Button ID="btnGuardar" runat="server" Text="Guardar Punto" CssClass="btn btn-success btn-lg w-100" OnClick="BtnGuardar_Click" />
+                        <asp:Button ID="btnGuardar" runat="server" Text="Guardar Punto" CssClass="btn btn-success btn-lg w-50" OnClick="BtnGuardar_Click" />
                     </ContentTemplate>
                     <Triggers>
                       
@@ -86,7 +86,7 @@
                 </asp:UpdatePanel>
                 
                 <!-- Botón Cancelar (Afuera del UpdatePanel) -->
-                <a href="PanelEmpresa.aspx" class="btn btn-link w-100 mt-2">Cancelar</a>
+                <a href="PanelEmpresa.aspx" class="btn btn-danger btn-lg w-50 mt-2">Cancelar</a>
             </div>
      
             <div class="col-md-7">

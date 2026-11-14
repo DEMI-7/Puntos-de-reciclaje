@@ -26,7 +26,8 @@ namespace Puntos_de_reciclaje
                 {
                     long idPunto = Convert.ToInt64(Request.QueryString["id"]);
                     Cargardatosparaeditar(idPunto);
-                    btnGuardar.Text = "Actualizar Punto de Reciclaje";
+                    btnGuardar.Text = "Actualizar Punto";
+                    lblTitulo.Text = "Edicion de punto de reciclaje";
 
                 }
             }
