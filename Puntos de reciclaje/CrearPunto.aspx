@@ -18,8 +18,26 @@
                 </div>
 
                 <div class="mb-3">
+                    <label class="form-label">Días de atención:</label>
+                    <asp:CheckBoxList ID="cblDias" runat="server" RepeatDirection="Horizontal" CellPadding="4">
+                        <asp:ListItem Value="0" Selected="True">Lun</asp:ListItem>
+                        <asp:ListItem Value="1" Selected="True">Mar</asp:ListItem>
+                        <asp:ListItem Value="2" Selected="True">Mie</asp:ListItem>
+                        <asp:ListItem Value="3" Selected="True">Jue</asp:ListItem>
+                        <asp:ListItem Value="4" Selected="True">Vie</asp:ListItem>
+                        <asp:ListItem Value="5">Sab</asp:ListItem>
+                        <asp:ListItem Value="6">Dom</asp:ListItem>
+                    </asp:CheckBoxList>
+                </div>
+
+                <div class="mb-3">
                     <label class="form-label">Horario:</label>
-                    <asp:TextBox ID="txtHorario" runat="server" CssClass="form-control" placeholder="Ej: Lun a Vie 8-17hs"></asp:TextBox>
+                    <!-- <asp:TextBox ID="txtHorario" runat="server" CssClass="form-control" placeholder="Ej: Lun a Vie 8-17hs"></asp:TextBox> -->
+                    <div class="d-flex align-items-center gap-2">
+                        <span>De</span>
+                        <asp:DropDownList ID="ddlHoraDesde" runat="server" CssClass="form-select w-auto"></asp:DropDownList>
+                        <span>a</span>
+                        <asp:DropDownList ID="ddlHoraHasta" runat="server" CssClass="form-select w-auto"></asp:DropDownList>
                 </div>
 
                 <div class="mb-3">
