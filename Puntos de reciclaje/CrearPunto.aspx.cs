@@ -46,6 +46,7 @@ namespace Puntos_de_reciclaje
                 {
                     txtDireccion.Text = punto.Direccion;
                     //txtHorario.Text = punto.Horario;
+                    CargarHorario(punto.Horario);
                     // marcamos los materiales que ya tiene el punto
                     foreach (ListItem xx in cblMateriales.Items)
                     {
@@ -146,6 +147,39 @@ namespace Puntos_de_reciclaje
             return char.ToUpper(texto[0]) + texto.Substring(1);
         }
 
+        private void CargarHorario(string horario)
+        {
+            // sacamos los tildes por defecto de lunes a viernes
+            foreach (ListItem dia in cblDias.Items)
+            {
+                dia.Selected = false;
+            }
+
+            try
+            {
+                // separacion de los dias y de las horas
+                int posicion = horario.LastIndexOf(" de ");
+                string textoDias = horario.Substring(0, posicion).ToLower();
+                string[] horas = horario.Substring(posicion + 4).Split(new string[] { " a " }, StringSplitOptions.None);
+
+                // horas
+                ddlHoraDesde.SelectedValue = horas[0];
+                ddlHoraHasta.SelectedValue = horas[1];
+
+                //tildamos los dias que aparecen en el texto o todos
+                for (int i = 0; i < 7; i++)
+                {
+                    if (textoDias == "todos los días" || textoDias.Contains(nombresDias[i]))
+                    {
+                        cblDias.Items[i].Selected = true;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         protected void BtnGuardar_Click(object sender, EventArgs e)
         {
             lblError.Visible = false;
@@ -187,6 +221,8 @@ namespace Puntos_de_reciclaje
 
             //texto de horario
             string horario = ArmarTextoDias(diasSeleccionados) + " de " + ddlHoraDesde.SelectedValue + " a " + ddlHoraHasta.SelectedValue;
+
+
 
             // TRY GENERAL
             try

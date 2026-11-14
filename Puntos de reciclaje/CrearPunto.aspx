@@ -39,7 +39,7 @@
                         <span>a</span>
                         <asp:DropDownList ID="ddlHoraHasta" runat="server" CssClass="form-select w-auto"></asp:DropDownList>
                 </div>
-
+                    </div>
                 <div class="mb-3">
                     <label class="form-label">Foto del lugar (Opcional):</label>
                     <asp:FileUpload ID="fuImagen" runat="server" CssClass="form-control" />
