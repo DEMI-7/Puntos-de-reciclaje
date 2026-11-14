@@ -121,6 +121,7 @@
     <Content Include="Estilos\EstiloGrillas.css" />
     <Content Include="Estilos\EstiloMapa.css" />
     <Content Include="Estilos\EstiloPaginaAprender.css" />
+    <Content Include="Estilos\EstiloPanelAdminCentral.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ImagenesMateriales\Aluminio_logo.png" />
@@ -133,6 +134,10 @@
     <Content Include="ImagenesMateriales\Plástico_logo.png" />
     <Content Include="ImagenesMateriales\TetraPak_logo.png" />
     <Content Include="ImagenesMateriales\Vidrio_logo.png" />
+    <Content Include="ImagenesSistema\empresas.png" />
+    <Content Include="ImagenesSistema\materialesAdmin.png" />
+    <Content Include="ImagenesSistema\usuarios logo.png" />
+    <Content Include="ImagenesSistema\usuariosBloqueados.png" />
     <Content Include="Libreria\leaflet\images\layers-2x.png" />
     <Content Include="Libreria\leaflet\images\layers.png" />
     <Content Include="Libreria\leaflet\images\marker-icon-2x.png" />
@@ -146,6 +151,7 @@
     <Content Include="Libreria\leaflet\leaflet-src.js.map" />
     <Content Include="Libreria\leaflet\leaflet.js.map" />
     <Content Include="Login.aspx" />
+    <Content Include="PaginasAdmin\PanelAdminCentral.aspx" />
     <Content Include="PanelAdminBajas.aspx" />
     <Content Include="PanelAdministrador.aspx" />
     <Content Include="PanelAdminMateriales.aspx" />
@@ -237,6 +243,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaginasAdmin\PanelAdminCentral.aspx.cs">
+      <DependentUpon>PanelAdminCentral.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasAdmin\PanelAdminCentral.aspx.designer.cs">
+      <DependentUpon>PanelAdminCentral.aspx</DependentUpon>
     </Compile>
     <Compile Include="PanelAdminBajas.aspx.cs">
       <DependentUpon>PanelAdminBajas.aspx</DependentUpon>

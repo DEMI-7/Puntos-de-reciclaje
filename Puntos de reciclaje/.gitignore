@@ -9,3 +9,6 @@
 
 # (Opcional) Asegurarte de que los .gitkeep sigan permitidos por si acaso
 !**/.gitkeep
+
+!ImagenesSistema/
+!ImagenesSistema/**

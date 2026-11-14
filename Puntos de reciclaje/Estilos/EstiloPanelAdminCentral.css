@@ -1,0 +1,9 @@
+﻿.tarjeta {
+    width: 250px;
+}
+
+.imagen-centrada {
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
+}
