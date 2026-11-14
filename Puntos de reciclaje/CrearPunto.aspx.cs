@@ -159,6 +159,7 @@ namespace Puntos_de_reciclaje
                 lblError.Visible = true;
                 return;
             }
+
             //lista de dias tildados
             List<int> diasSeleccionados = new List<int>();
             foreach (ListItem dia in cblDias.Items)
@@ -168,6 +169,22 @@ namespace Puntos_de_reciclaje
                     diasSeleccionados.Add(Convert.ToInt32(dia.Value));
                 }
             }
+            //validacion de un dia seleccionado al menos
+            if (diasSeleccionados.Count == 0)
+            {
+                lblError.Text = "Por favor, seleccione al menos un día de atención.";
+                lblError.Visible = true;
+                return;
+            }
+
+            // validacion de horario de apertura sea antes del de cierre
+            if (ddlHoraHasta.SelectedIndex <= ddlHoraDesde.SelectedIndex)
+            {
+                lblError.Text = "La hora de cierre no puede ser antes que la hora de apertura.";
+                lblError.Visible = true;
+                return;
+            }
+
             //texto de horario
             string horario = ArmarTextoDias(diasSeleccionados) + " de " + ddlHoraDesde.SelectedValue + " a " + ddlHoraHasta.SelectedValue;
 
