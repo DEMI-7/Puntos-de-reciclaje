@@ -265,5 +265,41 @@ namespace Negocio
             }
         }
 
+        public Usuario BuscarPorEmail(string email)
+        {
+            Accesodatos conexion = new Accesodatos();
+            try
+            {
+                conexion.SetearConsulta("SELECT ID_Usuario, Nombre, Email, TipoUsuario, EstadoCuenta FROM Usuarios WHERE Email = @email");
+                conexion.agregarParametro("@email", email);
+                conexion.EjecutarLectura();
+
+                // si encontro una fila se arma el usuario
+                if (conexion.Lector.Read())
+                {
+                    Usuario aux = new Usuario();
+
+                    aux.ID_Usuario = (long)conexion.Lector["ID_Usuario"];
+                    aux.Nombre = (string)conexion.Lector["Nombre"];
+                    aux.Email = (string)conexion.Lector["Email"];
+                    aux.TipoUsuario = (string)conexion.Lector["TipoUsuario"];
+                    aux.EstadoCuenta = (string)conexion.Lector["EstadoCuenta"];
+
+                    return aux;
+                }
+
+                // si no encontro nada devuelve null
+                return null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.CerrarConexion();
+            }
+        }
+
     }
 }
