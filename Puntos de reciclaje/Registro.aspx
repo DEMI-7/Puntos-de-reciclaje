@@ -17,9 +17,8 @@
 
                 <!-- nombre -->
                 <div class="mb-3">
-                    <label class="form-label">Nombre:</label>
+                    <label class="form-label">Nombre, razon social o nombre de entidad:</label>
                     <asp:TextBox ID="TxtNombre" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
-                    <div class="form-text">Si sos una persona, tu nombre y apellido. Si sos una empresa, la razón social. Si sos un organismo, su nombre.</div>
                 </div>
 
                 <!-- email -->
@@ -45,7 +44,7 @@
 
                 <asp:Button ID="BtnRegistrarme" runat="server" Text="Registrarme" CssClass="btn btn-success" OnClick="BtnRegistrarme_Click" />
 
-                <p class="mt-3">¿Ya tenés cuenta? <a href="Login.aspx">Iniciá sesión</a></p>
+                <p class="mt-3">Ya tenes una cuenta? <a href="Login.aspx">Iniciá sesión</a></p>
             </div>
         </div>
     </div>

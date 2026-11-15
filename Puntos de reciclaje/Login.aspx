@@ -5,15 +5,16 @@
          
     <div class="row">
         <div class="col-6">
+            <h3>Iniciar sesión</h3>
             <!-- texto del mail-->
             <div class="mb-3">
-                <asp:Label ID="LblEmail" runat="server" Text="Direccion de email" for="TxtEmail" class="form-label"></asp:Label>
+                <asp:Label ID="LblEmail" runat="server" Text="Direccion de email:" for="TxtEmail" class="form-label"></asp:Label>
                 <asp:TextBox ID="TxtEmail" runat="server" class="form-control"></asp:TextBox>
             </div>
 
             <!-- texto de la contraseña-->
             <div class="mb-3">
-                <asp:Label ID="LblContraseña" runat="server" Text="Contraseña" for="TxtContraseña" class="form-label"></asp:Label>
+                <asp:Label ID="LblContraseña" runat="server" Text="Contraseña:" for="TxtContraseña" class="form-label"></asp:Label>
                 <asp:TextBox ID="TxtContraseña" runat="server" class="form-control" type="password"></asp:TextBox>
             </div>
 

@@ -15,5 +15,7 @@ namespace Puntos_de_reciclaje
         {
 
         }
-    }
+        protected void BtnRegistrarme_Click(object sender, EventArgs e)
+        { }
+        }
 }
