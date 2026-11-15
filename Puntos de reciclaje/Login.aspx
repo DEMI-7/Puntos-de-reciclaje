@@ -19,8 +19,9 @@
 
             <!-- mensaje de error -->
             <asp:Label ID="LblError" runat="server" CssClass="text-danger fw-bold d-block mb-3" Visible="false"></asp:Label>
-
+            <!-- boton ingresar -->
             <asp:Button ID="BotonLogin" runat="server" Text="Ingresar" class="btn btn-primary" OnClick="BotonLogin_click" />
+            <p class="mt-3">No tenés una cuenta? <a href="Registro.aspx">Registrate</a></p>
         </div>
     </div>
     </div>

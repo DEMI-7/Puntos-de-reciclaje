@@ -301,5 +301,23 @@ namespace Negocio
             }
         }
 
+        public void Agregar(Usuario nuevo)
+        {
+            Accesodatos conexion = new Accesodatos();
+            try
+            {
+                conexion.SetearConsulta("INSERT INTO Usuarios (Nombre, Email, Contraseña_hash, TipoUsuario, EstadoCuenta) VALUES (@nombre, @email, @contraseña, @tipoUsuario, @estadoCuenta)");
+                conexion.agregarParametro("@nombre", nuevo.Nombre);
+                conexion.agregarParametro("@email", nuevo.Email);
+                conexion.agregarParametro("@contraseña", nuevo.Contraseña);
+                conexion.agregarParametro("@tipoUsuario", nuevo.TipoUsuario);
+                conexion.agregarParametro("@estadoCuenta", nuevo.EstadoCuenta);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
