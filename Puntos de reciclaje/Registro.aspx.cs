@@ -16,6 +16,57 @@ namespace Puntos_de_reciclaje
 
         }
         protected void BtnRegistrarme_Click(object sender, EventArgs e)
-        { }
+        {
+            LblError.Visible = false;
+            LblExito.Visible = false;
+
+            string nombre = TxtNombre.Text.Trim();
+            string email = TxtEmail.Text.Trim();
+            string contraseña = TxtContraseña.Text;
+            string repetirContraseña = TxtRepetirContraseña.Text;
+
+            // validamos que no haya campos vacios
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(email) ||
+                string.IsNullOrWhiteSpace(contraseña) || string.IsNullOrWhiteSpace(repetirContraseña))
+            {
+                LblError.Text = "Por favor, complete todos los campos";
+                LblError.Visible = true;
+                return;
+            }
+            try
+            {
+                UsuarioNegocio negocio = new UsuarioNegocio();
+                // validamos que el email no este registrado
+                if (negocio.BuscarPorEmail(email) != null)
+                {
+                    LblError.Text = "Ya existe una cuenta registrada con ese correo";
+                    LblError.Visible = true;
+                    return;
+                }
+                // armamos el usuario nuevo
+                Usuario nuevo = new Usuario();
+                nuevo.Nombre = nombre;
+                nuevo.Email = email;
+                nuevo.Contraseña = contraseña;
+                nuevo.TipoUsuario = DdlTipoCuenta.SelectedValue;
+
+                //usuario basico se crea de una
+                if (nuevo.TipoUsuario == "basico")
+                {
+                    nuevo.EstadoCuenta = "aprobado";
+                    LblExito.Text = "Su cuenta fue creada exitosamente.";
+                }
+                else
+                {
+                    nuevo.EstadoCuenta = "pendiente";
+                    LblExito.Text = "Su cuenta fue creada y mandada a revisión. Será verificada por un administrador.";
+                }
+            }
+            catch (Exception ex)
+            {
+                LblError.Text = "Error al crear la cuenta: " + ex.Message;
+                LblError.Visible = true;
+            }
         }
+    }
 }
