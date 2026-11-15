@@ -43,6 +43,23 @@ namespace Puntos_de_reciclaje
                     LblError.Visible = true;
                     return;
                 }
+
+                // validamos que el email tenga arroba
+                if (!email.Contains("@"))
+                {
+                    LblError.Text = "Por favor ingrese una casilla de mail valida.";
+                    LblError.Visible = true;
+                    return;
+                }
+
+                //validacion de contraseñas iguales
+                if (contraseña != repetirContraseña)
+                {
+                    LblError.Text = "Las contraseñas no coinciden.";
+                    LblError.Visible = true;
+                    return;
+                }
+
                 // armamos el usuario nuevo
                 Usuario nuevo = new Usuario();
                 nuevo.Nombre = nombre;
@@ -61,6 +78,16 @@ namespace Puntos_de_reciclaje
                     nuevo.EstadoCuenta = "pendiente";
                     LblExito.Text = "Su cuenta fue creada y mandada a revisión. Será verificada por un administrador.";
                 }
+
+                // guardar usuario en la bd
+                negocio.Agregar(nuevo);
+
+                //limpiamos los campos
+                TxtNombre.Text = "";
+                TxtEmail.Text = "";
+                DdlTipoCuenta.SelectedIndex = 0;
+                LblExito.Visible = true;
+
             }
             catch (Exception ex)
             {
