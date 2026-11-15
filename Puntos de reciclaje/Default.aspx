@@ -58,7 +58,7 @@
                    
                 </div>
 
-                <!--  -->
+                <!-- reseniaa  -->
                 <div class="card bg-light p-2 mb-3">
                     <label class="form-label fw-bold small">Dejá tu reseña:</label>
                     <div class="mb-2">
@@ -81,11 +81,14 @@
             <div id="mapa"></div>
             <script src="Libreria/leaflet/leaflet-src.js"></script>
 
-            <!-- Script que carga los puntos -->
+  <!-- Script que carga los puntos -->
             <script>
+
+
                 // VARIABLES GLOBAL PARA MANIPULAR EL CARRUSEL DE IMAGENES
                 var imagenesPuntoActual = [];
                 var indiceImagenActual = 0;
+
 
                 // FUNCION DE CERRAR EL PANEL DE INFO
                 function CerrarPanelInfo() {
@@ -125,7 +128,54 @@
                         imagen.style.display = 'none';
                         if (contador) contador.innerText = "0 / 0";
                     }
-                }
+                  }
+                  
+      // Funcioin para dibujar las reseñas en el HTML
+                      function MostrarResenas(resenas) {
+                          var contenedor = document.getElementById('lista-resenas');
+                          contenedor.innerHTML = "";
+
+                          if (!resenas || resenas.length === 0) {
+                              contenedor.innerHTML = "<p class='text-muted small'> Agregar un incentivo para que escriba resenia primero #1</p>";
+                              return;
+                          }
+
+                          resenas.forEach(function (r) {
+                              var estrellas = "⭐".repeat(r.Puntaje);
+                              var div = document.createElement('div');
+                              div.className = "border-bottom pb-2 mb-2";
+                              div.innerHTML = `
+                        <div class="d-flex justify-content-between">
+                        <strong class="small">${r.NombreUsuario}</strong>
+                        <span class="small text-warning">${estrellas}</span>
+                        </div>
+                        <p class="m-0 small text-muted">${r.Comentario}</p> `;
+                            
+                              contenedor.appendChild(div);
+                          });
+                        }
+
+
+
+                     function EnviarResena() {
+                      var comentario = document.getElementById('txtComentario').value;
+                      var puntaje = document.getElementById('selectPuntaje').value;
+                      var idPunto = window.idPuntoSeleccionado; 
+
+    if (comentario.trim() === "") {
+        alert("Por favor, escribí un comentario.");
+        return;
+    }
+    if (!idPunto) {
+        alert("Error: No se seleccionó ningún punto.");
+        return;
+    }
+
+    // ACA CONECTAREMOS CON C
+    alert("Reseña lista para guardar. Punto ID: " + idPunto + " | Puntaje: " + puntaje);
+    document.getElementById('txtComentario').value = "";
+}
+                
 
 
                 // con add event listener espera a que termine de cargar la pagina para comenzar a dibujar los puntos
@@ -172,6 +222,10 @@
                             panel.style.display = 'block';
 
                             var imagen = document.getElementById('ImgPunto');
+                            window.idPuntoSeleccionado = punto.IdPunto;
+
+                            MostrarResenas(punto.Resenas || []);
+
 
                             // guardo las imagenes de este punto en las variables globales
                             imagenesPuntoActual = punto.ListaUrlImagenes || [];
@@ -182,6 +236,7 @@
                             document.getElementById('LblDireccion').innerText = punto.Direccion;
                             document.getElementById('LblHorario').innerText = punto.Horario;
                             document.getElementById('LblMateriales').innerText = materialesTexto;
+
 
                         })
 
@@ -240,8 +295,16 @@
                         }
                     });
 
+                   
+
+     
+
+
 
                 });
+
+
+
             </script>
 
 
