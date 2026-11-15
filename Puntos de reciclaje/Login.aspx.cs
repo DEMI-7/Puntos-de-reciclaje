@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,17 +18,53 @@ namespace Puntos_de_reciclaje
         
         protected void BotonLogin_click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TxtEmail.Text) || string.IsNullOrWhiteSpace(TxtContraseña.Text))
+            LblError.Visible = false;
+
+            string email = TxtEmail.Text.Trim();
+
+            // validamos que haya escrito un email
+            if (string.IsNullOrWhiteSpace(email))
             {
-                return; 
+                LblError.Text = "Por favor, ingresá tu correo electrónico.";
+                LblError.Visible = true;
+                return;
             }
+            // buscamos el usuario en la base (por ahora sin verificar la contraseña)
+            try
+            {
+                UsuarioNegocio negocio = new UsuarioNegocio();
+                Usuario usuario = negocio.BuscarPorEmail(email);
 
-            //soimulacion de login , sin base de datos; 
-            Session["IdEmpresa"] = 1;
-            Session["NombreEmpresa"] = "EcoRecicla S.A. (emp prueba )";
+                if (usuario == null)
+                {
+                    LblError.Text = "No existe ese usuario.";
+                    LblError.Visible = true;
+                    return;
+                }
 
-            // lo mandamos al panel de la empresa
-            Response.Redirect("PanelEmpresa.aspx");
+                // guardamos en la sesion el usuario que entro
+                Session["IdEmpresa"] = usuario.ID_Usuario;
+                Session["NombreEmpresa"] = usuario.Nombre;
+
+                // lo mandamos a su pagina segun el tipo de usuario
+                if (usuario.TipoUsuario == "admin")
+                {
+                    Response.Redirect("~/PaginasAdmin/PanelAdminCentral.aspx", false);
+                }
+                else if (usuario.TipoUsuario == "empresa" || usuario.TipoUsuario == "gubernamental")
+                {
+                    Response.Redirect("PanelEmpresa.aspx", false);
+                }
+                else
+                {
+                    Response.Redirect("Default.aspx", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                LblError.Text = "Error al ingresar: " + ex.Message;
+                LblError.Visible = true;
+            }
         }
     }
 }

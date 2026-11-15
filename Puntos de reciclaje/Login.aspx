@@ -17,6 +17,9 @@
                 <asp:TextBox ID="TxtContraseña" runat="server" class="form-control" type="password"></asp:TextBox>
             </div>
 
+            <!-- mensaje de error -->
+            <asp:Label ID="LblError" runat="server" CssClass="text-danger fw-bold d-block mb-3" Visible="false"></asp:Label>
+
             <asp:Button ID="BotonLogin" runat="server" Text="Ingresar" class="btn btn-primary" OnClick="BotonLogin_click" />
         </div>
     </div>
