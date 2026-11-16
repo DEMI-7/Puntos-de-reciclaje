@@ -12,7 +12,9 @@ namespace Dominio
         public string Nombre { get; set; }
         public string Email { get; set; }
         public string Contraseña { get; set; }
+        // TipoUsuario: admin, empresa, gubernamental, basico
         public string TipoUsuario { get; set; }
+        // EstadoCuenta: aprobado, pendiente, rechazado
         public string EstadoCuenta { get; set; }
         public bool Activo { get; set; }
     }
