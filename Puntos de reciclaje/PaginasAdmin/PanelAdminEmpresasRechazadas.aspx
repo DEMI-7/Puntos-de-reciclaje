@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PanelAdminEmpresasRechazadas.aspx.cs" Inherits="Puntos_de_reciclaje.PaginasAdmin.PanelAdminEmpresasRechazadas" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+    <asp:HiddenField ID="HfDetalleRegistro" runat="server" />
+    
     <div class="container body-content mt-4">
     <h3>Empresas rechazadas</h3>
 
@@ -44,7 +46,9 @@
             <%-- Columna de Botones de Acción para dar de baja una cuenta --%>
             <asp:TemplateField HeaderText="Acciones">
                 <ItemTemplate>
-                    <asp:Button ID="BtnSetearPendiente" runat="server" Text="Mandar a pendientes" CssClass="btn btn-warning btn-sm" CommandName="Pendiente" CommandArgument='<%# Eval("ID_Usuario") %>' />
+                    <asp:Button ID="BtnSetearPendiente" runat="server" Text="Mandar a pendientes" CssClass="btn btn-warning btn-sm"
+                        CommandName="Pendiente" CommandArgument='<%# Eval("ID_Usuario") %>'
+                        OnClientClick="return pedirDetalle();" />
 
                 </ItemTemplate>
             </asp:TemplateField>
@@ -64,5 +68,32 @@
 
     <hr />
 </div>
+
+
+    <script>
+        function pedirDetalle() {
+            let detalle = prompt("Estas por mandar a pendiente esta cuenta, ingresa algun detalle extra:");
+
+            // caso de que toque cancelar
+            if (detalle === null) {
+                return false;
+            }
+
+            detalle = detalle.trim();
+            // si deja el campo vacio
+            if (detalle === "") {
+                alert("Es obligatorio dejar un comentario.")
+                return false;
+            }
+            if (detalle.length > 300) {
+                alert("No puede superar los 300 caracteres.")
+                return false;
+            }
+
+            // todo validado continuamos
+            document.getElementById('<%= HfDetalleRegistro.ClientID %>').value = detalle;
+            return true;
+        }
+    </script>
 
 </asp:Content>

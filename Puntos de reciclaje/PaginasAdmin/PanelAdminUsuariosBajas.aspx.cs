@@ -79,15 +79,28 @@ namespace Puntos_de_reciclaje
         {
             UsuarioNegocio negocio = new UsuarioNegocio();
 
+            RegistroAccion registroNuevo = new RegistroAccion();
+
+            // ES NECESARIO OBTENER EL ID DESDE LA SESSION
+            registroNuevo.Admin.ID_Usuario = 1; // Esta HARCODEADO
+            registroNuevo.Detalle = HfDetalleRegistro.Value.Trim();
+
+
             if (e.CommandName == "Activar")
             {
                 long idUsuario = Convert.ToInt64(e.CommandArgument);
-                negocio.ActivarUsuario(idUsuario);
+                registroNuevo.UsuarioAfectado.ID_Usuario = idUsuario;
+                registroNuevo.EstadoAnterior = "INACTIVO";
+                registroNuevo.EstadoNuevo = "ACTIVO";
+                negocio.ActivarUsuario(registroNuevo);
             }
             else if (e.CommandName == "Pendiente")
             {
                 long idUsuario = Convert.ToInt64(e.CommandArgument);
-                negocio.MandarAPendiente(idUsuario);
+                registroNuevo.UsuarioAfectado.ID_Usuario = idUsuario;
+                registroNuevo.EstadoAnterior = "INACTIVO";
+                registroNuevo.EstadoNuevo = "pendiente";
+                negocio.MandarAPendiente(registroNuevo);
             }
 
             // Recargamos la grilla: el usuario sale de desactivados

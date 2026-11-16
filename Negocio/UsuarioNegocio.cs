@@ -160,41 +160,56 @@ namespace Negocio
             return lista;
         }
 
-        public void AprobarEmpresa(long idUsuario)
+        public bool AprobarEmpresa(RegistroAccion registro)
         {
             Accesodatos conexion = new Accesodatos();
             try
             {
                 conexion.SetearConsulta("UPDATE Usuarios SET EstadoCuenta = 'aprobado' WHERE ID_Usuario = @idUsuario");
-                conexion.agregarParametro("@idUsuario", idUsuario);
+                conexion.agregarParametro("@idUsuario", registro.UsuarioAfectado.ID_Usuario);
                 conexion.ejecutarAccion();
+
+
+                RegistroAccionNegocio negocio = new RegistroAccionNegocio();
+                negocio.RegistrarMovimiento(registro);
+
+
+                return true;
             }
             catch (Exception)
             {
                 throw;
             }
         }
-        public void RechazarEmpresa(long idUsuario)
+        public void RechazarEmpresa(RegistroAccion registro)
         {
             Accesodatos conexion = new Accesodatos();
             try
             {
                 conexion.SetearConsulta("UPDATE Usuarios SET EstadoCuenta = 'rechazado' WHERE ID_Usuario = @idUsuario");
-                conexion.agregarParametro("@idUsuario", idUsuario);
+                conexion.agregarParametro("@idUsuario", registro.UsuarioAfectado.ID_Usuario);
                 conexion.ejecutarAccion();
+
+                RegistroAccionNegocio negocio = new RegistroAccionNegocio();
+                negocio.RegistrarMovimiento(registro);
             }
             catch (Exception)
             {
                 throw;
             }
         }
-        public void MandarAPendiente(long idUsuario)
+        public void MandarAPendiente(RegistroAccion registro)
         {
             Accesodatos conexion = new Accesodatos();
             try
             {
-                conexion.SetearConsulta("UPDATE Usuarios SET EstadoCuenta = 'pendiente', Activo = 1 WHERE ID_Usuario = @idUsuario"); conexion.agregarParametro("@idUsuario", idUsuario);
+                conexion.SetearConsulta("UPDATE Usuarios SET EstadoCuenta = 'pendiente', Activo = 1 WHERE ID_Usuario = @idUsuario");
+                conexion.agregarParametro("@idUsuario", registro.UsuarioAfectado.ID_Usuario);
                 conexion.ejecutarAccion();
+
+                RegistroAccionNegocio negocio = new RegistroAccionNegocio();
+                negocio.RegistrarMovimiento(registro);
+
             }
             catch (Exception)
             {
@@ -215,14 +230,18 @@ namespace Negocio
                 throw;
             }
         }
-        public void ActivarUsuario(long idUsuario)
+        public void ActivarUsuario(RegistroAccion registro)
         {
             Accesodatos conexion = new Accesodatos();
             try
             {
                 conexion.SetearConsulta("UPDATE Usuarios SET Activo = 1 WHERE ID_Usuario = @idUsuario");
-                conexion.agregarParametro("@idUsuario", idUsuario);
+                conexion.agregarParametro("@idUsuario", registro.UsuarioAfectado.ID_Usuario);
                 conexion.ejecutarAccion();
+
+                RegistroAccionNegocio negocio = new RegistroAccionNegocio();
+                negocio.RegistrarMovimiento(registro);
+
             }
             catch (Exception)
             {

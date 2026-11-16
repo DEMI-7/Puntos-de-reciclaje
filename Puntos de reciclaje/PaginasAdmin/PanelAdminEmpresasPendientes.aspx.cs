@@ -69,16 +69,28 @@ namespace Puntos_de_reciclaje.PaginasAdmin
         {
             UsuarioNegocio negocio = new UsuarioNegocio();
 
+
+            long IdEmpresaAfectada = Convert.ToInt64(e.CommandArgument);
+
+            RegistroAccion registroNuevo = new RegistroAccion();
+
+            // ES NECESARIO OBTENER EL ID DESDE LA SESSION
+            registroNuevo.Admin.ID_Usuario = 1; // Esta HARCODEADO
+            registroNuevo.UsuarioAfectado.ID_Usuario = IdEmpresaAfectada;
+            registroNuevo.EstadoAnterior = "pendiente";
+            registroNuevo.Detalle = HfDetalleRegistro.Value.Trim();
+
             if (e.CommandName == "Aceptar")
             {
-                long idUsuario = Convert.ToInt64(e.CommandArgument);
-                negocio.AprobarEmpresa(idUsuario);
+                registroNuevo.EstadoNuevo = "aprobado";
+                negocio.AprobarEmpresa(registroNuevo);
             }
             else if (e.CommandName == "Rechazar")
             {
-                long idUsuario = Convert.ToInt64(e.CommandArgument);
-                negocio.RechazarEmpresa(idUsuario);
+                registroNuevo.EstadoNuevo = "rechazado";
+                negocio.RechazarEmpresa(registroNuevo);
             }
+
             //recarga de grillas, sale de pendiente y se mueve a activos
             CargarGrillaEmpresasPendientes(TxtBuscarEmpresas.Text.Trim());
             

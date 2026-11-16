@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PanelAdminUsuariosBajas.aspx.cs" Inherits="Puntos_de_reciclaje.PanelAdminUsuariosBajas" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+    <asp:HiddenField ID="HfDetalleRegistro" runat="server" />
+
     <div class="container body-content mt-4">
         <h3>Panel de administración: Bajas</h3>
 
@@ -44,9 +46,13 @@
                 <%-- Columna de Botones de Acción para dar de baja una cuenta --%>
                 <asp:TemplateField HeaderText="Acciones">
                     <ItemTemplate>
-                        <asp:Button ID="btnActivar" runat="server" Text="Activar" CssClass="btn btn-success btn-sm" CommandName="Activar" CommandArgument='<%# Eval("ID_Usuario") %>' />
+                        <asp:Button ID="btnActivar" runat="server" Text="Activar" CssClass="btn btn-success btn-sm"
+                            CommandName="Activar" CommandArgument='<%# Eval("ID_Usuario") %>'
+                            OnClientClick="return pedirDetalle();" />
                         <%-- muestra solo el boton de pasar a pendiente si es empresa o gubernamental --%>
-                        <asp:Button ID="BtnPasarPendiente" runat="server" Text="Pasar a pendiente" CssClass="btn btn-warning btn-sm" CommandName="Pendiente" CommandArgument='<%# Eval("ID_Usuario") %>'
+                        <asp:Button ID="BtnPasarPendiente" runat="server" Text="Pasar a pendiente" CssClass="btn btn-warning btn-sm"
+                            CommandName="Pendiente" CommandArgument='<%# Eval("ID_Usuario") %>'
+                            OnClientClick="return pedirDetalle();"
                             Visible='<%# Eval("TipoUsuario").ToString() == "empresa" || Eval("TipoUsuario").ToString() == "gubernamental" %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
@@ -64,4 +70,31 @@
 
         <hr />
     </div>
+
+    <script>
+    function pedirDetalle() {
+        let detalle = prompt("Ingresa un concepto para la acción:");
+
+        // caso de que toque cancelar
+        if (detalle === null) { 
+            return false;
+        }
+
+        detalle = detalle.trim();
+        // si deja el campo vacio
+        if (detalle === "") { 
+            alert("Es obligatorio dejar un comentario.")
+            return false;
+        }
+        if (detalle.length > 300) { 
+            alert("No puede superar los 300 caracteres.")
+            return false;
+        }
+
+        // todo validado continuamos
+        document.getElementById('<%= HfDetalleRegistro.ClientID %>').value = detalle;
+        return true;
+        }
+    </script>
+
 </asp:Content>

@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PanelAdminEmpresasPendientes.aspx.cs" Inherits="Puntos_de_reciclaje.PaginasAdmin.PanelAdminEmpresasPendientes" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+    <asp:HiddenField ID="HfDetalleRegistro" runat="server" />
     <div class="container body-content mt-4">
 
 
@@ -20,6 +21,7 @@
                 <asp:Button ID="BtnBuscarEmpresas" runat="server" Text="Buscar" CssClass="btn btn-outline-primary" OnClick="BtnBuscarEmpresas_Click" />
             </div>
         </div>
+
 
         <!-- Grilla de empresas pendientes de aprobación -->
         <asp:GridView ID="GrillaEmpresasPendientes" runat="server"
@@ -43,8 +45,12 @@
                 <%-- Columna de Botones de Acción para dar de baja una cuenta --%>
                 <asp:TemplateField HeaderText="Acciones">
                     <ItemTemplate>
-                        <asp:Button ID="BtnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-success btn-sm" CommandName="Aceptar" CommandArgument='<%# Eval("ID_Usuario") %>' />
-                        <asp:Button ID="BtnRechazar" runat="server" Text="Rechazar" CssClass="btn btn-danger btn-sm" CommandName="Rechazar" CommandArgument='<%# Eval("ID_Usuario") %>' />
+                        <asp:Button ID="BtnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-success btn-sm"
+                            CommandName="Aceptar" CommandArgument='<%# Eval("ID_Usuario") %>'
+                            OnClientClick="return pedirDetalleAceptar();" />
+                        <asp:Button ID="BtnRechazar" runat="server" Text="Rechazar" CssClass="btn btn-danger btn-sm"
+                            CommandName="Rechazar" CommandArgument='<%# Eval("ID_Usuario") %>'
+                            OnClientClick="return pedirDetalleRechazar();" />
 
                     </ItemTemplate>
                 </asp:TemplateField>
@@ -62,5 +68,56 @@
         <hr />
 
     </div>
+
+    <script>
+        function pedirDetalleAceptar() {
+            let detalle = prompt("Estas por aceptar esta cuenta, ingresa algun detalle extra:");
+
+            // caso de que toque cancelar
+            if (detalle === null) { 
+                return false;
+            }
+
+            detalle = detalle.trim();
+            // si deja el campo vacio
+            if (detalle === "") { 
+                alert("Es obligatorio dejar un comentario.")
+                return false;
+            }
+            if (detalle.length > 300) { 
+                alert("No puede superar los 300 caracteres.")
+                return false;
+            }
+
+            // todo validado continuamos
+            document.getElementById('<%= HfDetalleRegistro.ClientID %>').value = detalle;
+            return true;
+        }
+
+        function pedirDetalleRechazar() {
+            let detalle = prompt("Estas por rechazar esta cuenta, ingresa algun detalle extra:");
+
+            // caso de que toque cancelar
+            if (detalle === null) {
+                return false;
+            }
+
+            detalle = detalle.trim();
+            // si deja el campo vacio
+            if (detalle === "") {
+                alert("Es obligatorio dejar un comentario.")
+                return false;
+            }
+            if (detalle.length > 300) {
+                alert("No puede superar los 300 caracteres.")
+                return false;
+            }
+
+            // todo validado continuamos
+            document.getElementById('<%= HfDetalleRegistro.ClientID %>').value = detalle;
+            return true;
+        }
+    </script>
+
 
 </asp:Content>
