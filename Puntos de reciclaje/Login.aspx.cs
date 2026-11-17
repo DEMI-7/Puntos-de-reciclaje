@@ -32,12 +32,14 @@ namespace Puntos_de_reciclaje
             // buscamos el usuario en la base (por ahora sin verificar la contraseña)
             try
             {
+                Usuario usuario = new Usuario();
+                usuario.Email = email;
+                usuario.Contraseña = TxtContraseña.Text;
                 UsuarioNegocio negocio = new UsuarioNegocio();
-                Usuario usuario = negocio.BuscarPorEmail(email);
-
-                if (usuario == null)
+              
+                if (!negocio.Loguear(usuario))
                 {
-                    LblError.Text = "No existe ese usuario.";
+                    LblError.Text = "Usuario inexistente";
                     LblError.Visible = true;
                     return;
                 }
