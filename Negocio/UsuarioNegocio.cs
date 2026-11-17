@@ -320,6 +320,38 @@ namespace Negocio
             }
         }
 
+        public bool Loguear(Usuario usuario)
+        {
+            Accesodatos conexion = new Accesodatos();
+            try
+            {
+                // por ahora solo con el email, falta sumar la contraseña
+                conexion.SetearConsulta("SELECT ID_Usuario, Nombre, TipoUsuario, EstadoCuenta FROM Usuarios WHERE Email = @email");
+                conexion.agregarParametro("@email", usuario.Email);
+                conexion.EjecutarLectura();
+
+                // si lo encontro, completamos el mismo usuario que nos pasaron
+                if (conexion.Lector.Read())
+                {
+                    usuario.ID_Usuario = (long)conexion.Lector["ID_Usuario"];
+                    usuario.Nombre = (string)conexion.Lector["Nombre"];
+                    usuario.TipoUsuario = (string)conexion.Lector["TipoUsuario"];
+                    usuario.EstadoCuenta = (string)conexion.Lector["EstadoCuenta"];
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.CerrarConexion();
+            }
+        }
+
         public void Agregar(Usuario nuevo)
         {
             Accesodatos conexion = new Accesodatos();
