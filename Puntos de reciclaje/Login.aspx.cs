@@ -45,8 +45,6 @@ namespace Puntos_de_reciclaje
                 }
 
                 // guardamos en la sesion el usuario que entro
-                Session["IdEmpresa"] = usuario.ID_Usuario;
-                Session["NombreEmpresa"] = usuario.Nombre;
                 Session["usuario"] = usuario;
 
                 // lo mandamos a su pagina segun el tipo de usuario
