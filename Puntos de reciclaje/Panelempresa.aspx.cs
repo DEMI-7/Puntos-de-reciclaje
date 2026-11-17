@@ -17,8 +17,11 @@ namespace Puntos_de_reciclaje
         {
             if (!IsPostBack)
             {
-               lblNombreEmpresa.Text = Convert.ToString(Session["NombreEmpresa"]);
-
+                Usuario usuario = (Usuario)Session["usuario"];
+                if (usuario != null)
+                {
+                    lblNombreEmpresa.Text = usuario.Nombre;
+                }
                 cargarPuntos(); 
             }
 
@@ -31,7 +34,8 @@ namespace Puntos_de_reciclaje
             try
             {
                 PuntoNegocio negocio = new PuntoNegocio();
-                long idEmpresa = Convert.ToInt64(Session["IdEmpresa"] ?? 1);
+                Usuario usuario = (Usuario)Session["usuario"];
+                long idEmpresa = usuario != null ? usuario.ID_Usuario : 1;
 
                 List<PuntoReciclaje> lista = negocio.ListarporEmpresa(idEmpresa);
 
