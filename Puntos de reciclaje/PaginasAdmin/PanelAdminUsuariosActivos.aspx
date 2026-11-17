@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PanelAdminUsuariosActivos.aspx.cs" Inherits="Puntos_de_reciclaje.PanelAdminUsuariosActivos" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
+    
+    <asp:HiddenField ID="HfDetalleRegistro" runat="server" />
+    
     <div class="container body-content mt-4">
         <h3> Panel de administración.</h3>
 
@@ -84,7 +86,9 @@
                 <asp:TemplateField HeaderText="Acciones">
                     <ItemTemplate>
                         <asp:Button ID="BtnEditarUsuario" runat="server" Text="Editar" CssClass="btn btn-primary btn-sm" CommandName="Editar" CommandArgument='<%# Eval("ID_Usuario") %>' />
-                        <asp:Button ID="btnDesactivar" runat="server" Text="Desactivar" CssClass="btn btn-danger btn-sm" CommandName="Desactivar" CommandArgument='<%# Eval("ID_Usuario") %>' />
+                        <asp:Button ID="btnDesactivar" runat="server" Text="Desactivar" CssClass="btn btn-danger btn-sm"
+                            CommandName="Desactivar" CommandArgument='<%# Eval("ID_Usuario") %>'
+                            OnClientClick="return pedirDetalle()" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
@@ -106,4 +110,31 @@
 
         <hr />
     </div>
+
+    <script>
+        function pedirDetalle() {
+            let detalle = prompt("Ingresa un concepto para la acción:");
+
+            // caso de que toque cancelar
+            if (detalle === null) { 
+                return false;
+            }
+
+            detalle = detalle.trim();
+            // si deja el campo vacio
+            if (detalle === "") { 
+                alert("Es obligatorio dejar un comentario.")
+                return false;
+            }
+            if (detalle.length > 300) { 
+                alert("No puede superar los 300 caracteres.")
+                return false;
+            }
+
+            // todo validado continuamos
+            document.getElementById('<%= HfDetalleRegistro.ClientID %>').value = detalle;
+            return true;
+        }
+    </script>
+
 </asp:Content>

@@ -69,10 +69,19 @@ namespace Puntos_de_reciclaje
         {
             UsuarioNegocio negocio = new UsuarioNegocio();
 
+            RegistroAccion registroNuevo = new RegistroAccion();
+            // ES NECESARIO OBTENER EL ID DESDE LA SESSION
+            registroNuevo.Admin.ID_Usuario = 1; // Esta HARCODEADO
+            registroNuevo.Detalle = HfDetalleRegistro.Value.Trim();
+
+
             if (e.CommandName == "Desactivar")
             {
                 long idUsuario = Convert.ToInt64(e.CommandArgument);
-                negocio.DesactivarUsuario(idUsuario);
+                registroNuevo.UsuarioAfectado.ID_Usuario = idUsuario;
+                registroNuevo.EstadoAnterior = "ACTIVO";
+                registroNuevo.EstadoNuevo = "INACTIVO";
+                negocio.DesactivarUsuario(registroNuevo);
             }
             else if (e.CommandName == "Editar")
             {

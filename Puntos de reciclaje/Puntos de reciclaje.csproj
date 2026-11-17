@@ -136,6 +136,7 @@
     <Content Include="ImagenesMateriales\Vidrio_logo.png" />
     <Content Include="ImagenesSistema\empresas.png" />
     <Content Include="ImagenesSistema\materialesAdmin.png" />
+    <Content Include="ImagenesSistema\registros.png" />
     <Content Include="ImagenesSistema\usuarios logo.png" />
     <Content Include="ImagenesSistema\usuariosBloqueados.png" />
     <Content Include="Libreria\leaflet\images\layers-2x.png" />
@@ -154,6 +155,7 @@
     <Content Include="PaginasAdmin\PanelAdminCentral.aspx" />
     <Content Include="PaginasAdmin\PanelAdminEmpresasPendientes.aspx" />
     <Content Include="PaginasAdmin\PanelAdminEmpresasRechazadas.aspx" />
+    <Content Include="PaginasAdmin\PanelAdminRegistros.aspx" />
     <Content Include="PaginasAdmin\PanelAdminUsuariosBajas.aspx" />
     <Content Include="PaginasAdmin\PanelAdminUsuariosActivos.aspx" />
     <Content Include="PaginasAdmin\PanelAdminMateriales.aspx" />
@@ -267,6 +269,13 @@
     </Compile>
     <Compile Include="PaginasAdmin\PanelAdminEmpresasRechazadas.aspx.designer.cs">
       <DependentUpon>PanelAdminEmpresasRechazadas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaginasAdmin\PanelAdminRegistros.aspx.cs">
+      <DependentUpon>PanelAdminRegistros.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasAdmin\PanelAdminRegistros.aspx.designer.cs">
+      <DependentUpon>PanelAdminRegistros.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginasAdmin\PanelAdminUsuariosBajas.aspx.cs">
       <DependentUpon>PanelAdminUsuariosBajas.aspx</DependentUpon>

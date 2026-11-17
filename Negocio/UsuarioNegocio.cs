@@ -216,14 +216,17 @@ namespace Negocio
                 throw;
             }
         }
-        public void DesactivarUsuario(long idUsuario)
+        public void DesactivarUsuario(RegistroAccion registro)
         {
             Accesodatos conexion = new Accesodatos();
             try
             {
                 conexion.SetearConsulta("UPDATE Usuarios SET Activo = 0 WHERE ID_Usuario = @idUsuario");
-                conexion.agregarParametro("@idUsuario", idUsuario);
+                conexion.agregarParametro("@idUsuario", registro.UsuarioAfectado.ID_Usuario);
                 conexion.ejecutarAccion();
+
+                RegistroAccionNegocio negocio = new RegistroAccionNegocio();
+                negocio.RegistrarMovimiento(registro);
             }
             catch (Exception)
             {

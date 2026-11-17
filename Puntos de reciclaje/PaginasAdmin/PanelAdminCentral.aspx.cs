@@ -28,5 +28,10 @@ namespace Puntos_de_reciclaje.PaginasAdmin
         {
             Response.Redirect("PanelAdminMateriales.aspx", false);
         }
+
+        protected void BtnRegistros_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PanelAdminRegistros.aspx", false);
+        }
     }
 }
