@@ -47,7 +47,7 @@
                 <p><b>Direccion:</b> <span id="LblDireccion">-</span></p>
                 <p><b>Horario:</b> <span id="LblHorario">-</span></p>
                 <p><b>Materiales:</b> <span id="LblMateriales">-</span></p>
-            </div>
+            
 
 
             <hr />
@@ -74,7 +74,7 @@
                     <button type="button" class="btn btn-success btn-sm w-100" onclick="EnviarResena()">Enviar Reseña</button>
                 </div>
 
-
+            </div>
 
 
             <!-- el div tiene el mapa y despues cargamos los scripts-->
