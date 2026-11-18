@@ -19,12 +19,22 @@ namespace Puntos_de_reciclaje
             {
                 LblUsuarioLogueado.Text = usuario.Nombre;
                 LblUsuarioLogueado.Visible = true;
+                BtnCerrarSesion.Visible = true;
+                LiIniciarSesion.Visible = false;
             }
             else
             {
                 LblUsuarioLogueado.Visible = false;
+                BtnCerrarSesion.Visible = false;
+                LiIniciarSesion.Visible = true;
             }
 
+        }
+        protected void BtnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            // borramos todo lo guardado en la sesion y volvemos al mapa
+            Session.Clear();
+            Response.Redirect("~/Default.aspx", false);
         }
     }
 }

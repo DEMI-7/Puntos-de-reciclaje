@@ -55,7 +55,7 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/About">Acerca de</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contacto</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Panelempresa">Panel empresa</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="Login.aspx">Iniciar sesion</a> </li>
+                        <li class="nav-item" runat="server" id="LiIniciarSesion"><a class="nav-link" runat="server" href="Login.aspx">Iniciar sesion</a> </li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/PaginasAdmin/PanelAdminCentral.aspx">Panel admin</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="Aprender.aspx">Aprender</a></li>
                         
@@ -63,6 +63,8 @@
                     <!-- usuario logueado y cerrar sesion, a la derecha -->
                     <div class="d-flex align-items-center">
                         <asp:Label ID="LblUsuarioLogueado" runat="server" CssClass="navbar-text text-white me-3"></asp:Label>
+                        <asp:LinkButton ID="BtnCerrarSesion" runat="server" Text="Cerrar sesión" CssClass="btn btn-outline-light btn-sm" OnClick="BtnCerrarSesion_Click" Visible="false"></asp:LinkButton>
+                        </div>
                 </div>
             </div>
         </nav>
