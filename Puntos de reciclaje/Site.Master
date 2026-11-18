@@ -42,7 +42,7 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-success">
             <div class="container-fluid">
                 <a class="navbar-brand" runat="server" href="~/">Nombre de la aplicación</a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
@@ -60,6 +60,9 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="Aprender.aspx">Aprender</a></li>
                         
                     </ul>
+                    <!-- usuario logueado y cerrar sesion, a la derecha -->
+                    <div class="d-flex align-items-center">
+                        <asp:Label ID="LblUsuarioLogueado" runat="server" CssClass="navbar-text text-white me-3"></asp:Label>
                 </div>
             </div>
         </nav>

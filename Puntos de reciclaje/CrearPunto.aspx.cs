@@ -39,7 +39,8 @@ namespace Puntos_de_reciclaje
             PuntoNegocio negocio = new PuntoNegocio();
             try
             {
-                long idEmpresa = Convert.ToInt64(Session["IdEmpresa"] ?? 1);
+                Usuario usuario = (Usuario)Session["usuario"];
+                long idEmpresa = usuario != null ? usuario.ID_Usuario : 1;
                 var lista = negocio.listar();
                 var punto = lista.FirstOrDefault(p => p.IdPunto == idPunto && p.IdUsuarioCreador == idEmpresa);
 
@@ -230,7 +231,8 @@ namespace Puntos_de_reciclaje
             {
                 // 1. Crear objeto
                 PuntoReciclaje nuevoPunto = new PuntoReciclaje();
-                nuevoPunto.IdUsuarioCreador = Convert.ToInt64(Session["IdEmpresa"] ?? 1);
+                Usuario usuario = (Usuario)Session["usuario"];
+                nuevoPunto.IdUsuarioCreador = usuario != null ? usuario.ID_Usuario : 1;
                 nuevoPunto.Horario = horario;
                 nuevoPunto.Direccion = txtDireccion.Text;
 

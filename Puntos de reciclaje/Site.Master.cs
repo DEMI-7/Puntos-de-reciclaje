@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Dominio;
 
 namespace Puntos_de_reciclaje
 {
@@ -11,6 +12,18 @@ namespace Puntos_de_reciclaje
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // si hay alguien logueado mostramos su nombre en la barra
+            Usuario usuario = (Usuario)Session["usuario"];
+
+            if (usuario != null)
+            {
+                LblUsuarioLogueado.Text = usuario.Nombre;
+                LblUsuarioLogueado.Visible = true;
+            }
+            else
+            {
+                LblUsuarioLogueado.Visible = false;
+            }
 
         }
     }
