@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 namespace Dominio
 {
     public class PuntoReciclaje
@@ -19,6 +20,8 @@ namespace Dominio
         //prop para mostrar en la grilla; 
 
         public List<ImagenPuntoReciclaje> ListaUrlImagenes { get; set; } = new List<ImagenPuntoReciclaje>();
+
+        public List<Reseña> Resenias { get; set; } = new List<Reseña>();
     }
 
 }

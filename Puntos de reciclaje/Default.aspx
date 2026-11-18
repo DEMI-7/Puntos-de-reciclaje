@@ -53,12 +53,12 @@
             <hr />
                 <h5 class="fw-bold">Reseñas</h5>
                 
-                <!-- Contenedor donde se cargaran las reseñas con Js  -->
+       <!-- Contenedor donde se cargaran las reseñas con js  -->
                 <div id="lista-resenas" style="max-height: 200px; overflow-y: auto;" class="mb-3">
                    
                 </div>
 
-                <!-- reseniaa  -->
+      <!-- reseniaa  -->
                 <div class="card bg-light p-2 mb-3">
                     <label class="form-label fw-bold small">Dejá tu reseña:</label>
                     <div class="mb-2">
@@ -157,10 +157,10 @@
 
 
 
-                     function EnviarResena() {
-                      var comentario = document.getElementById('txtComentario').value;
-                      var puntaje = document.getElementById('selectPuntaje').value;
-                      var idPunto = window.idPuntoSeleccionado; 
+function EnviarResena() {
+    var comentario = document.getElementById('txtComentario').value;
+    var puntaje = document.getElementById('selectPuntaje').value;
+    var idPunto = window.idPuntoSeleccionado;
 
     if (comentario.trim() === "") {
         alert("Por favor, escribí un comentario.");
@@ -171,11 +171,33 @@
         return;
     }
 
-    // ACA CONECTAREMOS CON C
-    alert("Reseña lista para guardar. Punto ID: " + idPunto + " | Puntaje: " + puntaje);
-    document.getElementById('txtComentario').value = "";
-}
-                
+    // aca  USAMOS FETCH (Nativo de js 
+    fetch('Default.aspx/GuardarResena', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            idPunto: idPunto,
+            puntaje: parseInt(puntaje),
+            comentario: comentario
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.d === "OK") {
+                alert("¡Reseña guardada con éxito!");
+                document.getElementById('txtComentario').value = "";
+                location.reload(); // Recarga para ver la reseña
+            } else {
+                alert(data.d); // Muestra si hay error de sesión
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Error de conexión al guardar la reseña.");
+        });
+}     
 
 
                 // con add event listener espera a que termine de cargar la pagina para comenzar a dibujar los puntos

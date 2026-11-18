@@ -8,7 +8,7 @@ using Dominio;
 
 namespace Negocio
 {
-    internal class ReseñaNegocio
+    public class ReseñaNegocio
     {
         public List<Reseña> listarPorPunto(long idPunto)
         {
