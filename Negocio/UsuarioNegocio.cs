@@ -328,14 +328,21 @@ namespace Negocio
             Accesodatos conexion = new Accesodatos();
             try
             {
-                // por ahora solo con el email, falta sumar la contraseña
-                conexion.SetearConsulta("SELECT ID_Usuario, Nombre, TipoUsuario, EstadoCuenta FROM Usuarios WHERE Email = @email");
+                
+                conexion.SetearConsulta("SELECT ID_Usuario, Nombre, TipoUsuario, EstadoCuenta, Contraseña_hash FROM Usuarios WHERE Email = @email");
                 conexion.agregarParametro("@email", usuario.Email);
                 conexion.EjecutarLectura();
 
-                // si lo encontro, completamos el mismo usuario que nos pasaron
+                
                 if (conexion.Lector.Read())
                 {
+                    // comparamos la contraseña escrita con la guardada en la base, ejecutamos en c#,para distinguir mayus
+                    string contraseñaBase = (string)conexion.Lector["Contraseña_hash"];
+                    if (contraseñaBase != usuario.Contraseña)
+                    {
+                        return false;
+                    }
+                    // si la clave coincide, completamos con el usuario ingresado
                     usuario.ID_Usuario = (long)conexion.Lector["ID_Usuario"];
                     usuario.Nombre = (string)conexion.Lector["Nombre"];
                     usuario.TipoUsuario = (string)conexion.Lector["TipoUsuario"];

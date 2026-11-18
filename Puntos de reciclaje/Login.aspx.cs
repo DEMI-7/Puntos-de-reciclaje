@@ -23,13 +23,13 @@ namespace Puntos_de_reciclaje
             string email = TxtEmail.Text.Trim();
 
             // validamos que haya escrito un email
-            if (string.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(TxtContraseña.Text))
             {
-                LblError.Text = "Por favor, ingresá tu correo electrónico.";
+                LblError.Text = "Por favor, ingresá tu correo electrónico y contraseña";
                 LblError.Visible = true;
                 return;
             }
-            // buscamos el usuario en la base (por ahora sin verificar la contraseña)
+            // buscamos el usuario en la base 
             try
             {
                 Usuario usuario = new Usuario();
@@ -39,7 +39,7 @@ namespace Puntos_de_reciclaje
               
                 if (!negocio.Loguear(usuario))
                 {
-                    LblError.Text = "Usuario inexistente";
+                    LblError.Text = "Mail o contraseña incorrectos";
                     LblError.Visible = true;
                     return;
                 }
