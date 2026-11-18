@@ -14,8 +14,10 @@ namespace Puntos_de_reciclaje.PaginasAdmin
 
         List<Usuario> empresasRechazadas;
 
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            LblErrorSesion.Visible = false;
             if (!IsPostBack)
             {
                 CargarGrillaEmpresasRechazadas("");
@@ -74,7 +76,15 @@ namespace Puntos_de_reciclaje.PaginasAdmin
 
             RegistroAccion registroNuevo = new RegistroAccion();
             // ES NECESARIO OBTENER EL ID DESDE LA SESSION
-            registroNuevo.Admin.ID_Usuario = 1; // Esta HARCODEADO
+            if (Session["usuario"] != null)
+            {
+                registroNuevo.Admin.ID_Usuario = ((Usuario)Session["usuario"]).ID_Usuario;
+            }
+            else
+            {
+                LblErrorSesion.Visible = true;
+                return;
+            }
             registroNuevo.EstadoAnterior = "rechazado";
             registroNuevo.Detalle = HfDetalleRegistro.Value.Trim();
 

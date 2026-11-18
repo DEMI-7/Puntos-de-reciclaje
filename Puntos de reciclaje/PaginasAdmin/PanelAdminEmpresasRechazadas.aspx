@@ -4,6 +4,9 @@
     <asp:HiddenField ID="HfDetalleRegistro" runat="server" />
     
     <div class="container body-content mt-4">
+
+    <asp:Label ID="LblErrorSesion" runat="server" Text="Usted debe iniciar sesión primero." CssClass="alert alert-danger d-block"></asp:Label>
+
     <h3>Empresas rechazadas</h3>
 
     
