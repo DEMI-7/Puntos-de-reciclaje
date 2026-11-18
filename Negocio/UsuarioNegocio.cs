@@ -329,7 +329,7 @@ namespace Negocio
             try
             {
                 
-                conexion.SetearConsulta("SELECT ID_Usuario, Nombre, TipoUsuario, EstadoCuenta, Contraseña_hash FROM Usuarios WHERE Email = @email");
+                conexion.SetearConsulta("SELECT ID_Usuario, Nombre, TipoUsuario, EstadoCuenta, Activo, Contraseña_hash FROM Usuarios WHERE Email = @email");
                 conexion.agregarParametro("@email", usuario.Email);
                 conexion.EjecutarLectura();
 
