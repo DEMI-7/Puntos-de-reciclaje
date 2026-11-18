@@ -347,6 +347,7 @@ namespace Negocio
                     usuario.Nombre = (string)conexion.Lector["Nombre"];
                     usuario.TipoUsuario = (string)conexion.Lector["TipoUsuario"];
                     usuario.EstadoCuenta = (string)conexion.Lector["EstadoCuenta"];
+                    usuario.Activo = (bool)conexion.Lector["Activo"];
                     return true;
                 }
 
