@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -22,8 +23,11 @@ namespace Puntos_de_reciclaje
         {
             if (!IsPostBack)
             {
-                // Listamos los puntos con la conexion directa a la DB
+
                 PuntoNegocio negocio = new PuntoNegocio();
+
+                // Falta Gestionar posible error con try catch
+                listaPuntos = negocio.listar();
 
                 // cargamos las reseñas para cada punto ; 
                 ReseñaNegocio negocioReseña = new ReseñaNegocio();
@@ -32,8 +36,7 @@ namespace Puntos_de_reciclaje
                     punto.Resenias = negocioReseña.listarPorPunto(punto.IdPunto);
                 }
 
-                    // Falta Gestionar posible error con try catch
-                    listaPuntos = negocio.listar();
+                
 
                 // Traducimos la lista a formato json asi el mapa puede dibujarlo con el javascript
                 ListaPuntosJson = Newtonsoft.Json.JsonConvert.SerializeObject(listaPuntos);
@@ -41,45 +44,52 @@ namespace Puntos_de_reciclaje
                 MaterialNegocio negocioMaterial = new MaterialNegocio();
                 listaMateriales = negocioMaterial.listar();
                 ListaMaterialesJson = Newtonsoft.Json.JsonConvert.SerializeObject(listaMateriales);
+
+                if (Session["usuario"] != null)
+                {
+                    // Si esta logueado, mostramos el form y guardamos el  ID en el HiddenField ; 
+                    Dominio.Usuario xx = (Dominio.Usuario)Session["usuario"];
+                    hfIdUsuario.Value = xx.ID_Usuario.ToString();
+
+                    pnlFormularioResena.Visible = true;
+                    pnlMensajeLogin.Visible = false;
+                }
+                else
+                { // si  no hay secion , ocultamos el form , y mostramos el mensaje de iniciar secion ; 
+                    pnlFormularioResena.Visible = false;
+                    pnlMensajeLogin.Visible = true;
+                }
             }
         }
+
         //ponemos  asi, para que sea llamado por java script ; 
-        [System.Web.Services.WebMethod]
-        public static string GuardarResenia (long idPunto, int puntaje, string comentario)
+        [System.Web.Services.WebMethod(EnableSession = true)]  
+        public static string GuardarResenia (long idPunto, int puntaje, string comentario, long idUsuario)
         {
             try
             {
-                // validaaamos qe el user esta logueado ; 
-                if (System.Web.HttpContext.Current.Session["usuario"] == null)
-                {
-                    return "Debe iniciar sesión para dejar una reseña.";
-                }
-                // creamos la reseña ; 
+                if (idUsuario <= 0) return "Debes iniciar sesion.";
+
                 Dominio.Reseña nueva = new Dominio.Reseña();
-                nueva.idPuntoReciclaje = idPunto;
+                nueva.idPuntoReciclaje= idPunto;
                 nueva.Puntaje = puntaje;
                 nueva.Comentario = comentario;
-                nueva.idUsuario = Convert.ToInt64(System.Web.HttpContext.Current.Session["usuario"]);
-
-                //guardamos ; 
+                nueva.idUsuario = idUsuario; 
 
                 Negocio.ReseñaNegocio negocio = new Negocio.ReseñaNegocio();
                 negocio.Agregar(nueva);
-                return "Reseña guardada correctamente."; 
+
+                return "OK";
             }
             catch (Exception ex)
             {
-                return "Error al guardar la reseña: " + ex.Message;
+                return "Error: " + ex.Message;
             }
-
-
-
-
         }
 
+      
 
 
 
-
-    }
+}
 }

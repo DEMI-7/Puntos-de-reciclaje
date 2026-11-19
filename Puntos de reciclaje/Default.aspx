@@ -58,23 +58,36 @@
                    
                 </div>
 
-      <!-- reseniaa  -->
-                <div class="card bg-light p-2 mb-3">
-                    <label class="form-label fw-bold small">Dejá tu reseña:</label>
-                    <div class="mb-2">
-                        <select id="selectPuntaje" class="form-select form-select-sm">
-                            <option value="5">⭐⭐⭐⭐⭐ (Buenardopolis)</option>
-                            <option value="4">⭐⭐⭐⭐ (Muy bueno)</option>
-                            <option value="3">⭐⭐⭐ (Bueno)</option>
-                            <option value="2">⭐⭐ (Regular)</option>
-                            <option value="1">⭐ (Malardo)</option>
-                        </select>
+                  <!-- Mensaje si NO está logueado -->
+                <asp:Panel ID="pnlMensajeLogin" runat="server" Visible="false">
+                    <div class="alert alert-info py-2 text-center">
+                        <small>Para dejar una reseña, <a href="Login.aspx" class="fw-bold">inicia sesion</a> o <a href="Registro.aspx" class="fw-bold">registrate</a>.</small>
                     </div>
-                    <textarea id="txtComentario" class="form-control form-control-sm mb-2" rows="2" placeholder="¿Qué te pareció este punto?"></textarea>
-                    <button type="button" class="btn btn-success btn-sm w-100" onclick="EnviarResena()">Enviar Reseña</button>
-                </div>
+                </asp:Panel>
 
-            </div>
+
+         <!--  (SOLO si esta logueado) -->
+                <asp:Panel ID="pnlFormularioResena" runat="server">
+                    <div class="card bg-light p-2 mb-3">
+                        <label class="form-label fw-bold small">Dejá tu reseña:</label>
+                        <div class="mb-2">
+                            <select id="selectPuntaje" class="form-select form-select-sm">
+                                <option value="5">⭐⭐⭐⭐⭐ (Buenardopolis)</option>
+                                <option value="4">⭐⭐⭐⭐ (Muy bueno)</option>
+                                <option value="3">⭐⭐⭐ (Bueno)</option>
+                                <option value="2">⭐⭐ (Regular)</option>
+                                <option value="1">⭐ (Malardo)</option>
+                            </select>
+                        </div>
+                        <textarea id="txtComentario" class="form-control form-control-sm mb-2" rows="2" placeholder="¿Qué te pareció este punto?"></textarea>
+                        <button type="button" class="btn btn-success btn-sm w-100" onclick="EnviarResena()">Enviar Reseña</button>
+                    </div>
+                </asp:Panel>
+                
+                <!-- hiddenField para guardar el id  del usuario -->
+                <asp:HiddenField ID="hfIdUsuario" runat="server" />
+
+            </div> 
 
 
             <!-- el div tiene el mapa y despues cargamos los scripts-->
@@ -161,44 +174,54 @@ function EnviarResena() {
     var comentario = document.getElementById('txtComentario').value;
     var puntaje = document.getElementById('selectPuntaje').value;
     var idPunto = window.idPuntoSeleccionado;
+    // Leemos el ID oculto
+    var idUsuario = document.getElementById('<%= hfIdUsuario.ClientID %>').value; 
 
     if (comentario.trim() === "") {
-        alert("Por favor, escribí un comentario.");
+        alert("Por favor, escribi un comentario.");
         return;
     }
-    if (!idPunto) {
-        alert("Error: No se seleccionó ningún punto.");
+    if (!idUsuario) {
+        alert("Debes iniciar sesión para dejar una reseña.");
         return;
     }
 
-    // aca  USAMOS FETCH (Nativo de js 
-    fetch('Default.aspx/GuardarResena', {
+   
+
+    fetch('Default.aspx/GuardarResenia', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
+        
         body: JSON.stringify({
             idPunto: idPunto,
             puntaje: parseInt(puntaje),
-            comentario: comentario
+            comentario: comentario,
+            // Mandamos el ID
+            idUsuario: parseInt(idUsuario) 
         })
     })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => { throw new Error(text); });
+            }
+            return response.json(); 
+        })
         .then(data => {
             if (data.d === "OK") {
                 alert("¡Reseña guardada con éxito!");
                 document.getElementById('txtComentario').value = "";
-                location.reload(); // Recarga para ver la reseña
+                location.reload();
             } else {
-                alert(data.d); // Muestra si hay error de sesión
+                alert(data.d); 
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert("Error de conexión al guardar la reseña.");
+            alert("Error de conexión al guardar la reseña. Revisa la consola (F12).");
         });
-}     
-
+}
 
                 // con add event listener espera a que termine de cargar la pagina para comenzar a dibujar los puntos
                 document.addEventListener("DOMContentLoaded", function () { 

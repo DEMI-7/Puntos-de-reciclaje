@@ -24,7 +24,7 @@
 </head>
 <body>
     <form ID="formPrincipal" runat="server">
-        <asp:ScriptManager runat="server">
+        <asp:ScriptManager ID ="ScriptManager1" runat="server" EnablePageMethods="true" >
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
                 <%--Framework Scripts--%>
