@@ -269,7 +269,7 @@ function EnviarResena() {
                             var imagen = document.getElementById('ImgPunto');
                             window.idPuntoSeleccionado = punto.IdPunto;
 
-                            MostrarResenas(punto.Resenas || []);
+                            MostrarResenas(punto.Resenias || []);
 
 
                             // guardo las imagenes de este punto en las variables globales
