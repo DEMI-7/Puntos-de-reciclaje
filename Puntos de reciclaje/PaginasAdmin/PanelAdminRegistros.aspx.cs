@@ -14,7 +14,9 @@ namespace Puntos_de_reciclaje.PaginasAdmin
         List<RegistroAccion> listaRegistros;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            PnlDetalleMovimiento.Visible = false;
+
+            if (!IsPostBack)
             {
                 CargarGrillaRegistros(string.Empty);
             }
@@ -50,22 +52,51 @@ namespace Puntos_de_reciclaje.PaginasAdmin
 
         protected void BtnVolver_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("PanelAdminCentral.aspx", false);
         }
 
         protected void BtnBuscar_Click(object sender, EventArgs e)
         {
-
+            CargarGrillaRegistros(TxtBuscar.Text.Trim());
+            GrillaRegistros.PageIndex = 0; // Reiniciar la paginacion al buscar
         }
 
         protected void GrillaRegistros_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-
+            GrillaRegistros.PageIndex = e.NewPageIndex;
+            CargarGrillaRegistros(TxtBuscar.Text.Trim());
         }
+
+        
 
         protected void GrillaRegistros_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 
+            if (e.CommandName == "verdetalle")
+            {
+                CargarGrillaRegistros(string.Empty);
+
+                long IdRegistro = Convert.ToInt64(e.CommandArgument);
+
+                RegistroAccion registro = listaRegistros.Find(r => r.ID_Movimiento == IdRegistro);
+
+                PnlDetalleMovimiento.Visible = true;
+                LblIdRegistro.Text = "Id del registro: " + registro.ID_Movimiento;
+                LblHora.Text = "Hora de la acción: " + registro.HoraMovimiento.ToString("dd/MM/yyyy HH:mm:ss");
+                LblNombreAdmin.Text = registro.Admin.Nombre;
+                LblMailAdmin.Text = registro.Admin.Email;
+                LblNombreUsuario.Text = registro.UsuarioAfectado.Nombre;
+                LblTipoCuenta.Text = registro.UsuarioAfectado.TipoUsuario;
+                LblMailUsuario.Text = registro.UsuarioAfectado.Email;
+                LblEstadoAnterior.Text = registro.EstadoAnterior;
+                LblEstadoNuevo.Text = registro.EstadoNuevo;
+                DivDetalle.InnerText = registro.Detalle;
+            }
+        }
+
+        protected void BtnCerrarDetalle_Click(object sender, EventArgs e)
+        {
+            PnlDetalleMovimiento.Visible = false;
         }
     }
 }
