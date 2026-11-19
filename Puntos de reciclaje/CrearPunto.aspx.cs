@@ -145,6 +145,11 @@ namespace Puntos_de_reciclaje
             {
                 texto = "todos los días";
             }
+            else if (dias.Count >= 3 && dias[dias.Count - 1] - dias[0] == dias.Count - 1)
+            {
+                // 3 o mas dias seguidos: "x a x"
+                texto = nombresDias[dias[0]] + " a " + nombresDias[dias[dias.Count - 1]];
+            }
             else
             {
                 // dias sueltos: "lunes, miércoles, viernes"
@@ -174,12 +179,35 @@ namespace Puntos_de_reciclaje
                 ddlHoraDesde.SelectedValue = horas[0];
                 ddlHoraHasta.SelectedValue = horas[1];
 
-                //tildamos los dias que aparecen en el texto o todos
-                for (int i = 0; i < 7; i++)
+                // tildamos los dias segun el formato del texto
+                if (textoDias == "todos los días")
                 {
-                    if (textoDias == "todos los días" || textoDias.Contains(nombresDias[i]))
+                    foreach (ListItem dia in cblDias.Items)
+                    {
+                        dia.Selected = true;
+                    }
+                }
+                else if (textoDias.Contains(" a "))
+                {
+                    // x a x, tildamos desde el primero hasta el ultimo
+                    string[] partes = textoDias.Split(new string[] { " a " }, StringSplitOptions.None);
+                    int primerDia = Array.IndexOf(nombresDias, partes[0]);
+                    int ultimoDia = Array.IndexOf(nombresDias, partes[1]);
+
+                    for (int i = primerDia; i <= ultimoDia; i++)
                     {
                         cblDias.Items[i].Selected = true;
+                    }
+                }
+                else
+                {
+                    // dias por separado
+                    for (int i = 0; i < 7; i++)
+                    {
+                        if (textoDias.Contains(nombresDias[i]))
+                        {
+                            cblDias.Items[i].Selected = true;
+                        }
                     }
                 }
             }
