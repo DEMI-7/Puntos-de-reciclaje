@@ -118,13 +118,19 @@ namespace Puntos_de_reciclaje
 
         private void CargarDesplegablesHorario()
         {
-            // horas de 00:00 a 23:00, las dos listas iguales
+            // hora desde de 00:00 a 23:00
             for (int i = 0; i <= 23; i++)
             {
-                string hora = i.ToString("00") + ":00";
-                ddlHoraDesde.Items.Add(hora);
-                ddlHoraHasta.Items.Add(hora);
+                ddlHoraDesde.Items.Add(i.ToString("00") + ":00");
+
+
             }
+            // hora hasta de 01:00 a 23:00 pero con el 00:00 al final, para que el cierre pueda ser a las 12
+            for (int i = 1; i <= 23; i++)
+            {
+                ddlHoraHasta.Items.Add(i.ToString("00") + ":00");
+            }
+            ddlHoraHasta.Items.Add("00:00");
 
             // horario por defecto
             ddlHoraDesde.SelectedValue = "09:00";
@@ -214,7 +220,9 @@ namespace Puntos_de_reciclaje
             }
 
             // validacion de horario de apertura sea antes del de cierre
-            if (ddlHoraHasta.SelectedIndex <= ddlHoraDesde.SelectedIndex)
+            int horaDesde = ddlHoraDesde.SelectedIndex;
+            int horaHasta = ddlHoraHasta.SelectedIndex + 1;
+            if (horaHasta <= horaDesde)
             {
                 lblError.Text = "La hora de cierre no puede ser antes que la hora de apertura.";
                 lblError.Visible = true;
