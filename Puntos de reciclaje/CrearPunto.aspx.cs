@@ -1,11 +1,12 @@
 ﻿using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Negocio;
 
 
 
@@ -30,8 +31,14 @@ namespace Puntos_de_reciclaje
                     lblTitulo.Text = "Edicion de punto de reciclaje";
 
                 }
+                else
+                {
+                    divSubidaImagenes.Visible = false;
+                }
             }
 
+            fuImagen.Attributes.Clear();
+            LblMensajeSubidaImagen.Visible = false;
         }
 
         private void Cargardatosparaeditar(long idPunto)
@@ -302,39 +309,19 @@ namespace Puntos_de_reciclaje
                     }
                 }
 
-                // 4. Guardar Imagen (TRY INTERNO)
-                if (fuImagen.HasFile)
+               
+
+                // 5. Redirigir según si era edición o alta nueva
+                if (Request.QueryString["id"] != null)
                 {
-                    try
-                    {
-                        string carpetaDestino = Server.MapPath("~/ImagenesPuntos/");
-
-                        if (!System.IO.Directory.Exists(carpetaDestino))
-                        {
-                            System.IO.Directory.CreateDirectory(carpetaDestino);
-                        }
-
-                        string nombreArchivo = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(fuImagen.FileName);
-                        string rutaFisica = carpetaDestino + nombreArchivo;
-                        fuImagen.SaveAs(rutaFisica);
-
-                        ImagenPuntoReciclaje nuevaFoto = new ImagenPuntoReciclaje();
-                        nuevaFoto.IdPunto = idPuntogenerado;
-                        nuevaFoto.UrlImagen = "ImagenesPuntos/" + nombreArchivo;
-
-                        ImagenPuntoNegocio negocioImagen = new ImagenPuntoNegocio();
-                        negocioImagen.Agregar(nuevaFoto);
-                    }
-                    catch (Exception ex)
-                    {
-                        lblError.Text = "Error al guardar la foto: " + ex.Message;
-                        lblError.Visible = true;
-                        return; // Si falla la foto, cortamos todo
-                    }
+                    // Si ya estaba editando, vuelve al panel
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect", "window.location='PanelEmpresa.aspx';", true);
                 }
-
-                // 5. Redirigir (si todo salio bien)
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect", "window.location='PanelEmpresa.aspx';", true);
+                else
+                {
+                    // Si es nuevo, recarga esta misma página con el ID generado para poder subir fotos
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect", $"window.location='CrearPunto.aspx?id={idPuntogenerado}';", true);
+                }
             }
             catch (Exception ex)
             {
@@ -366,6 +353,56 @@ namespace Puntos_de_reciclaje
                     lblError.Text = "Error al borrar la imagen: " + ex.Message;
                     lblError.Visible = true;
                 }
+            }
+        }
+
+        protected void BtnSubirFoto_Click(object sender, EventArgs e)
+        {
+            if (!fuImagen.HasFile)
+            {
+                LblMensajeSubidaImagen.Text = "Primero seleccione un archivo.";
+                LblMensajeSubidaImagen.Visible = true;
+                LblMensajeSubidaImagen.ForeColor = Color.Red;
+                return;
+            }
+
+            if (Request.QueryString["id"] == null)
+            {
+                return;
+            }
+
+            long idPunto = Convert.ToInt64(Request.QueryString["id"]);
+            LblMensajeSubidaImagen.Visible = false;
+            try
+            {
+                string carpetaDestino = Server.MapPath("~/ImagenesPuntos/");
+
+                if (!System.IO.Directory.Exists(carpetaDestino))
+                {
+                    System.IO.Directory.CreateDirectory(carpetaDestino);
+                }
+
+                string nombreArchivo = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(fuImagen.FileName);
+                string rutaFisica = carpetaDestino + nombreArchivo;
+                fuImagen.SaveAs(rutaFisica);
+
+                ImagenPuntoReciclaje nuevaFoto = new ImagenPuntoReciclaje();
+                nuevaFoto.IdPunto = idPunto;
+                nuevaFoto.UrlImagen = "ImagenesPuntos/" + nombreArchivo;
+
+                ImagenPuntoNegocio negocioImagen = new ImagenPuntoNegocio();
+                negocioImagen.Agregar(nuevaFoto);
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Error al guardar la foto: " + ex.Message;
+                lblError.Visible = true;
+                return; // Si falla la foto, cortamos todo
+            }
+            finally
+            {
+                fuImagen.Attributes.Clear();
+                Cargardatosparaeditar(idPunto);
             }
         }
     }

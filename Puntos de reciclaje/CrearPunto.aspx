@@ -5,13 +5,16 @@
         #mapaCrear { height: 450px; width: 100%; border-radius: 8px; border: 1px solid #ccc; }
     </style>
 
+    <asp:HiddenField ID="HfIdPunto" runat="server" />
+
     <div class="container body-content mt-4">
-        <h2><asp:Label ID="lblTitulo" runat="server" Text="Publicar nuevo punto de reciclaje"></asp:Label></h2>
+        <h2>
+            <asp:Label ID="lblTitulo" runat="server" Text="Publicar nuevo punto de reciclaje"></asp:Label></h2>
         <hr />
 
         <div class="row">
-             
-               <div class="col-md-5">
+
+            <div class="col-md-5">
                 <div class="mb-3">
                     <label class="form-label">Dirección:</label>
                     <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" placeholder="Ej: Av. San Martín 123"></asp:TextBox>
@@ -38,27 +41,10 @@
                         <asp:DropDownList ID="ddlHoraDesde" runat="server" CssClass="form-select w-auto"></asp:DropDownList>
                         <span>a</span>
                         <asp:DropDownList ID="ddlHoraHasta" runat="server" CssClass="form-select w-auto"></asp:DropDownList>
-                </div>
                     </div>
-                <div class="mb-3">
-                    <label class="form-label">Foto del lugar (Opcional):</label>
-                    <asp:FileUpload ID="fuImagen" runat="server" CssClass="form-control" />
                 </div>
-                    <!-- Panel para ver y borrar fotos existentes (solo en edición) -->
-                <div class="mb-3">
-                    <asp:Repeater ID="rptImagenes" runat="server" OnItemCommand="rptImagenes_ItemCommand">
-                        <HeaderTemplate><div class="d-flex flex-wrap"></HeaderTemplate>
-                        <ItemTemplate>
-                            <div class="me-2 mb-2 text-center border p-1 rounded" style="background-color:#f8f9fa;">
-                                <asp:Image ID="img" runat="server" ImageUrl='<%# Eval("UrlImagen") %>' Width="80px" Height="60px" CssClass="rounded mb-1" />
-                                <br />
-                                <asp:LinkButton ID="btnBorrarImg" runat="server" CommandName="EliminarImg" CommandArgument='<%# Eval("IdImagen") %>' CssClass="btn btn-sm btn-danger w-100"
-                                    OnClientClick="return confirm('¿Borrar esta foto?');" style="font-size: 10px;">Borrar</asp:LinkButton>
-                            </div>
-                        </ItemTemplate>
-                        <FooterTemplate></div></FooterTemplate>
-                    </asp:Repeater>
-                </div>
+
+
 
                 <div class="mb-3">
                     <label class="form-label">Materiales que recibe:</label>
@@ -80,17 +66,47 @@
                         <asp:Button ID="btnGuardar" runat="server" Text="Guardar Punto" CssClass="btn btn-success btn-lg w-50" OnClick="BtnGuardar_Click" />
                     </ContentTemplate>
                     <Triggers>
-                      
+
                         <asp:PostBackTrigger ControlID="btnGuardar" />
                     </Triggers>
                 </asp:UpdatePanel>
-                
+
                 <!-- Botón Cancelar (Afuera del UpdatePanel) -->
                 <a href="PanelEmpresa.aspx" class="btn btn-danger btn-lg w-50 mt-2">Cancelar</a>
             </div>
-     
+
             <div class="col-md-7">
-                <div id="mapaCrear"></div>
+                <div id="mapaCrear" cssclass="mb-3"></div>
+
+                <div id="divSubidaImagenes" runat="server" Cssclass="border rounded p-3 bg-3">
+                    <asp:Label ID="Label1" runat="server" Text="Fotos del lugar (Opcional):" CssClass="form-label fw-bold d-block mb-3"></asp:Label>
+
+                    <div class="d-flex gap-2 mb-3">
+                        <asp:FileUpload ID="fuImagen" accept=".jpg, .jpeg, .png" runat="server" CssClass="form-control" />
+                        <asp:Button ID="BtnSubirFoto" runat="server" Text="Subir foto" OnClick="BtnSubirFoto_Click" CssClass="btn btn-success text-nowrap" />
+                        <asp:Label ID="LblMensajeSubidaImagen" runat="server" Text="Primero seleccione un archivo."></asp:Label>
+                    </div>
+
+                    <!-- Panel para ver y borrar fotos existentes (solo en edición) -->
+                    <div class="mb-3">
+                        <asp:Repeater ID="rptImagenes" runat="server" OnItemCommand="rptImagenes_ItemCommand">
+                            <HeaderTemplate>
+                                <div class="d-flex flex-wrap">
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <div class="me-2 mb-2 text-center border p-1 rounded" style="background-color: #f8f9fa;">
+                                    <asp:Image ID="img" runat="server" ImageUrl='<%# Eval("UrlImagen") %>' Style="width: 100%; height: 90px; object-fit: cover;" CssClass="rounded mb-1" />
+                                    <br />
+                                    <asp:LinkButton ID="btnBorrarImg" runat="server" CommandName="EliminarImg" CommandArgument='<%# Eval("IdImagen") %>' CssClass="btn btn-sm btn-danger w-100"
+                                        OnClientClick="return confirm('¿Borrar esta foto?');" Style="font-size: 10px;">Borrar</asp:LinkButton>
+                                </div>
+                            </ItemTemplate>
+                            <FooterTemplate></div></FooterTemplate>
+                        </asp:Repeater>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </div>

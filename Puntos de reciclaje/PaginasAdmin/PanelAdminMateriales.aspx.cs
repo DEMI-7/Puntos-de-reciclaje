@@ -61,7 +61,7 @@ namespace Puntos_de_reciclaje
                     TxtNombre.Text = material.Nombre;
                     TxtInfo.Text = material.Info;
                     LblTituloFormulario.Text = "Modificar material";
-                    ImgLogo.ImageUrl = material.UrlLogo;
+                    ImgLogo.ImageUrl = "~/" + material.UrlLogo;
                     HfUrlLogo.Value = material.UrlLogo;
 
                     rptImagenes.DataSource = material.ListaUrlImagenes;
