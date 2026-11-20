@@ -71,10 +71,10 @@ namespace Puntos_de_reciclaje
                 if (idUsuario <= 0) return "Debes iniciar sesion.";
 
                 Dominio.Reseña nueva = new Dominio.Reseña();
-                nueva.idPuntoReciclaje= idPunto;
+                nueva.IdPuntoReciclaje= idPunto;
                 nueva.Puntaje = puntaje;
                 nueva.Comentario = comentario;
-                nueva.idUsuario = idUsuario; 
+                nueva.IdUsuario = idUsuario; 
 
                 Negocio.ReseñaNegocio negocio = new Negocio.ReseñaNegocio();
                 negocio.Agregar(nueva);

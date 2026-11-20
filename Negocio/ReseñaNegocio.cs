@@ -32,17 +32,17 @@ namespace Negocio
                 {
                     Reseña aux = new Reseña();
 
-                    aux.idReseña = (long)datos.Lector["ID_Reseña"];
-                    aux.idUsuario = (long)datos.Lector["ID_Usuario"];
-                    aux.idPuntoReciclaje     = (long)datos.Lector["ID_PuntoReciclaje"];
+                    aux.IdReseña = (long)datos.Lector["ID_Reseña"];
+                    aux.IdUsuario = (long)datos.Lector["ID_Usuario"];
+                    aux.IdPuntoReciclaje     = (long)datos.Lector["ID_PuntoReciclaje"];
 
 
                     aux.Comentario = datos.Lector["Reseña"] != DBNull.Value ? (string)datos.Lector["Reseña"] : "";
 
                     aux.Puntaje = (byte)datos.Lector["Puntaje"]; 
-                    aux.fechaPublicacion = (DateTime)datos.Lector["FechaPublicacion"];
+                    aux.FechaPublicacion = (DateTime)datos.Lector["FechaPublicacion"];
 
-                    aux.nombreUsuario = (string)datos.Lector["NombreUsuario"];
+                    aux.NombreUsuario = (string)datos.Lector["NombreUsuario"];
 
                     lista.Add(aux);
                 }
@@ -58,8 +58,8 @@ namespace Negocio
             try
             {
                 datos.SetearConsulta("INSERT INTO Reseñas (ID_Usuario, ID_PuntoReciclaje, Reseña, Puntaje) VALUES (@idUsuario, @idPunto, @comentario, @puntaje)");
-                datos.agregarParametro("@idUsuario", nueva.idUsuario);
-                datos.agregarParametro("@idPunto", nueva.idPuntoReciclaje  );
+                datos.agregarParametro("@idUsuario", nueva.IdUsuario);
+                datos.agregarParametro("@idPunto", nueva.IdPuntoReciclaje  );
                 datos.agregarParametro("@comentario", nueva.Comentario);
                 datos.agregarParametro("@puntaje", nueva.Puntaje);
 

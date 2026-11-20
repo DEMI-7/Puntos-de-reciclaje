@@ -8,16 +8,16 @@ namespace Dominio
 {
     public  class Reseña
     {
-        public long idReseña { get; set; }
-        public long idUsuario { get; set; }
+        public long IdReseña { get; set; }
+        public long IdUsuario { get; set; }
 
-        public long idPuntoReciclaje { get; set; }
+        public long IdPuntoReciclaje { get; set; }
         public string Comentario { get; set; }
         public int Puntaje { get; set; }  // ponemos del 1 al 5 ; 
 
-        public DateTime fechaPublicacion     { get; set; }
+        public DateTime FechaPublicacion     { get; set; }
 
 
-        public string nombreUsuario { get; set; } // para mostrar el nombre del usuario que hizo la reseña ;    
+        public string NombreUsuario { get; set; } // para mostrar el nombre del usuario que hizo la reseña ;    
     }
 }
