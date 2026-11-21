@@ -15,10 +15,14 @@
         <div class="row">
 
             <div class="col-md-5">
-                <div class="mb-3">
-                    <label class="form-label">Dirección:</label>
-                    <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" placeholder="Ej: Av. San Martín 123"></asp:TextBox>
-                </div>
+               <div class="mb-3">
+               <label class="form-label">Dirección:</label>
+               <div class="input-group">
+               <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" placeholder="Ej: Av. San Martín 123"></asp:TextBox>
+               <!-- Boton para buscar en el mapa -->
+               <button class="btn btn-outline-primary" type="button" onclick="buscarDireccion()">🔍 Buscar</button>
+               </div>
+               </div>
 
                 <div class="mb-3">
                     <label class="form-label">Días de atención:</label>
@@ -141,6 +145,47 @@ function moverMapa(lat, lng) {
         }
     }
 }
+
+// Funcion para buscar la dirección y mover el mapa
+function buscarDireccion() {
+    // Obtenemos el texto del TextBox (usando ClientID 
+    var direccion = document.getElementById('<%= txtDireccion.ClientID %>').value;
+
+    if (direccion.trim() === "") {
+        alert("Por favor, escribí una dirección primero.");
+        return;
+    }
+
+    // Le agregamos ", Argentina" para forzar la busqueda en el pais
+    var url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(direccion + ', Argentina');
+
+    // Hacemos la llamada a la API de OpenStreetMap
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                // Tomamos las coordenadas del primer resultado
+                var lat = parseFloat(data[0].lat);
+                var lon = parseFloat(data[0].lon);
+
+                // Movemos el mapa usando la función existente y ponemos la chincheta ;  
+                moverMapa(lat, lon);
+                map.setView([lat, lon], 16); // Hacemos un zoom mas cercano
+
+                // Guardamos las coordenadas en los campos ocultos
+                // para que cuando el usuario guarde, sepa dónde está el punto
+                document.getElementById('latitudMapa').value = lat;
+                document.getElementById('longitudMapa').value = lon;
+            } else {
+                alert("No se encontro la direccion. Intenta siendo mas específico (Ej: Calle, Altura, Localidad).");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Hubo un error al buscar la dirección. Revisa tu conexion a internet.");
+        });
+}
+
 
     </script>
 

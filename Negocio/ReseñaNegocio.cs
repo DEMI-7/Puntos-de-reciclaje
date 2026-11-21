@@ -10,7 +10,7 @@ namespace Negocio
 {
     public class ReseñaNegocio
     {
-        public List<Reseña> listarPorPunto(long idPunto)
+        public List<Reseña> ListarPorPunto(long idPunto)
         {
             List<Reseña> lista = new List<Reseña>();
             Accesodatos datos = new Accesodatos();

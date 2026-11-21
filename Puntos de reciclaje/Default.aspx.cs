@@ -33,7 +33,7 @@ namespace Puntos_de_reciclaje
                 ReseñaNegocio negocioReseña = new ReseñaNegocio();
                 foreach (var punto in listaPuntos)
                 {
-                    punto.Resenias = negocioReseña.listarPorPunto(punto.IdPunto);
+                    punto.Resenias = negocioReseña.ListarPorPunto(punto.IdPunto);
                 }
 
                 

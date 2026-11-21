@@ -155,6 +155,9 @@
 
                           resenas.forEach(function (r) {
                               var estrellas = "⭐".repeat(r.Puntaje);
+                              // agregamos fecha 
+                              var fecha = new Date(r.FechaPublicacion).toLocaleDateString('es-AR');
+
                               var div = document.createElement('div');
                               div.className = "border-bottom pb-2 mb-2";
                               div.innerHTML = `
@@ -162,11 +165,12 @@
                         <strong class="small">${r.NombreUsuario}</strong>
                         <span class="small text-warning">${estrellas}</span>
                         </div>
-                        <p class="m-0 small text-muted">${r.Comentario}</p> `;
-                            
+                        <p class="m-0 small text-muted">${r.Comentario}</p>
+        <span class="text-muted" style="font-size: 10px;">${fecha}</span>       <!-- ACA  MOSTRAMOS LA FECHA --> `;
+                                 
                               contenedor.appendChild(div);
                           });
-                        }
+                      } 
 
 
 
