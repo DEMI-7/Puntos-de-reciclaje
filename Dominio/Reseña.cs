@@ -19,5 +19,6 @@ namespace Dominio
 
 
         public string NombreUsuario { get; set; } // para mostrar el nombre del usuario que hizo la reseña ;    
+        public string DireccionPunto { get; set; } // para mostrar la dirección del punto de reciclaje ; 
     }
 }
