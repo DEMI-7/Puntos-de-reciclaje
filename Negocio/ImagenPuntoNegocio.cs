@@ -21,7 +21,7 @@ namespace Negocio
 
             try
             {
-                conexion.SetearConsulta($"SELECT ID_Imagen, ID_PuntoReciclaje, URL_Imagen FROM Imagen_PuntoReciclaje WHERE ID_PuntoReciclaje IN ({idsPuntos})");
+                conexion.SetearConsulta($"SELECT ID_Imagen, ID_PuntoReciclaje, URL_Imagen FROM Imagen_PuntoReciclaje WHERE ID_PuntoReciclaje IN ({idsPuntos}) AND Activa = 1");
                 conexion.EjecutarLectura();
 
                 while (conexion.Lector.Read())
@@ -73,9 +73,8 @@ namespace Negocio
 
             try
             {
-                datos.SetearConsulta("DELETE FROM Imagen_PuntoReciclaje WHERE ID_Imagen = @idImagen");
-
-                datos.agregarParametro("@idImagen", idImagen);
+                datos.SetearConsulta("UPDATE Imagen_PuntoReciclaje SET Activa = 0 WHERE ID_Imagen = @ID_Imagen");
+                datos.agregarParametro("@ID_Imagen", idImagen);
                 datos.ejecutarAccion();
 
 
