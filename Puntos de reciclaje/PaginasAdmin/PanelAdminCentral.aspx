@@ -51,6 +51,21 @@
                 </div>
             </div>
 
+
+            <div class="col-12 col-sm-6 col-md-4 mb-4 d-flex justify-content-center">
+    <div class="card shadow-sm h-100 tarjeta">
+        <div class="text-center pt-3">
+            <img src="../ImagenesSistema/resenias.png" class="card-img-top imagen-centrada" />
+        </div>
+        <div class="card-body text-center d-flex flex-column justify-content-between">
+            <asp:Button ID="BtnAdministrarResenias" runat="server" CssClass="btn btn-success" Text="Administrar Reseñas" OnClick="BtnAdministrarResenias_Click" />
+        </div>
+    </div>
+</div>
+
+
+
+
         </div>
     </div>
 

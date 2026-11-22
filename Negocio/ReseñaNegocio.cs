@@ -32,7 +32,7 @@ namespace Negocio
                 {
                     Reseña aux = new Reseña();
 
-                    aux.IdReseña = (long)datos.Lector["ID_Reseña"];
+                    aux.IdResenia = (long)datos.Lector["ID_Reseña"];
                     aux.IdUsuario = (long)datos.Lector["ID_Usuario"];
                     aux.IdPuntoReciclaje     = (long)datos.Lector["ID_PuntoReciclaje"];
 
@@ -96,7 +96,7 @@ namespace Negocio
                 {
                     Reseña aux = new Reseña();
 
-                    aux.IdReseña = (long)datos.Lector["ID_Reseña"];
+                    aux.IdResenia = (long)datos.Lector["ID_Reseña"];
 
                     aux.IdUsuario = (long)datos.Lector["ID_Usuario"];
 

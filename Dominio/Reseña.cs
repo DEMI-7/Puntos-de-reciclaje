@@ -8,7 +8,7 @@ namespace Dominio
 {
     public  class Reseña
     {
-        public long IdReseña { get; set; }
+        public long IdResenia { get; set; }
         public long IdUsuario { get; set; }
 
         public long IdPuntoReciclaje { get; set; }
