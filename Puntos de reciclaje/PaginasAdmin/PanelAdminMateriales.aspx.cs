@@ -9,6 +9,8 @@ using System.Web.UI.WebControls;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Web.DynamicData;
+using System.Drawing.Printing;
 
 namespace Puntos_de_reciclaje
 {
@@ -21,10 +23,8 @@ namespace Puntos_de_reciclaje
             {
                 CargarGrillaMateriales();
             }
-            LblMensajeSubidaImagen.Style["visibility"] = "hidden";
-            BtnSubirFoto.Style["visibility"] = "hidden";
-            FuImagenesMateriales.Style["visibility"] = "hidden";
-            tituloImagenesMat.Style["visibility"] = "hidden";
+
+            divFormulario.Visible = false;
         }
 
         private void CargarGrillaMateriales()
@@ -67,11 +67,9 @@ namespace Puntos_de_reciclaje
                     rptImagenes.DataSource = material.ListaUrlImagenes;
                     rptImagenes.DataBind();
 
-                    BtnSubirFoto.Style["visibility"] = "visible";
-                    FuImagenesMateriales.Style["visibility"] = "visible";
-                    tituloImagenesMat.Style["visibility"] = "visible";
-
-
+                    divFormulario.Visible = true;
+                    BtnAbrirFormulario.Visible = false;
+                    MostrarControlesImagenes(true);
                 }
             }
             else if (e.CommandName == "Eliminar")
@@ -106,25 +104,25 @@ namespace Puntos_de_reciclaje
                 Material material = new Material();
                 material.Nombre = TxtNombre.Text.Trim();
                 material.Info = TxtInfo.Text.Trim();
-                material.UrlLogo = HfUrlLogo.Value;
 
                 MaterialNegocio negocio = new MaterialNegocio();
-
-                ActualizarSubirLogo(material);
 
                 if (!string.IsNullOrEmpty(HfIdMaterial.Value))
                 {
                     // editar: el formulario tiene un ID guardado
                     material.IdMaterial = Convert.ToInt64(HfIdMaterial.Value);
                     negocio.Modificar(material);
+                    LimpiarFormulario();
                 }
                 else
                 {
                     // crear: el formulario no tiene ID
-                    negocio.Agregar(material);
+                    long nuevoId = negocio.Agregar(material);
+                    HfIdMaterial.Value = nuevoId.ToString();
+                    divFormulario.Visible = true;
+                    MostrarControlesImagenes(true);
                 }
 
-                LimpiarFormulario();
                 CargarGrillaMateriales();
             }
             catch (Exception ex)
@@ -142,6 +140,7 @@ namespace Puntos_de_reciclaje
         private void LimpiarFormulario()
         {
             HfIdMaterial.Value = "";
+            HfUrlLogo.Value = "";
             TxtNombre.Text = "";
             TxtInfo.Text = "";
             LblTituloFormulario.Text = "Nuevo material";
@@ -152,57 +151,15 @@ namespace Puntos_de_reciclaje
             BtnSubirFoto.Style["visibility"] = "hidden";
             rptImagenes.DataSource = null;
             rptImagenes.DataBind();
+            ImgLogo.ImageUrl = "";
+
+            divFormulario.Visible = false;
+            BtnAbrirFormulario.Visible = true;
         }
 
         protected void BtnVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("PanelAdminCentral.aspx", false);
-        }
-
-
-        private void ActualizarSubirLogo(Material mat)
-        {
-            // si el upload file esta vacio directamente no ejecuta ninguna logica referida a los archivos de imagenes
-            if (!SubirImagenLogo.HasFile)
-            {
-                return;
-            }
-
-            try
-            {
-                string carpetaDestino = Server.MapPath("~/ImagenesMateriales/");
-
-                if (!System.IO.Directory.Exists(carpetaDestino))
-                {
-                    System.IO.Directory.CreateDirectory(carpetaDestino);
-                }
-
-                // primero me fijo si la imagen ya existia y la borro
-                if (!string.IsNullOrEmpty(mat.UrlLogo))
-                {
-                    string rutaAnteriorFisica = Server.MapPath("~/" + mat.UrlLogo.TrimStart('~', '/'));
-
-                    if (System.IO.File.Exists(rutaAnteriorFisica))
-                    {
-                        System.IO.File.Delete(rutaAnteriorFisica);
-                    }
-                }
-
-                // despues la guardo si es una imagen nueva
-                string nombreArchivo = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(SubirImagenLogo.FileName);
-                string rutaFisica = carpetaDestino + nombreArchivo;
-
-                SubirImagenLogo.SaveAs(rutaFisica);
-
-                mat.UrlLogo = "ImagenesMateriales/" + nombreArchivo;
-
-            }
-            catch (Exception)
-            {
-                LblError.Text = "Error al subir la imagen";
-                LblError.Visible = true;
-                return;
-            }
         }
 
         protected void BtnSubirFoto_Click(object sender, EventArgs e)
@@ -213,6 +170,9 @@ namespace Puntos_de_reciclaje
                 LblMensajeSubidaImagen.Text = "Primero seleccione un archivo";
                 LblMensajeSubidaImagen.Style["visibility"] = "visible";
                 LblMensajeSubidaImagen.ForeColor = Color.Red;
+                BtnSubirFoto.Style["visibility"] = "visible";
+                tituloImagenesMat.Style["visibility"] = "visible";
+                FuImagenesMateriales.Style["visibility"] = "visible";
                 return;
             }
 
@@ -224,16 +184,7 @@ namespace Puntos_de_reciclaje
 
                 string carpetaDestino = Server.MapPath("~/ImagenesMateriales/");
 
-                if (!System.IO.Directory.Exists(carpetaDestino))
-                {
-                    System.IO.Directory.CreateDirectory(carpetaDestino);
-                }
-
-                
-                string nombreArchivo = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(FuImagenesMateriales.FileName);
-                string rutaFisica = carpetaDestino + nombreArchivo;
-
-                FuImagenesMateriales.SaveAs(rutaFisica);
+                string nombreArchivo = HerramientasImagenes.GuardarImagenOptimizada(FuImagenesMateriales.FileContent, FuImagenesMateriales.FileName, carpetaDestino);
 
                 imagen.URL_Imagen = "ImagenesMateriales/" + nombreArchivo;
 
@@ -287,6 +238,84 @@ namespace Puntos_de_reciclaje
                 FuImagenesMateriales.Style["visibility"] = "visible";
                 tituloImagenesMat.Style["visibility"] = "visible";
             }
+        }
+
+        protected void BtnAbrirFormulario_Click(object sender, EventArgs e)
+        {
+            divFormulario.Visible = true;
+            BtnAbrirFormulario.Visible = false;
+            MostrarControlesImagenes(false);
+        }
+
+        protected void BtnSubirLogo_Click(object sender, EventArgs e)
+        {
+            // si el upload file esta vacio directamente no ejecuta ninguna logica referida a los archivos de imagenes
+            if (!SubirImagenLogo.HasFile || string.IsNullOrEmpty(HfIdMaterial.Value))
+            {
+                LblMensajeLogo.Text = "Primero seleccione un archivo";
+                LblMensajeLogo.Visible = true;
+                divFormulario.Visible = true;
+                return;
+            }
+
+            try
+            {
+                string carpetaDestino = Server.MapPath("~/ImagenesMateriales/");
+
+
+
+                // primero me fijo si la imagen ya existia y la borro
+                if (!string.IsNullOrEmpty(HfUrlLogo.Value))
+                {
+                    string rutaAnteriorFisica = Server.MapPath("~/" + HfUrlLogo.Value.TrimStart('~', '/'));
+
+                    if (System.IO.File.Exists(rutaAnteriorFisica))
+                    {
+                        System.IO.File.Delete(rutaAnteriorFisica);
+                    }
+                }
+
+
+                // despues la guardo si es una imagen nueva
+                string nombreArchivo = HerramientasImagenes.GuardarImagenOptimizada(SubirImagenLogo.FileContent, SubirImagenLogo.FileName, carpetaDestino, anchoMaximo: 500);
+                
+                Material mat = new Material();
+                mat.IdMaterial = Convert.ToInt64(HfIdMaterial.Value);
+                mat.UrlLogo = "ImagenesMateriales/" + nombreArchivo;
+
+                MaterialNegocio negocio = new MaterialNegocio();
+                negocio.ActualizarLogo(mat);
+
+
+                // actualiza vista previa
+                ImgLogo.ImageUrl = "~/" + mat.UrlLogo;
+                HfUrlLogo.Value = mat.UrlLogo;
+                CargarGrillaMateriales();
+
+                // dejar formulario abierto
+                MostrarControlesImagenes(true);
+                divFormulario.Visible = true;
+                BtnAbrirFormulario.Visible = false;
+
+            }
+            catch (Exception ex)
+            {
+                LblMensajeLogo.Text = "Error al subir el logo";
+                LblMensajeLogo.Visible = true;
+                divFormulario.Visible = true;
+                BtnAbrirFormulario.Visible = false;
+                return;
+            }
+            finally
+            {
+                SubirImagenLogo.Attributes.Clear();
+            }
+        }
+
+        private void MostrarControlesImagenes(Boolean estado)
+        {
+            divPanelLogo.Visible = estado;
+            divPanelImagenesPagina.Visible = estado;
         }
     }
 }

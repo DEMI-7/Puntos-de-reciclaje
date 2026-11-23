@@ -15,6 +15,24 @@ namespace Puntos_de_reciclaje
     {
 
         /// <summary>
+        /// Control BtnAbrirFormulario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnAbrirFormulario;
+
+        /// <summary>
+        /// Control divFormulario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divFormulario;
+
+        /// <summary>
         /// Control LblTituloFormulario.
         /// </summary>
         /// <remarks>
@@ -60,6 +78,15 @@ namespace Puntos_de_reciclaje
         protected global::System.Web.UI.WebControls.TextBox TxtInfo;
 
         /// <summary>
+        /// Control divPanelLogo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPanelLogo;
+
+        /// <summary>
         /// Control LblLogoMaterial.
         /// </summary>
         /// <remarks>
@@ -78,6 +105,24 @@ namespace Puntos_de_reciclaje
         protected global::System.Web.UI.WebControls.FileUpload SubirImagenLogo;
 
         /// <summary>
+        /// Control BtnSubirLogo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnSubirLogo;
+
+        /// <summary>
+        /// Control LblMensajeLogo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblMensajeLogo;
+
+        /// <summary>
         /// Control ImgLogo.
         /// </summary>
         /// <remarks>
@@ -94,6 +139,15 @@ namespace Puntos_de_reciclaje
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblError;
+
+        /// <summary>
+        /// Control divPanelImagenesPagina.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPanelImagenesPagina;
 
         /// <summary>
         /// Control tituloImagenesMat.

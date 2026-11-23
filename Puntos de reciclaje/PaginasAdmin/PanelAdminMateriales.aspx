@@ -4,10 +4,18 @@
     <div class="container body-content mt-4">
         <h3>Panel de administración: materiales</h3>
 
+
+        <!-- BOTON PARA ABRIR EL FORMULARIO -->
+        <div class="d-flex justify-content-center my-3">
+            <asp:Button ID="BtnAbrirFormulario" CssClass="btn btn-outline-success" runat="server" Text="+ Nuevo material" OnClick="BtnAbrirFormulario_Click" />
+        </div>
+
+
+
                 <!-- -----------------------------------------------------------------------------------
         Formulario para cargar un material nuevo o modificar uno existente
         -->
-        <div class="card shadow-sm mb-4">
+        <div class="card shadow-sm mb-4" id="divFormulario" runat="server">
             <div class="card-header bg-dark text-white">
                 <h5 class="mb-0">
                     <asp:Label ID="LblTituloFormulario" runat="server" Text="Nuevo material"></asp:Label>
@@ -34,10 +42,12 @@
                     </div>
 
                     <!-- COLUMNA DERECHA -->
-                    <div class="col-md-5">
+                    <div id="divPanelLogo" runat="server" class="col-md-5">
                         <div class="mb-3">
                             <asp:Label ID="LblLogoMaterial" runat="server" Text="Subir logo:"></asp:Label>
-                            <asp:FileUpload ID="SubirImagenLogo" runat="server" CssClass="form-control" accept=".jpg, .jpeg, .png" />
+                            <asp:FileUpload ID="SubirImagenLogo" runat="server" CssClass="form-control mb-3" accept=".jpg, .jpeg, .png" />
+                            <asp:Button ID="BtnSubirLogo" runat="server" Text="Subir logo" CssClass="btn btn-success" OnClick="BtnSubirLogo_Click" />
+                            <asp:Label ID="LblMensajeLogo" runat="server" Text=""></asp:Label>
                         </div>
 
                         <div class="border rounded big-light d-flex align-item-center justify-content-center overflow-hidden" style="height: 175px;">
@@ -52,29 +62,31 @@
 
 
                 <!-- APARTADO DE IMAGENES PARA LA PAGINA -->
+                <div id="divPanelImagenesPagina" runat="server">
 
-                <h3 id="tituloImagenesMat" runat="server">Imagenes para la pagina del material:</h3>
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <asp:FileUpload ID="FuImagenesMateriales" runat="server" CssClass="form-control" accept=".jpg, .jpeg, .png" />
-                    <asp:Button ID="BtnSubirFoto" runat="server" Text="Subir foto" CssClass="btn btn-success" OnClick="BtnSubirFoto_Click" />
-                    <asp:Label ID="LblMensajeSubidaImagen" runat="server" Text="" Style="visibility: hidden;" ></asp:Label>
-                </div>
+                    <h3 id="tituloImagenesMat" runat="server">Imagenes para la pagina del material:</h3>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <asp:FileUpload ID="FuImagenesMateriales" runat="server" CssClass="form-control" accept=".jpg, .jpeg, .png" />
+                        <asp:Button ID="BtnSubirFoto" runat="server" Text="Subir foto" CssClass="btn btn-success" OnClick="BtnSubirFoto_Click" />
+                        <asp:Label ID="LblMensajeSubidaImagen" runat="server" Text="" Style="visibility: hidden;"></asp:Label>
+                    </div>
 
-                
-                <div class="mb-3 mt-2">
-                    <asp:Repeater ID="rptImagenes" runat="server" OnItemCommand="rptImagenes_ItemCommand">
-                        <HeaderTemplate>
-                            <div class="d-flex flex-wrap">
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <div class="me-2 mb-2 text-center border p-1 rounded" style="background-color: #f8f9fa;">
-                                <asp:Image ID="img" runat="server" ImageUrl='<%#"~/" + Eval("URL_Imagen") %>' Width="80px" Height="60px" CssClass="rounded mb-1" />
-                                <br />
-                                <asp:LinkButton ID="btnBorrarImg" runat="server" CommandName="EliminarImg" CommandArgument='<%#Eval("ID_Imagen") %>' CssClass="btn btn-sm btn-danger w-100" Style="font-size: 10px;" CausesValidation="false" >Borrar</asp:LinkButton>
-                            </div>
-                        </ItemTemplate>
-                        <FooterTemplate></div></FooterTemplate>
-                    </asp:Repeater>
+
+                    <div class="mb-3 mt-2">
+                        <asp:Repeater ID="rptImagenes" runat="server" OnItemCommand="rptImagenes_ItemCommand">
+                            <HeaderTemplate>
+                                <div class="d-flex flex-wrap">
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <div class="me-2 mb-2 text-center border p-1 rounded" style="background-color: #f8f9fa;">
+                                    <asp:Image ID="img" runat="server" ImageUrl='<%#"~/" + Eval("URL_Imagen") %>' Width="80px" Height="60px" CssClass="rounded mb-1" />
+                                    <br />
+                                    <asp:LinkButton ID="btnBorrarImg" runat="server" CommandName="EliminarImg" CommandArgument='<%#Eval("ID_Imagen") %>' CssClass="btn btn-sm btn-danger w-100" Style="font-size: 10px;" CausesValidation="false">Borrar</asp:LinkButton>
+                                </div>
+                            </ItemTemplate>
+                            <FooterTemplate></div></FooterTemplate>
+                        </asp:Repeater>
+                    </div>
                 </div>
 
 

@@ -97,16 +97,18 @@ namespace Negocio
             }
         }
 
-        public void Agregar(Material nuevo)
+        public long Agregar(Material nuevo)
         {
             Accesodatos conexion = new Accesodatos();
             try
             {
-                conexion.SetearConsulta("Insert Into Materiales (Nombre, Info, UrlLogo) Values (@nombre, @info, @urlLogo)");
+                conexion.SetearConsulta("Insert Into Materiales (Nombre, Info) OUTPUT INSERTED.ID_Material VALUES (@nombre, @info)");
                 conexion.agregarParametro("@nombre", nuevo.Nombre);
                 conexion.agregarParametro("@info", nuevo.Info);
-                conexion.agregarParametro("@urlLogo", nuevo.UrlLogo);
                 conexion.ejecutarAccion();
+
+                object resultado = conexion.ejecutarAccionScalar();
+                return Convert.ToInt64(resultado);
             }
             catch (Exception)
             {
@@ -118,15 +120,32 @@ namespace Negocio
             Accesodatos conexion = new Accesodatos();
             try
             {
-                conexion.SetearConsulta("Update Materiales Set Nombre = @nombre, Info = @info, UrlLogo = @urlLogo WHERE ID_Material = @idMaterial");
+                conexion.SetearConsulta("Update Materiales Set Nombre = @nombre, Info = @info WHERE ID_Material = @idMaterial");
                 conexion.agregarParametro("@nombre", material.Nombre);
                 conexion.agregarParametro("@info", material.Info);
+                conexion.agregarParametro("@idMaterial", material.IdMaterial);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void ActualizarLogo(Material material)
+        {
+            Accesodatos conexion = new Accesodatos();
+
+            try
+            {
+                conexion.SetearConsulta("Update Materiales Set UrlLogo = @urlLogo WHERE ID_Material = @idMaterial");
                 conexion.agregarParametro("@idMaterial", material.IdMaterial);
                 conexion.agregarParametro("@urlLogo", material.UrlLogo);
                 conexion.ejecutarAccion();
             }
             catch (Exception)
             {
+
                 throw;
             }
         }

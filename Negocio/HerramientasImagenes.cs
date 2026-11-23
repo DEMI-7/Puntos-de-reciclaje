@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Negocio
 {
-    public class HerramientasImagenes
+    public static class HerramientasImagenes
     {
         public static string GuardarImagenOptimizada(Stream archivoSubido, string nombreOriginal, string carpetaFisicaDestino, int anchoMaximo = 1280, long calidadJpg = 75L)
         {

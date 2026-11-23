@@ -375,16 +375,12 @@ namespace Puntos_de_reciclaje
             LblMensajeSubidaImagen.Visible = false;
             try
             {
+                
+
+
                 string carpetaDestino = Server.MapPath("~/ImagenesPuntos/");
 
-                if (!System.IO.Directory.Exists(carpetaDestino))
-                {
-                    System.IO.Directory.CreateDirectory(carpetaDestino);
-                }
-
-                string nombreArchivo = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(fuImagen.FileName);
-                string rutaFisica = carpetaDestino + nombreArchivo;
-                fuImagen.SaveAs(rutaFisica);
+                string nombreArchivo = HerramientasImagenes.GuardarImagenOptimizada(fuImagen.FileContent,fuImagen.FileName,carpetaDestino);
 
                 ImagenPuntoReciclaje nuevaFoto = new ImagenPuntoReciclaje();
                 nuevaFoto.IdPunto = idPunto;
@@ -392,6 +388,10 @@ namespace Puntos_de_reciclaje
 
                 ImagenPuntoNegocio negocioImagen = new ImagenPuntoNegocio();
                 negocioImagen.Agregar(nuevaFoto);
+
+                LblMensajeSubidaImagen.Text = "Foto subida correctamente.";
+                LblMensajeSubidaImagen.ForeColor = Color.Green;
+                LblMensajeSubidaImagen.Visible = true;
             }
             catch (Exception ex)
             {
