@@ -14,6 +14,8 @@ namespace Puntos_de_reciclaje
         {
             // si hay alguien logueado mostramos su nombre en la barra
             Usuario usuario = (Usuario)Session["usuario"];
+            // panel admin oculto
+            LiPanelAdmin.Visible = false;
 
             if (usuario != null)
             {
@@ -21,6 +23,11 @@ namespace Puntos_de_reciclaje
                 LblUsuarioLogueado.Visible = true;
                 BtnCerrarSesion.Visible = true;
                 LiIniciarSesion.Visible = false;
+                // muestra panel admin solo si es admin el tipo d eusuario
+                if (usuario.TipoUsuario == "admin")
+                {
+                    LiPanelAdmin.Visible = true;
+                }
             }
             else
             {
