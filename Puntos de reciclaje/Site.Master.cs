@@ -16,6 +16,8 @@ namespace Puntos_de_reciclaje
             Usuario usuario = (Usuario)Session["usuario"];
             // panel admin oculto
             LiPanelAdmin.Visible = false;
+            // panel de empresa ocuto
+            LiPanelEmpresa.Visible = false;
 
             if (usuario != null)
             {
@@ -27,6 +29,11 @@ namespace Puntos_de_reciclaje
                 if (usuario.TipoUsuario == "admin")
                 {
                     LiPanelAdmin.Visible = true;
+                }
+                // muestra panel empresa a empresa, gubernamental y admin
+                if (usuario.TipoUsuario == "empresa" || usuario.TipoUsuario == "gubernamental" || usuario.TipoUsuario == "admin")
+                {
+                    LiPanelEmpresa.Visible = true;
                 }
             }
             else
