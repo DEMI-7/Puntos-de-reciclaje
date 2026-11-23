@@ -15,7 +15,7 @@
             <!-- texto de la contraseña-->
             <div class="mb-3">
                 <asp:Label ID="LblContraseña" runat="server" Text="Contraseña:" for="TxtContraseña" class="form-label"></asp:Label>
-                <asp:TextBox ID="TxtContraseña" runat="server" class="form-control" type="password"></asp:TextBox>
+                <asp:TextBox ID="TxtContraseña" runat="server" class="form-control" TextMode="Password"></asp:TextBox>
             </div>
 
             <!-- mensaje de error -->
