@@ -138,6 +138,7 @@
     <Content Include="ImagenesSistema\empresas.png" />
     <Content Include="ImagenesSistema\materialesAdmin.png" />
     <Content Include="ImagenesSistema\registros.png" />
+    <Content Include="ImagenesSistema\reseniasLogo.png" />
     <Content Include="ImagenesSistema\usuarios logo.png" />
     <Content Include="ImagenesSistema\usuariosBloqueados.png" />
     <Content Include="Libreria\leaflet\images\layers-2x.png" />

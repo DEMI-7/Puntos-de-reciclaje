@@ -12,12 +12,12 @@
     <asp:label ID="lblError" runat="server" CssClass="text-danger fw-bold d-block mb-3" 
         Visible="false"  ></asp:label>
 
-    <div class ="card shadow-sm">
-        <div class ="card-header bg-dark text-white">
+    <div class="card shadow-sm mb-3">
+        <div class="card-header bg-dark text-white">
             <h5 class="mb-0">Todas las reseñas del sistema </h5>
-            </div>
+        </div>
 
-        <div class ="card-body">
+        <div class="card-body">
             <asp:GridView ID="gvResenias" runat="server" CssClass="table table-hover table-striped " AutoGenerateColumns="false" OnRowCommand=" gvResenias_RowCommand">
 
                 <Columns>
@@ -25,28 +25,33 @@
 
                     <asp:BoundField DataField="NombreUsuario" HeaderText="Usuario" />
 
-                     <asp:BoundField DataField="DireccionPunto" HeaderText="Punto de Reciclaje" />
+                    <asp:BoundField DataField="DireccionPunto" HeaderText="Punto de Reciclaje" />
 
                     <asp:BoundField DataField="Puntaje" HeaderText="Estrellas" />
 
                     <asp:BoundField DataField="Comentario" HeaderText="Comentario" />
 
-                     <asp:BoundField DataField="FechaPublicacion" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
+                    <asp:BoundField DataField="FechaPublicacion" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
 
 
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
-                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" 
-                                 CssClass="btn btn-sm btn-danger" 
-                                    CommandName="EliminarResenia" 
-                                    CommandArgument='<%# Eval("IdResenia") %>' 
-                                    OnClientClick="return confirm('¿Seguro que queres borrar esta reseña?');" />
+                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar"
+                                CssClass="btn btn-sm btn-danger"
+                                CommandName="EliminarResenia"
+                                CommandArgument='<%# Eval("IdResenia") %>'
+                                OnClientClick="return confirm('¿Seguro que queres borrar esta reseña?');" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-          </div>
-       </div>
+        </div>
+    </div>
 
+    <div class="text-center">
+        <asp:Button ID="BtnVolver" runat="server" CssClass="btn btn-outline-primary" Text="Volver" OnClick="BtnVolver_Click" />
+    </div>
+
+    <hr />
 </div>
 </asp:Content>

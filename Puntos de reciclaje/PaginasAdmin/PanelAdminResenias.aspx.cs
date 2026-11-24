@@ -73,7 +73,10 @@ namespace Puntos_de_reciclaje.PaginasAdmin
 
         }
 
-
+        protected void BtnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PanelAdminCentral.aspx", false);
+        }
 
     }
 }
