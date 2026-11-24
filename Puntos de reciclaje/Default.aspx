@@ -149,7 +149,7 @@
                           contenedor.innerHTML = "";
 
                           if (!resenas || resenas.length === 0) {
-                              contenedor.innerHTML = "<p class='text-muted small'> Agregar un incentivo para que escriba resenia primero #1</p>";
+                              contenedor.innerHTML = "<p class='text-muted small'> ¿Que estas esperando para ser el primero?</p>";
                               return;
                           }
 

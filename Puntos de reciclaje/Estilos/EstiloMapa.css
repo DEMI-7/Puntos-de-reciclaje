@@ -48,6 +48,9 @@ html, body {
     position: absolute;
     top: 15px;
     right: 15px;
+    max-height: calc(100% - 30px);
+    overflow-y: auto;
+    overflow-x: hidden;
     z-index: 1000; /* se pone por encima de las capas del mapa */
     background: white;
     padding: 15px;
@@ -78,8 +81,11 @@ html, body {
 
 .panel-info {
     position: absolute;
-    top: 15px;
+    top: 20px;
     left: 15px;
+    bottom: 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
     z-index: 1000; /* se pone por encima de las capas del mapa */
     background: white;
     padding: 15px;

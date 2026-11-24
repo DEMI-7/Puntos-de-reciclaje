@@ -121,6 +121,7 @@
     <Content Include="Error.aspx" />
     <Content Include="Estilos\EstiloGrillas.css" />
     <Content Include="Estilos\EstiloMapa.css" />
+    <Content Include="Estilos\EstiloMaster.css" />
     <Content Include="Estilos\EstiloPaginaAprender.css" />
     <Content Include="Estilos\EstiloPanelAdminCentral.css" />
     <Content Include="favicon.ico" />
@@ -137,6 +138,7 @@
     <Content Include="ImagenesMateriales\Vidrio_logo.png" />
     <Content Include="ImagenesSistema\empresas.png" />
     <Content Include="ImagenesSistema\materialesAdmin.png" />
+    <Content Include="ImagenesSistema\reciMapLogo.png" />
     <Content Include="ImagenesSistema\registros.png" />
     <Content Include="ImagenesSistema\reseniasLogo.png" />
     <Content Include="ImagenesSistema\usuarios logo.png" />

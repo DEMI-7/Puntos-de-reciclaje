@@ -1,0 +1,24 @@
+﻿/* le damos altura normal a la barra y dejamos espacio a la izquierda para el logo */
+.navbar {
+    min-height: 56px;
+    padding-left: 115px; /* empuja los links a la derecha para que no los tape el logo */
+}
+
+/* el logo cuelga sin estirar la barra */
+.logo-flotante {
+    position: absolute;
+    top: 0;
+    left: 15px;
+    background: #ffffff; /* fondo blanco */
+    padding: 6px 10px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1050; /* Por encima del mapa y paneles */
+    margin: 0;
+}
+
+    .logo-flotante img {
+        width: 65px; /* tamaño del logo*/
+        height: auto;
+        display: block;
+    }
