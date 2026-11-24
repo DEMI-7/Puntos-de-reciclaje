@@ -19,6 +19,11 @@ namespace Puntos_de_reciclaje
         List<Material> listaMateriales;
         protected void Page_Load(object sender, EventArgs e)
         {
+            // si no puede ver el panel admin, lo mandamos a la pagina de error
+            if (!Seguridad.PuedeVerPanelAdmin(Session["usuario"]))
+            {
+                Response.Redirect("~/Error.aspx");
+            }
             if (!IsPostBack)
             {
                 CargarGrillaMateriales();

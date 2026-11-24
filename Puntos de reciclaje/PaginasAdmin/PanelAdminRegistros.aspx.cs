@@ -14,6 +14,11 @@ namespace Puntos_de_reciclaje.PaginasAdmin
         List<RegistroAccion> listaRegistros;
         protected void Page_Load(object sender, EventArgs e)
         {
+            // si no puede ver el panel admin, lo mandamos a la pagina de error
+            if (!Seguridad.PuedeVerPanelAdmin(Session["usuario"]))
+            {
+                Response.Redirect("~/Error.aspx");
+            }
             PnlDetalleMovimiento.Visible = false;
 
             if (!IsPostBack)

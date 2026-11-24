@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,11 @@ namespace Puntos_de_reciclaje.PaginasAdmin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            // si no puede ver el panel admin, lo mandamos a la pagina de error
+            if (!Seguridad.PuedeVerPanelAdmin(Session["usuario"]))
+            {
+                Response.Redirect("~/Error.aspx");
+            }
         }
 
         protected void BtnUsuariosActivos_Click(object sender, EventArgs e)

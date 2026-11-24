@@ -15,6 +15,12 @@ namespace Puntos_de_reciclaje.PaginasAdmin
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // si no puede ver el panel admin, lo mandamos a la pagina de error
+            if (!Seguridad.PuedeVerPanelAdmin(Session["usuario"]))
+            {
+                Response.Redirect("~/Error.aspx");
+            }
+
             LblErrorSesion.Visible = false;
             if (!IsPostBack)
             {
