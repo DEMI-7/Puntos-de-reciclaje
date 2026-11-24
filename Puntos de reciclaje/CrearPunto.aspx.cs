@@ -18,6 +18,11 @@ namespace Puntos_de_reciclaje
         private string[] nombresDias = { "lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo" };
         protected void Page_Load(object sender, EventArgs e)
         {
+            // primero vemos si no puede ver el panel de empresa para mandarlo a la pagina de error
+            if (!Seguridad.PuedeVerPanelEmpresa(Session["usuario"]))
+            {
+                Response.Redirect("~/Error.aspx");
+            }
             if (!IsPostBack)
             {
                CargarMateriales();

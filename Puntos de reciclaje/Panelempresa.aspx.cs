@@ -15,6 +15,11 @@ namespace Puntos_de_reciclaje
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // primero vemos si no puede ver el panel de empresa para mandarlo a la pagina de error
+            if (!Seguridad.PuedeVerPanelEmpresa(Session["usuario"]))
+            {
+                Response.Redirect("~/Error.aspx");
+            }
             if (!IsPostBack)
             {
                 Usuario usuario = (Usuario)Session["usuario"];

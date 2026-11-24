@@ -51,6 +51,7 @@
     <Compile Include="PuntoNegocio.cs" />
     <Compile Include="RegistroAccionNegocio.cs" />
     <Compile Include="ReseñaNegocio.cs" />
+    <Compile Include="Seguridad.cs" />
     <Compile Include="UsuarioNegocio.cs" />
   </ItemGroup>
   <ItemGroup>
