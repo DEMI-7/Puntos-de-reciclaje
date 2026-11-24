@@ -143,7 +143,36 @@ namespace Negocio
 
         }
 
+        public bool ExisteReseniaUser (long idUsuario, long idPunto)
+        {
+            Accesodatos datos = new Accesodatos();
+            try
+            {
+                datos.SetearConsulta("SELECT COUNT(*) FROM Reseñas WHERE ID_Usuario = @idUsuario AND ID_PuntoReciclaje = @idPunto");
+                datos.agregarParametro("@idUsuario", idUsuario);
+                datos.agregarParametro("@idPunto", idPunto);
+                datos.EjecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int cant  = (int)datos.Lector[0]; // leemos el resultado de la consulta
+
+                    return cant > 0; // si es mayor a 0 es porq ya existe ; 
+                }
+                return false; // si no hay resultados , no existe ;
+
+            }
+            catch (Exception) { throw; }
+            finally { datos.CerrarConexion(); }
 
 
-}
+
+
+        }
+
+
+
+
+
+    }
 }

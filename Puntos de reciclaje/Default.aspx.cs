@@ -70,13 +70,23 @@ namespace Puntos_de_reciclaje
             {
                 if (idUsuario <= 0) return "Debes iniciar sesion.";
 
+                Negocio.ReseñaNegocio negocio = new Negocio.ReseñaNegocio();
+                if  (negocio.ExisteReseniaUser(idUsuario, idPunto))
+                {
+                    return "Ya realizaste una reseña para este punto de reciclaje. Gracias!";
+                }
+
                 Dominio.Reseña nueva = new Dominio.Reseña();
+
                 nueva.IdPuntoReciclaje= idPunto;
+
                 nueva.Puntaje = puntaje;
+
                 nueva.Comentario = comentario;
+
                 nueva.IdUsuario = idUsuario; 
 
-                Negocio.ReseñaNegocio negocio = new Negocio.ReseñaNegocio();
+                
                 negocio.Agregar(nueva);
 
                 return "OK";
