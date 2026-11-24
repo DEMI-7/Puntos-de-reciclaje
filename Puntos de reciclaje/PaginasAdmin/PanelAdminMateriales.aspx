@@ -58,7 +58,7 @@
 
                 <hr class="my-3" />
 
-                <asp:Label ID="LblError" runat="server" CssClass="text-danger fw-bold d-block mb-3" Visible="false"></asp:Label>
+                <asp:Label ID="LblError" runat="server" CssClass="text-danger fw-bold d-block mb-3"></asp:Label>
 
 
                 <!-- APARTADO DE IMAGENES PARA LA PAGINA -->
@@ -68,7 +68,7 @@
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <asp:FileUpload ID="FuImagenesMateriales" runat="server" CssClass="form-control" accept=".jpg, .jpeg, .png" />
                         <asp:Button ID="BtnSubirFoto" runat="server" Text="Subir foto" CssClass="btn btn-success" OnClick="BtnSubirFoto_Click" />
-                        <asp:Label ID="LblMensajeSubidaImagen" runat="server" Text="" Style="visibility: hidden;"></asp:Label>
+                        <asp:Label ID="LblMensajeSubidaImagen" runat="server" Text=""></asp:Label>
                     </div>
 
 

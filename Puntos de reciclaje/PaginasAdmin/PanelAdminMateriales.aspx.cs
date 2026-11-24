@@ -11,6 +11,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Web.DynamicData;
 using System.Drawing.Printing;
+using System.Text;
 
 namespace Puntos_de_reciclaje
 {
@@ -75,6 +76,8 @@ namespace Puntos_de_reciclaje
                     divFormulario.Visible = true;
                     BtnAbrirFormulario.Visible = false;
                     MostrarControlesImagenes(true);
+                    LblMensajeLogo.Visible = false;
+                    LblMensajeSubidaImagen.Visible = false;
                 }
             }
             else if (e.CommandName == "Eliminar")
@@ -149,14 +152,10 @@ namespace Puntos_de_reciclaje
             TxtNombre.Text = "";
             TxtInfo.Text = "";
             LblTituloFormulario.Text = "Nuevo material";
-            LblError.Visible = false;
-            tituloImagenesMat.Style["visibility"] = "hidden";
-            LblMensajeSubidaImagen.Style["visibility"] = "hidden";
-            FuImagenesMateriales.Style["visibility"] = "hidden";
-            BtnSubirFoto.Style["visibility"] = "hidden";
             rptImagenes.DataSource = null;
             rptImagenes.DataBind();
             ImgLogo.ImageUrl = "";
+
 
             divFormulario.Visible = false;
             BtnAbrirFormulario.Visible = true;
@@ -173,11 +172,11 @@ namespace Puntos_de_reciclaje
             if (!FuImagenesMateriales.HasFile || string.IsNullOrEmpty(HfIdMaterial.Value))
             {
                 LblMensajeSubidaImagen.Text = "Primero seleccione un archivo";
-                LblMensajeSubidaImagen.Style["visibility"] = "visible";
+                LblMensajeSubidaImagen.Visible = true;
                 LblMensajeSubidaImagen.ForeColor = Color.Red;
-                BtnSubirFoto.Style["visibility"] = "visible";
-                tituloImagenesMat.Style["visibility"] = "visible";
-                FuImagenesMateriales.Style["visibility"] = "visible";
+                MostrarControlesImagenes(true);
+                divFormulario.Visible = true;
+                BtnAbrirFormulario.Visible = false;
                 return;
             }
 
@@ -196,10 +195,11 @@ namespace Puntos_de_reciclaje
                 ImagenMaterialNegocio negocio = new ImagenMaterialNegocio();
                 negocio.SubirImagenPaginaMaterial(imagen);
                 LblMensajeSubidaImagen.Text = "Imagen subida correctamente";
-                LblMensajeSubidaImagen.Style["visibility"] = "visible";
+                LblMensajeSubidaImagen.Visible = true;
                 LblMensajeSubidaImagen.ForeColor = Color.Green;
-                BtnSubirFoto.Style["visibility"] = "visible";
-                tituloImagenesMat.Style["visibility"] = "visible";
+                MostrarControlesImagenes(true);
+                divFormulario.Visible = true;
+                BtnAbrirFormulario.Visible = false;
 
                 CargarGrillaMateriales();
                 Material material = listaMateriales.FirstOrDefault(m => m.IdMaterial == Convert.ToInt64(HfIdMaterial.Value));
@@ -237,11 +237,11 @@ namespace Puntos_de_reciclaje
                 rptImagenes.DataBind();
 
                 LblMensajeSubidaImagen.Text = "Imagen eliminada correctamente";
-                LblMensajeSubidaImagen.Style["visibility"] = "visible";
+                LblMensajeSubidaImagen.Visible = true;
                 LblMensajeSubidaImagen.ForeColor = Color.DarkRed;
-                BtnSubirFoto.Style["visibility"] = "visible";
-                FuImagenesMateriales.Style["visibility"] = "visible";
-                tituloImagenesMat.Style["visibility"] = "visible";
+                MostrarControlesImagenes(true);
+                divFormulario.Visible = true;
+                BtnAbrirFormulario.Visible = false;
             }
         }
 
