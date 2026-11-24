@@ -35,9 +35,9 @@ namespace Puntos_de_reciclaje.PaginasAdmin
             try
             {
                 Negocio.ReseñaNegocio negocio = new Negocio.ReseñaNegocio();
-                gvResenias.DataSource = negocio.ListarTodas();
+                GvResenias.DataSource = negocio.ListarTodas();
 
-                gvResenias.DataBind();
+                GvResenias.DataBind();
             }
             catch (Exception ex)
             {
@@ -48,15 +48,21 @@ namespace Puntos_de_reciclaje.PaginasAdmin
         }
 
 
-        protected void gvResenias_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
+        protected void GvResenias_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
            if (e.CommandName=="EliminarResenia")
             {
                 try
                 {
+
                     long idResenia = Convert.ToInt64(e.CommandArgument);
+
+                    String motivo = hfMotivoEliminar.Value; // asignamos el motivo ; 
+
+
                     ReseñaNegocio negocio = new ReseñaNegocio();
-                    negocio.Eliminar(idResenia);
+
+                    negocio.Eliminar(idResenia, motivo);
 
                     CargarGrilla(); // refrescamos para q desaparezca ; 
 

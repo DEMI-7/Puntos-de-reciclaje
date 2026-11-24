@@ -1,0 +1,4 @@
+USE PuntosReciclaje_DB;
+GO
+ALTER TABLE Reseñas ADD Activo BIT NOT NULL DEFAULT 1;
+ALTER TABLE Reseñas ADD MotivoEliminacion VARCHAR(255) NULL;

@@ -24,13 +24,22 @@ namespace Puntos_de_reciclaje.PaginasAdmin
         protected global::System.Web.UI.WebControls.Label lblError;
 
         /// <summary>
-        /// Control gvResenias.
+        /// Control hfMotivoEliminar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvResenias;
+        protected global::System.Web.UI.WebControls.HiddenField hfMotivoEliminar;
+
+        /// <summary>
+        /// Control GvResenias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GvResenias;
 
         /// <summary>
         /// Control BtnVolver.

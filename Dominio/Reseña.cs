@@ -20,5 +20,10 @@ namespace Dominio
 
         public string NombreUsuario { get; set; } // para mostrar el nombre del usuario que hizo la reseña ;    
         public string DireccionPunto { get; set; } // para mostrar la dirección del punto de reciclaje ; 
+
+
+        // NEW  ; 
+        public bool Activo { get; set; } // para saber si la reseña esta activa o no ;
+        public string MotivoEliminacion { get; set; } // para saber el motivo de la eliminación de la reseña ;
     }
 }

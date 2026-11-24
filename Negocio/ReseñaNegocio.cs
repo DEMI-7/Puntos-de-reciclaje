@@ -21,7 +21,7 @@ namespace Negocio
                     SELECT R.ID_Reseña, R.ID_Usuario, R.ID_PuntoReciclaje, R.Reseña, R.Puntaje, R.FechaPublicacion, U.Nombre AS NombreUsuario
                     FROM Reseñas R
                     INNER JOIN Usuarios U ON R.ID_Usuario = U.ID_Usuario
-                    WHERE R.ID_PuntoReciclaje = @idPunto
+                    WHERE R.ID_PuntoReciclaje = @idPunto AND R.Activo = 1 
                     ORDER BY R.FechaPublicacion DESC"); 
 
                 datos.agregarParametro("@idPunto", idPunto);
@@ -84,7 +84,8 @@ namespace Negocio
                     U.Nombre AS NombreUsuario, P.Direccion AS DireccionPunto
                     FROM Reseñas R
                     INNER JOIN Usuarios U ON R.ID_Usuario = U.ID_Usuario
-                     INNER JOIN Puntos_reciclaje P ON R.ID_PuntoReciclaje = P.ID_Punto
+                    INNER JOIN Puntos_reciclaje P ON R.ID_PuntoReciclaje = P.ID_Punto
+                    WHERE R.Activo = 1 
                     ORDER BY R.FechaPublicacion DESC");
 
 
@@ -126,22 +127,41 @@ namespace Negocio
 
 
         //agregue elinar reseña para eliminar reseñas  , valga la redundancia xd 
-         public void Eliminar(long idReseña)
+         public void Eliminar(long idReseña, string motivo )
         {
             Accesodatos datos = new Accesodatos();
             try
             {
-                datos.SetearConsulta("DELETE FROM Reseñas WHERE ID_Reseña = @id");
+                datos.SetearConsulta("UPDATE Reseñas SET Activo = 0," +
+                    " MotivoEliminacion = @motivo WHERE ID_Reseña = @id");
+
+                datos.agregarParametro("@motivo", motivo);
+
                 datos.agregarParametro("@id", idReseña);
                 datos.ejecutarAccion();
             }
             catch (Exception)
             { throw; }
             
+        }
 
+
+        public void Restaurar (long idReseña)
+        {
+            Accesodatos datos = new Accesodatos();
+            try
+            {
+                datos.SetearConsulta("UPDATE Reseñas SET Activo = 1, MotivoEliminacion = NULL WHERE ID_Reseña = @id");
+                datos.agregarParametro("@id", idReseña);
+                datos.ejecutarAccion();
+            }
+            catch (Exception)
+            { throw; }
 
 
         }
+
+
 
         public bool ExisteReseniaUser (long idUsuario, long idPunto)
         {

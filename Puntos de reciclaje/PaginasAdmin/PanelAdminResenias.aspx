@@ -12,13 +12,16 @@
     <asp:label ID="lblError" runat="server" CssClass="text-danger fw-bold d-block mb-3" 
         Visible="false"  ></asp:label>
 
+     <!-- Campo oculto para guardar el motivo -->
+     <asp:HiddenField ID="hfMotivoEliminar" runat="server" /> 
+
     <div class="card shadow-sm mb-3">
         <div class="card-header bg-dark text-white">
             <h5 class="mb-0">Todas las reseñas del sistema </h5>
         </div>
 
         <div class="card-body">
-            <asp:GridView ID="gvResenias" runat="server" CssClass="table table-hover table-striped " AutoGenerateColumns="false" OnRowCommand=" gvResenias_RowCommand">
+            <asp:GridView ID="GvResenias" runat="server" CssClass="table table-hover table-striped " AutoGenerateColumns="false" OnRowCommand="GvResenias_RowCommand">
 
                 <Columns>
                     <asp:BoundField DataField="IdResenia" HeaderText="ID" />
@@ -36,12 +39,16 @@
 
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
-                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar"
-                                CssClass="btn btn-sm btn-danger"
-                                CommandName="EliminarResenia"
-                                CommandArgument='<%# Eval("IdResenia") %>'
-                                OnClientClick="return confirm('¿Seguro que queres borrar esta reseña?');" />
-                        </ItemTemplate>
+                        
+                       
+                        <!-- boton de la grilla -->
+                            <asp:Button ID =" btnEliminar " runat ="server" Text="Eliminar"
+
+                                cssClass =" btn btn-sm brn-danger"
+                                CommandName ="EliminarResenia"
+                                CommandArgument='<%# Eval("IdResenia") %>' 
+                                OnClientClick="return pedirMotivo(this);" />
+                    </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
@@ -54,4 +61,28 @@
 
     <hr />
 </div>
+
+                          
+
+                               
+
+<script>
+    function pedirMotivo(boton) {
+        var motivo = prompt("¿Cual es el motivo de la eliminacion?", "Incumplimiento de normas");
+
+
+        if (motivo != null && motivo.trim() !== "") {
+
+            // Guardamos el motivo en el campo oculto 
+
+            document.getElementById('<%=hfMotivoEliminar.ClientID %>').value = motivo;
+
+            return confirm("¿Seguro que querés eliminar esta reseña?");
+        }
+
+        return false; // Si cancela, no hace nada
+    }
+</script>
+
+                        
 </asp:Content>
