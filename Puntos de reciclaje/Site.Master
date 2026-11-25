@@ -47,7 +47,7 @@
             <div class="container-fluid">
 
                 
-                <a class="navbar-brand logo-flotante" runat="server" href="~/">
+                <a class="navbar-brand logo-flotante" runat="server" href="~/Inicio.aspx">
                     <img src='<%= ResolveUrl("~/ImagenesSistema/reciMapLogo.png") %>'  alt="ReciMap"/>
                 </a>
                 

@@ -144,6 +144,7 @@
     <Content Include="ImagenesSistema\reseniasLogo.png" />
     <Content Include="ImagenesSistema\usuarios logo.png" />
     <Content Include="ImagenesSistema\usuariosBloqueados.png" />
+    <Content Include="Inicio.aspx" />
     <Content Include="Libreria\leaflet\images\layers-2x.png" />
     <Content Include="Libreria\leaflet\images\layers.png" />
     <Content Include="Libreria\leaflet\images\marker-icon-2x.png" />
@@ -261,6 +262,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Inicio.aspx.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inicio.aspx.designer.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
