@@ -34,14 +34,17 @@
 
                 </asp:Repeater>
             </div>
+        </div>
         <!--  fin grilla -->
 
-        <div class="d-flex flex-column gap-2 mt-4 p-3 bg-light rounded shadow-sm">
-            <asp:Label ID="txtTitulo" runat="server" CssClass="h3 fw-bold text-dark" Text=""></asp:Label>
+        <!-- TITULO -->
+        <div class="d-flex align-items-center gap-2 mt-4 p-3 px-4 panel-hollow">
+            <asp:Label ID="txtTitulo" runat="server" CssClass="h3 fw-bold text-success m-0" Text=""></asp:Label>
         </div>
 
+        <!-- CARRUSEL -->
         <div class="container my-4" style="max-width: 800px;">
-            <div id="CarruselImagenes" class="carousel slide shadow rounded overflow-hidden" data-bs-ride="false">
+            <div id="CarruselImagenes" class="carousel slide carrusel-verde overflow-hidden" data-bs-ride="false">
                 
                 <div class="carousel-inner">
                     <asp:Repeater ID="RepetidorImgMateriales" runat="server">
@@ -57,21 +60,21 @@
 
                 <!-- Controles de Anterior y Siguiente -->
                 <button class="carousel-control-prev" type="button" data-bs-target="#CarruselImagenes" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+                    <span class="carousel-control-next-icon btn-carrusel-verde rounded-circle" aria-hidden="true"></span>
                     <span class="visually-hidden">Anterior</span>
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#CarruselImagenes" data-bs-slide="next">
-                    <span class="carousel-control-next-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+                    <span class="carousel-control-next-icon btn-carrusel-verde rounded-circle" aria-hidden="true"></span>
                     <span class="visually-hidden">Siguiente</span>
                 </button>
 
             </div>
         </div>
 
-        <div class="d-flex flex-column gap-2 mt-4 p-3 bg-light rounded shadow-sm">
+        <div class="d-flex flex-column gap-2 mt-4 p-4 panel-hollow">
             <asp:Label ID="txtInfo" runat="server" CssClass="text-secondary fs-5 m-0" Text=""></asp:Label>
         </div>
-        <hr />
+        <hr class="my-5 border-success border-2 opacity-50" />
 
     </div>
 

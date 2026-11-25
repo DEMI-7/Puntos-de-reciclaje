@@ -27,6 +27,8 @@ CREATE TABLE Reseñas (
 	Puntaje TINYINT NOT NULL
 		CONSTRAINT CK_Reseñas_Puntaje
 		CHECK (Puntaje BETWEEN 1 AND 5),
+	Activo BIT NOT NULL DEFAULT 1,
+	MotivoEliminacion VARCHAR(255) NULL,
 	FechaPublicacion DATETIME2 DEFAULT GETDATE()
 );
 

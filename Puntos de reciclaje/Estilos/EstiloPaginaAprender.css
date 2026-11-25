@@ -14,3 +14,25 @@
         object-fit: contain;
         padding: 10px;
     }
+
+
+.panel-hollow {
+    background-color: rgba(25, 135, 84, 0.04);
+    border: 1.5px solid #198754;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(25, 135, 84, 0.12);
+}
+
+.carrusel-verde {
+    border: 2px solid #198754;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(25, 135, 84, 0.18);
+}
+
+.btn-carrusel-verde {
+    background-color: rgba(25, 135, 84, 0.85);
+    border: 2px solid #fff;
+    width: 40px;
+    height: 40px;
+    background-size: 55% 55%;
+}
