@@ -69,6 +69,7 @@
                     <!-- usuario logueado, iniciar  cerrar sesion, a la derecha -->
                     <div class="d-flex align-items-center">
                         <asp:Label ID="LblUsuarioLogueado" runat="server" CssClass="navbar-text text-white me-3"></asp:Label>
+                        <a runat="server" id="LnkCambiarClave" href="~/CambiarClave.aspx" class="text-white me-3" visible="false">Cambiar clave</a>
                         <asp:LinkButton ID="BtnCerrarSesion" runat="server" Text="Cerrar sesión" CssClass="btn btn-outline-light btn-sm" OnClick="BtnCerrarSesion_Click" Visible="false"></asp:LinkButton>
                         <ul class="navbar-nav">
                             <li class="nav-item" runat="server" id="LiIniciarSesion"><a class="btn btn-outline-light btn-sm" runat="server" href="~/Login.aspx">Iniciar sesión</a></li>

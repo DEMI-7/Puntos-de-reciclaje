@@ -24,6 +24,7 @@ namespace Puntos_de_reciclaje
                 LblUsuarioLogueado.Text = usuario.Nombre;
                 LblUsuarioLogueado.Visible = true;
                 BtnCerrarSesion.Visible = true;
+                LnkCambiarClave.Visible = true;
                 LiIniciarSesion.Visible = false;
                 // muestra panel admin solo si es admin el tipo d eusuario
                 if (usuario.TipoUsuario == "admin")
@@ -40,6 +41,7 @@ namespace Puntos_de_reciclaje
             {
                 LblUsuarioLogueado.Visible = false;
                 BtnCerrarSesion.Visible = false;
+                LnkCambiarClave.Visible = false;
                 LiIniciarSesion.Visible = true;
             }
 
