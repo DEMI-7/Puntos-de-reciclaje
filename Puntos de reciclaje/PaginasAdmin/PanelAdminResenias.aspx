@@ -42,9 +42,9 @@
                         
                        
                         <!-- boton de la grilla -->
-                            <asp:Button ID =" btnEliminar " runat ="server" Text="Eliminar"
+                            <asp:Button ID ="btnEliminar" runat ="server" Text="Eliminar"
 
-                                cssClass =" btn btn-sm brn-danger"
+                                cssClass =" btn btn-sm btn-danger"
                                 CommandName ="EliminarResenia"
                                 CommandArgument='<%# Eval("IdResenia") %>' 
                                 OnClientClick="return pedirMotivo(this);" />
