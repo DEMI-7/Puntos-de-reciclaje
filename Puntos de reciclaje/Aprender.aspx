@@ -9,31 +9,32 @@
         <div class="container my-4">
             <h2 class="h4 mb-3 fw-bold">Explorar Categorías</h2>
 
-            <!-- Contenedor deslizable -->
-            <div class="slider-materiales d-flex gap-3 pb-3">
+            <!-- grilla de materiales -->
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-3">
 
                 <asp:Repeater ID="Repetidor" runat="server">
 
                     <ItemTemplate>
-                        <div class="card card-materiales flex-shrink-0 border-0 shadow-sm">
+                        <div class="col">
+                            <div class="card card-materiales h-100 border-0 shadow-sm">
 
-                            <asp:ImageButton ID="ImgLogo" runat="server" CssClass="card-img-top"
-                                ImageUrl='<%# Eval("UrlLogo") %>'
-                                AlternateText='<%#Eval("Nombre") %>'
-                                CommandArgument='<%# Eval("IdMaterial") %>'
-                                CommandName="SeleccionarMaterial"
-                                OnCommand="ImgLogo_Command" />
-                            
-                            <div class="card-body text-center">
-                                <h5 class="card-title h6 fw-bold m-0"><%#Eval("Nombre") %></h5>
+                                <asp:ImageButton ID="ImgLogo" runat="server" CssClass="card-img-top"
+                                    ImageUrl='<%# Eval("UrlLogo") %>'
+                                    AlternateText='<%#Eval("Nombre") %>'
+                                    CommandArgument='<%# Eval("IdMaterial") %>'
+                                    CommandName="SeleccionarMaterial"
+                                    OnCommand="ImgLogo_Command" />
+
+                                <div class="card-body text-center">
+                                    <h5 class="card-title h6 fw-bold m-0"><%#Eval("Nombre") %></h5>
+                                </div>
                             </div>
                         </div>
                     </ItemTemplate>
-                    
+
                 </asp:Repeater>
             </div>
-        </div>
-        <!--  fin contenedor deslizable -->
+        <!--  fin grilla -->
 
         <div class="d-flex flex-column gap-2 mt-4 p-3 bg-light rounded shadow-sm">
             <asp:Label ID="txtTitulo" runat="server" CssClass="h3 fw-bold text-dark" Text=""></asp:Label>

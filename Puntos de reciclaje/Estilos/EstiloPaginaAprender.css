@@ -1,26 +1,16 @@
-﻿/* Permite el desplazamiento horizontal */
-.slider-materiales {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-}
-
-.slider-materiales::-webkit-scrollbar {
-    height: 6px;
-}
-
-.slider-materiales::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
-}
-
-/* Ancho fijo de cada tarjeta de material */
+﻿/* Tarjeta de cada material */
 .card-materiales {
-    width: 180px;
-    scroll-snap-align: start;
     transition: transform 0.2s ease;
 }
-/* Efecto elevación al pasar el mouse */
-.card-materiales:hover {
-    transform: translateY(-4px);
-}
+
+    /* Efecto elevación al pasar el mouse */
+    .card-materiales:hover {
+        transform: translateY(-4px);
+    }
+
+    /* Logo del material: mismo alto en todas las tarjetas, sin deformarse */
+    .card-materiales .card-img-top {
+        height: 120px;
+        object-fit: contain;
+        padding: 10px;
+    }
