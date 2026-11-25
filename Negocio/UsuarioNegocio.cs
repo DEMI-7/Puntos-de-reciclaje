@@ -363,6 +363,22 @@ namespace Negocio
             }
         }
 
+        public void CambiarClave(long idUsuario, string claveNueva)
+        {
+            Accesodatos conexion = new Accesodatos();
+            try
+            {
+                conexion.SetearConsulta("UPDATE Usuarios SET Contraseña_hash = @claveNueva WHERE ID_Usuario = @idUsuario");
+                conexion.agregarParametro("@claveNueva", claveNueva);
+                conexion.agregarParametro("@idUsuario", idUsuario);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public void Agregar(Usuario nuevo)
         {
             Accesodatos conexion = new Accesodatos();

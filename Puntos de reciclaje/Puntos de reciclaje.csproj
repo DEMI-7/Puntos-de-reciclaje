@@ -98,6 +98,7 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="Aprender.aspx" />
+    <Content Include="CambiarClave.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -222,6 +223,13 @@
     </Compile>
     <Compile Include="Aprender.aspx.designer.cs">
       <DependentUpon>Aprender.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CambiarClave.aspx.cs">
+      <DependentUpon>CambiarClave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CambiarClave.aspx.designer.cs">
+      <DependentUpon>CambiarClave.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
