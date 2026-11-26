@@ -23,6 +23,7 @@
             <!-- boton ingresar -->
             <asp:Button ID="BotonLogin" runat="server" Text="Ingresar" class="btn btn-primary" OnClick="BotonLogin_click" />
             <p class="mt-3">No tenés una cuenta? <a href="Registro.aspx">Registrate</a></p>
+            <p><a href="OlvideClave.aspx">Olvidé mi clave</a></p>
         </div>
     </div>
     </div>

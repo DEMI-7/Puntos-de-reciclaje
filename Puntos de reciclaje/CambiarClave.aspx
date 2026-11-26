@@ -25,6 +25,35 @@
                 <asp:Label ID="LblExito" runat="server" CssClass="text-success fw-bold d-block mb-3" Visible="false"></asp:Label>
 
                 <asp:Button ID="BtnCambiarClave" runat="server" Text="Cambiar clave" CssClass="btn btn-success" OnClick="BtnCambiarClave_Click" />
+                <!-- palabras de recuperacion -->
+                <hr class="my-4" />
+                <h4>Palabras de recuperación</h4>
+
+                <div class="alert alert-warning">
+                    Estas dos palabras te sirven para recuperar la clave si te la olvidas.<br>
+                    Guardalas bien, si las perdés vas a tener que contactar a un administrador.
+                </div>
+
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label">Palabra de recuperación 1:</label>
+                        <asp:TextBox ID="TxtNuevaPalabra1" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label">Palabra de recuperación 2:</label>
+                        <asp:TextBox ID="TxtNuevaPalabra2" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Clave actual (para confirmar):</label>
+                    <asp:TextBox ID="TxtClaveActualPalabras" runat="server" CssClass="form-control" TextMode="Password"></asp:TextBox>
+                </div>
+
+                <asp:Label ID="LblErrorPalabras" runat="server" CssClass="text-danger fw-bold d-block mb-3" Visible="false"></asp:Label>
+                <asp:Label ID="LblExitoPalabras" runat="server" CssClass="text-success fw-bold d-block mb-3" Visible="false"></asp:Label>
+
+                <asp:Button ID="BtnGuardarPalabras" runat="server" Text="Guardar palabras" CssClass="btn btn-success" />
             </div>
         </div>
     </div>
