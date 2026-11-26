@@ -53,7 +53,7 @@
                 <asp:Label ID="LblErrorPalabras" runat="server" CssClass="text-danger fw-bold d-block mb-3" Visible="false"></asp:Label>
                 <asp:Label ID="LblExitoPalabras" runat="server" CssClass="text-success fw-bold d-block mb-3" Visible="false"></asp:Label>
 
-                <asp:Button ID="BtnGuardarPalabras" runat="server" Text="Guardar palabras" CssClass="btn btn-success" />
+                <asp:Button ID="BtnGuardarPalabras" runat="server" Text="Guardar palabras" CssClass="btn btn-success" OnClick="BtnGuardarPalabras_Click"/>
             </div>
         </div>
     </div>

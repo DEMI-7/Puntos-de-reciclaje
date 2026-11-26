@@ -81,5 +81,53 @@ namespace Puntos_de_reciclaje
                 LblError.Visible = true;
             }
         }
+
+        protected void BtnGuardarPalabras_Click(object sender, EventArgs e)
+        {
+            LblErrorPalabras.Visible = false;
+            LblExitoPalabras.Visible = false;
+
+            string palabra1 = TxtNuevaPalabra1.Text.Trim().ToLower();
+            string palabra2 = TxtNuevaPalabra2.Text.Trim().ToLower();
+            string claveActual = TxtClaveActualPalabras.Text;
+
+            // validamos que no haya campos vacios
+            if (string.IsNullOrWhiteSpace(palabra1) || string.IsNullOrWhiteSpace(palabra2) || string.IsNullOrWhiteSpace(claveActual))
+            {
+                LblErrorPalabras.Text = "Por favor complete todos los campos";
+                LblErrorPalabras.Visible = true;
+                return;
+            }
+
+            try
+            {
+                Usuario usuarioSesion = (Usuario)Session["usuario"];
+                UsuarioNegocio negocio = new UsuarioNegocio();
+
+                // verificamos la clave actual igual que en el cambio de clave
+                Usuario verificacion = new Usuario();
+                verificacion.Email = usuarioSesion.Email;
+                verificacion.Contraseña = claveActual;
+
+                if (!negocio.Loguear(verificacion))
+                {
+                    LblErrorPalabras.Text = "La clave actual es incorrecta";
+                    LblErrorPalabras.Visible = true;
+                    return;
+                }
+
+                negocio.GuardarPalabras(usuarioSesion.ID_Usuario, palabra1, palabra2);
+
+                TxtNuevaPalabra1.Text = "";
+                TxtNuevaPalabra2.Text = "";
+                LblExitoPalabras.Text = "Palabras de recuperación actualizadas correctamente.";
+                LblExitoPalabras.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                LblErrorPalabras.Text = "Error al guardar las palabras: " + ex.Message;
+                LblErrorPalabras.Visible = true;
+            }
+        }
     }
 }

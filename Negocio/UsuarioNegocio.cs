@@ -420,6 +420,23 @@ namespace Negocio
             }
         }
 
+        public void GuardarPalabras(long idUsuario, string palabra1, string palabra2)
+        {
+            Accesodatos conexion = new Accesodatos();
+            try
+            {
+                conexion.SetearConsulta("UPDATE Usuarios SET PalabraRecuperacion1 = @palabra1, PalabraRecuperacion2 = @palabra2 WHERE ID_Usuario = @idUsuario");
+                conexion.agregarParametro("@palabra1", palabra1);
+                conexion.agregarParametro("@palabra2", palabra2);
+                conexion.agregarParametro("@idUsuario", idUsuario);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public void Agregar(Usuario nuevo)
         {
             Accesodatos conexion = new Accesodatos();
