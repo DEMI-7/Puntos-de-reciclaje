@@ -24,10 +24,13 @@ namespace Puntos_de_reciclaje
             string email = TxtEmail.Text.Trim();
             string contraseña = TxtContraseña.Text;
             string repetirContraseña = TxtRepetirContraseña.Text;
+            string palabra1 = TxtPalabra1.Text.Trim().ToLower();
+            string palabra2 = TxtPalabra2.Text.Trim().ToLower();
 
             // validamos que no haya campos vacios
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(email) ||
-                string.IsNullOrWhiteSpace(contraseña) || string.IsNullOrWhiteSpace(repetirContraseña))
+                string.IsNullOrWhiteSpace(contraseña) || string.IsNullOrWhiteSpace(repetirContraseña) ||
+                string.IsNullOrWhiteSpace(palabra1) || string.IsNullOrWhiteSpace(palabra2))
             {
                 LblError.Text = "Por favor, complete todos los campos";
                 LblError.Visible = true;
@@ -66,6 +69,8 @@ namespace Puntos_de_reciclaje
                 nuevo.Email = email;
                 nuevo.Contraseña = contraseña;
                 nuevo.TipoUsuario = DdlTipoCuenta.SelectedValue;
+                nuevo.PalabraRecuperacion1 = palabra1;
+                nuevo.PalabraRecuperacion2 = palabra2;
 
                 //usuario basico se crea de una
                 if (nuevo.TipoUsuario == "basico")
@@ -87,6 +92,8 @@ namespace Puntos_de_reciclaje
                 TxtEmail.Text = "";
                 DdlTipoCuenta.SelectedIndex = 0;
                 LblExito.Visible = true;
+                TxtPalabra1.Text = "";
+                TxtPalabra2.Text = "";
 
             }
             catch (Exception ex)
