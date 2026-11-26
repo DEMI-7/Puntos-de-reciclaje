@@ -72,11 +72,11 @@
                         <label class="form-label fw-bold small">Dejá tu reseña:</label>
                         <div class="mb-2">
                             <select id="selectPuntaje" class="form-select form-select-sm">
-                                <option value="5">⭐⭐⭐⭐⭐ (Buenardopolis)</option>
+                                <option value="5">⭐⭐⭐⭐⭐ (Impecable)</option>
                                 <option value="4">⭐⭐⭐⭐ (Muy bueno)</option>
                                 <option value="3">⭐⭐⭐ (Bueno)</option>
                                 <option value="2">⭐⭐ (Regular)</option>
-                                <option value="1">⭐ (Malardo)</option>
+                                <option value="1">⭐ (Muy malo)</option>
                             </select>
                         </div>
                         <textarea id="txtComentario" class="form-control form-control-sm mb-2" rows="2" placeholder="¿Qué te pareció este punto?"></textarea>

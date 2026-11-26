@@ -132,8 +132,7 @@ namespace Negocio
             Accesodatos datos = new Accesodatos();
             try
             {
-                datos.SetearConsulta("UPDATE Reseñas SET Activo = 0," +
-                    " MotivoEliminacion = @motivo WHERE ID_Reseña = @id");
+                datos.SetearConsulta("UPDATE Reseñas SET Activo = 0, MotivoEliminacion = @motivo WHERE ID_Reseña = @id");
 
                 datos.agregarParametro("@motivo", motivo);
 
@@ -215,6 +214,7 @@ namespace Negocio
 
                     aux.IdResenia = (long)datos.Lector["ID_Reseña"];
                     aux.IdUsuario = (long)datos.Lector["ID_Usuario"];
+
                     aux.IdPuntoReciclaje = (long)datos.Lector["ID_PuntoReciclaje"];
                     aux.Comentario = datos.Lector["Reseña"] != DBNull.Value ? (string)datos.Lector["Reseña"] : "";
                     aux.Puntaje = (byte)datos.Lector["Puntaje"];
@@ -222,8 +222,10 @@ namespace Negocio
                     aux.NombreUsuario = (string)datos.Lector["NombreUsuario"];
                     aux.DireccionPunto = (string)datos.Lector["DireccionPunto"];
 
+
                     // motivo de eliminacion
-                    aux.MotivoEliminacion= datos.Lector["MotivoEliminacion"] != DBNull.Value ? (string)datos.Lector["MotivoEliminacion"] : "";
+                    aux.MotivoEliminacion= datos.Lector["MotivoEliminacion"] != DBNull.Value ? (string)datos.Lector["MotivoEliminacion"] : "Sin motivo especificado";
+
                     lista.Add(aux);
                 }
                 return lista; 

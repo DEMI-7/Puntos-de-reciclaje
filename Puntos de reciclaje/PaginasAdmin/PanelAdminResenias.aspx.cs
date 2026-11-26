@@ -64,6 +64,16 @@ namespace Puntos_de_reciclaje.PaginasAdmin
                 GvResenias.DataSource = lista;
                 GvResenias.DataBind();
 
+
+                if (GvResenias.Columns.Count > 6)
+                {
+                    GvResenias.Columns[6].Visible = true; 
+                }
+                // if (GvResenias.Columns.Count > 6)
+                //{
+                //   GvResenias.Columns[6].Visible = chkVerEliminadas.Checked; // Ocultar la sexta columna (Ver motivo elim  )
+                // }
+
             }
 
             catch (Exception ex)
