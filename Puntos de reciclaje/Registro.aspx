@@ -38,6 +38,23 @@
                     <asp:TextBox ID="TxtRepetirContraseña" runat="server" CssClass="form-control" TextMode="Password"></asp:TextBox>
                 </div>
 
+                <!-- palabras de recuperacion -->
+                <div class="alert alert-warning">
+                    <strong>Importante:</strong> elegí dos palabras que puedas recordar. Las vas a necesitar si te olvidás la clave.
+                    Guardalas bien, ya que si las perdés, vas a tener que contactar a un administrador.
+                </div>
+
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label">Palabra de recuperación 1:</label>
+                        <asp:TextBox ID="TxtPalabra1" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label">Palabra de recuperación 2:</label>
+                        <asp:TextBox ID="TxtPalabra2" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
+                    </div>
+                </div>
+
                 <!-- mensajes -->
                 <asp:Label ID="LblError" runat="server" CssClass="text-danger fw-bold d-block mb-3" Visible="false"></asp:Label>
                 <asp:Label ID="LblExito" runat="server" CssClass="text-success fw-bold d-block mb-3" Visible="false"></asp:Label>

@@ -159,6 +159,7 @@
     <Content Include="Libreria\leaflet\leaflet-src.js.map" />
     <Content Include="Libreria\leaflet\leaflet.js.map" />
     <Content Include="Login.aspx" />
+    <Content Include="OlvideClave.aspx" />
     <Content Include="PaginasAdmin\PanelAdminCentral.aspx" />
     <Content Include="PaginasAdmin\PanelAdminEmpresasPendientes.aspx" />
     <Content Include="PaginasAdmin\PanelAdminEmpresasRechazadas.aspx" />
@@ -277,6 +278,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OlvideClave.aspx.cs">
+      <DependentUpon>OlvideClave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OlvideClave.aspx.designer.cs">
+      <DependentUpon>OlvideClave.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginasAdmin\PanelAdminCentral.aspx.cs">
       <DependentUpon>PanelAdminCentral.aspx</DependentUpon>

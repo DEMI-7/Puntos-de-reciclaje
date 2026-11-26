@@ -60,6 +60,24 @@ namespace Puntos_de_reciclaje
         protected global::System.Web.UI.WebControls.TextBox TxtRepetirContraseña;
 
         /// <summary>
+        /// Control TxtPalabra1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtPalabra1;
+
+        /// <summary>
+        /// Control TxtPalabra2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtPalabra2;
+
+        /// <summary>
         /// Control LblError.
         /// </summary>
         /// <remarks>
