@@ -379,17 +379,60 @@ namespace Negocio
             }
         }
 
+        
+        public long VerificarPalabras(string email, string palabra1, string palabra2)
+        {
+            Accesodatos conexion = new Accesodatos();
+            try
+            {
+                conexion.SetearConsulta("SELECT ID_Usuario, PalabraRecuperacion1, PalabraRecuperacion2 FROM Usuarios WHERE Email = @email");
+                conexion.agregarParametro("@email", email);
+                conexion.EjecutarLectura();
+
+                if (conexion.Lector.Read())
+                {
+                    // si el usuario nunca cargo palabras no se puede recuperar por aca
+                    if (conexion.Lector["PalabraRecuperacion1"] == DBNull.Value || conexion.Lector["PalabraRecuperacion2"] == DBNull.Value)
+                    {
+                        return 0;
+                    }
+
+                    string palabra1Base = (string)conexion.Lector["PalabraRecuperacion1"];
+                    string palabra2Base = (string)conexion.Lector["PalabraRecuperacion2"];
+
+                    // si coinciden las dos, devolvemos el ID del usuario
+                    if (palabra1Base == palabra1 && palabra2Base == palabra2)
+                    {
+                        return (long)conexion.Lector["ID_Usuario"];
+                    }
+                }
+
+                // no existe el email o no coinciden las palabras
+                return 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.CerrarConexion();
+            }
+        }
+
         public void Agregar(Usuario nuevo)
         {
             Accesodatos conexion = new Accesodatos();
             try
             {
-                conexion.SetearConsulta("INSERT INTO Usuarios (Nombre, Email, Contraseña_hash, TipoUsuario, EstadoCuenta) VALUES (@nombre, @email, @contraseña, @tipoUsuario, @estadoCuenta)");
+                conexion.SetearConsulta("INSERT INTO Usuarios (Nombre, Email, Contraseña_hash, TipoUsuario, EstadoCuenta) VALUES (@nombre, @email, @contraseña, @tipoUsuario, @estadoCuenta, @palabra1, @palabra2)");
                 conexion.agregarParametro("@nombre", nuevo.Nombre);
                 conexion.agregarParametro("@email", nuevo.Email);
                 conexion.agregarParametro("@contraseña", nuevo.Contraseña);
                 conexion.agregarParametro("@tipoUsuario", nuevo.TipoUsuario);
                 conexion.agregarParametro("@estadoCuenta", nuevo.EstadoCuenta);
+                conexion.agregarParametro("@palabra1", nuevo.PalabraRecuperacion1);
+                conexion.agregarParametro("@palabra2", nuevo.PalabraRecuperacion2);
                 conexion.ejecutarAccion();
             }
             catch (Exception)

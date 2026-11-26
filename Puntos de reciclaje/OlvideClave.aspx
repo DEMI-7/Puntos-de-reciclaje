@@ -42,7 +42,7 @@
                 <asp:Label ID="LblError" runat="server" CssClass="text-danger fw-bold d-block mb-3" Visible="false"></asp:Label>
                 <asp:Label ID="LblExito" runat="server" CssClass="text-success fw-bold d-block mb-3" Visible="false"></asp:Label>
 
-                <asp:Button ID="BtnRecuperar" runat="server" Text="Cambiar clave" CssClass="btn btn-success" />
+                <asp:Button ID="BtnRecuperar" runat="server" Text="Cambiar clave" CssClass="btn btn-success" OnClick="BtnRecuperar_Click" />
 
                 <div class="alert alert-secondary mt-4">
                     Si no recordás tus palabras, por favor contactá a un administrador para recuperar tu cuenta.

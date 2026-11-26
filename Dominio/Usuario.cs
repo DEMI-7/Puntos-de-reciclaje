@@ -17,5 +17,7 @@ namespace Dominio
         // EstadoCuenta: aprobado, pendiente, rechazado
         public string EstadoCuenta { get; set; }
         public bool Activo { get; set; }
+        public string PalabraRecuperacion1 { get; set; }
+        public string PalabraRecuperacion2 { get; set; }
     }
 }
