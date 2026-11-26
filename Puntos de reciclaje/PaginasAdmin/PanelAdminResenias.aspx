@@ -20,32 +20,30 @@
             <h5 class="mb-0">Todas las reseñas del sistema </h5>
         </div>
 
+       
+
         <div class="card-body">
 
-            <!-- Fila con el checkbox y el  buscador -->
-            <div class ="d-flex justify-content-between align-items-center mb-3">
+                       <!-- Fila superior: Checkbox a la izquierda, buscador a la derecha -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
                 
-                <!-- checkbox para ver eliminadas -->
-                <div class ="form-check">
-                    <asp:CheckBox ID="chkVerEliminadas" runat="server" Text="Ver reseñas eliminadas" AutoPostBack="true"
-                        OnCheckedChanged="chkVerEliminadas_CheckedChanged" CssClass="form-check-input ms-1" />
+                <!-- Checkbox normal -->
+                <div class="form-check ms-2">
+                    <asp:CheckBox ID="chkVerEliminadas" runat="server" Text="Eliminados" AutoPostBack="true"
+                        OnCheckedChanged="chkVerEliminadas_CheckedChanged" CssClass="form-check-input" />
                 </div>
 
-
-                <!--buscador -->
-                <div class ="input-group" style="width: 350px;">
-                     <asp:TextBox ID="TxtBuscar" runat="server" CssClass="form-control"
-                         placeholder="Buscar por usuario o comentario..."></asp:TextBox>
-
-            <asp:Button ID="BtnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="BtnBuscar_Click" />
+                <!-- Buscador -->
+                <div class="input-group" style="width: 350px;">
+                    <asp:TextBox ID="TxtBuscar" runat="server" CssClass="form-control"
+                        placeholder="Buscar por usuario o comentario..."></asp:TextBox>
+                    <asp:Button ID="BtnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="BtnBuscar_Click" />
                 </div>
-                  </div>
+            </div>
 
 
-
-
-            <asp:GridView ID="GvResenias" runat="server" CssClass="table table-hover table-striped " AutoGenerateColumns="false" OnRowCommand="GvResenias_RowCommand">
-
+            <!-- La Grilla -->
+            <asp:GridView ID="GvResenias" runat="server" CssClass="table table-hover table-striped align-middle" AutoGenerateColumns="false" OnRowCommand="GvResenias_RowCommand">
                 <Columns>
                     <asp:BoundField DataField="IdResenia" HeaderText="ID" />
 
@@ -61,29 +59,24 @@
 
                     <asp:BoundField DataField="MotivoEliminacion" HeaderText="Motivo Elim." />
 
+
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
-                             <!-- Botón Eliminar (solo si está activa) -->
-                               <asp:Button ID="Button1" runat="server" Text="Eliminar"
+                            <!-- BOTON ELIMINAR (Solo se ve si no estamos viendo las eliminadas) -->
+                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar"
                                 CssClass="btn btn-sm btn-danger"
                                 CommandName="EliminarResenia"
                                 CommandArgument='<%# Eval("IdResenia") %>'
                                 OnClientClick="return pedirMotivo();" 
-                                Visible='<%# !chkVerEliminadas.Checked %>' /> <!-- Se oculta si estamos viendo eliminadas -->
-                        
-                             <!-- boton Restaurar (solo si estamos viendo eliminadas ) -->
-                                <asp:Button ID="btnRestaurar" runat="server" Text="Restaurar"
+                                Visible='<%# !chkVerEliminadas.Checked %>' />
+
+                            <!-- boton  RESTAURAR (Solo se ve si estamos viendo las eliminadas) -->
+                            <asp:Button ID="btnRestaurar" runat="server" Text="Restaurar"
                                 CssClass="btn btn-sm btn-success"
-
                                 CommandName="RestaurarResenia"
-
                                 CommandArgument='<%# Eval("IdResenia") %>'
-
-                                Visible='<%# chkVerEliminadas.Checked %>' /> <!-- Se oculta si estamos viendo activas -->
-                       
-
-                        
-                    </ItemTemplate>
+                                Visible='<%# chkVerEliminadas.Checked %>' />
+                        </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
