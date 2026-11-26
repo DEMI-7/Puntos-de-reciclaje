@@ -190,9 +190,54 @@ namespace Negocio
 
         }
 
+        public List <Reseña> ListarPorEliminadas ()
+        {
+            List<Reseña> lista = new List<Reseña>(); 
+            Accesodatos datos = new Accesodatos();
+
+            try
+            {
+                datos.SetearConsulta(@"
+            SELECT R.ID_Reseña, R.ID_Usuario, R.ID_PuntoReciclaje, R.Reseña, R.Puntaje, R.FechaPublicacion,
+            U.Nombre AS NombreUsuario, P.Direccion AS DireccionPunto, R.MotivoEliminacion
+            FROM Reseñas R
+            INNER JOIN Usuarios U ON R.ID_Usuario = U.ID_Usuario
+            INNER JOIN Puntos_reciclaje P ON R.ID_PuntoReciclaje = P.ID_Punto
+            WHERE R.Activo = 0 
+            ORDER BY R.FechaPublicacion DESC");
+
+                datos.EjecutarLectura();
+
+
+                while (datos.Lector.Read())
+                {
+                    Reseña aux = new Reseña();
+
+                    aux.IdResenia = (long)datos.Lector["ID_Reseña"];
+                    aux.IdUsuario = (long)datos.Lector["ID_Usuario"];
+                    aux.IdPuntoReciclaje = (long)datos.Lector["ID_PuntoReciclaje"];
+                    aux.Comentario = datos.Lector["Reseña"] != DBNull.Value ? (string)datos.Lector["Reseña"] : "";
+                    aux.Puntaje = (byte)datos.Lector["Puntaje"];
+                    aux.FechaPublicacion = (DateTime)datos.Lector["FechaPublicacion"];
+                    aux.NombreUsuario = (string)datos.Lector["NombreUsuario"];
+                    aux.DireccionPunto = (string)datos.Lector["DireccionPunto"];
+
+                    // motivo de eliminacion
+                    aux.MotivoEliminacion= datos.Lector["MotivoEliminacion"] != DBNull.Value ? (string)datos.Lector["MotivoEliminacion"] : "";
+                    lista.Add(aux);
+                }
+                return lista; 
+            }
+            catch (Exception)
+            { throw; }
+            finally
+            { datos.CerrarConexion(); }
+
+        }
 
 
 
 
     }
+
 }

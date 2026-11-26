@@ -33,6 +33,33 @@ namespace Puntos_de_reciclaje.PaginasAdmin
         protected global::System.Web.UI.WebControls.HiddenField hfMotivoEliminar;
 
         /// <summary>
+        /// Control chkVerEliminadas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkVerEliminadas;
+
+        /// <summary>
+        /// Control TxtBuscar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtBuscar;
+
+        /// <summary>
+        /// Control BtnBuscar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnBuscar;
+
+        /// <summary>
         /// Control GvResenias.
         /// </summary>
         /// <remarks>

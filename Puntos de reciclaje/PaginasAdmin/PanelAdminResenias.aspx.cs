@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Negocio;
 
 namespace Puntos_de_reciclaje.PaginasAdmin
 {
@@ -21,24 +23,49 @@ namespace Puntos_de_reciclaje.PaginasAdmin
 
             if  (!IsPostBack)
             {
-                CargarGrilla();
+                CargarGrilla();  //aca llamada al metodo sin filtro ; 
             }
 
 
 
         }
 
-
-        private void CargarGrilla()
+        // metodo para cargar la grilla y acepte un filtro ; 
+        private void CargarGrilla(string filtro ="")
         {
 
             try
             {
-                Negocio.ReseñaNegocio negocio = new Negocio.ReseñaNegocio();
-                GvResenias.DataSource = negocio.ListarTodas();
+                ReseñaNegocio negocio = new ReseñaNegocio();
+                List<Reseña> lista;
 
+                // GvResenias.DataBind();
+
+                // Traemos las reseñas (activas o eliminadas según el check)
+                if (chkVerEliminadas.Checked)
+                {
+                    lista = negocio.ListarPorEliminadas();
+                }
+                else
+                {
+                    lista = negocio.ListarTodas();
+                }
+                
+                // Si el user escribio en el buscador 
+                if (!string.IsNullOrWhiteSpace(filtro))
+                {
+                    filtro = filtro.ToLower(); //pasamos a miniscula ; 
+
+                    lista = lista.Where(r =>
+                (r.Comentario != null && r.Comentario.ToLower().Contains(filtro)) ||
+                (r.NombreUsuario != null && r.NombreUsuario.ToLower().Contains(filtro)) ).ToList();
+                }
+
+                GvResenias.DataSource = lista;
                 GvResenias.DataBind();
+
             }
+
             catch (Exception ex)
             {
                lblError.Text = "Error al cargar: " + ex.Message;
@@ -48,40 +75,57 @@ namespace Puntos_de_reciclaje.PaginasAdmin
         }
 
 
+
         protected void GvResenias_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
-           if (e.CommandName=="EliminarResenia")
-            {
+           
                 try
                 {
 
-                    long idResenia = Convert.ToInt64(e.CommandArgument);
-
-                    String motivo = hfMotivoEliminar.Value; // asignamos el motivo ; 
-
-
                     ReseñaNegocio negocio = new ReseñaNegocio();
 
-                    negocio.Eliminar(idResenia, motivo);
+                    if (e.CommandName == "EliminarResenia")
+                    {
+                        long idResenia = Convert.ToInt64(e.CommandArgument);
 
-                    CargarGrilla(); // refrescamos para q desaparezca ; 
+                        string motivo = hfMotivoEliminar.Value;
 
+                        negocio.Eliminar(idResenia, motivo);
+                    }
+                    else if (e.CommandName == "RestaurarResenia") // 
+                    {
+                        long idResenia = Convert.ToInt64(e.CommandArgument);
+                        negocio.Restaurar(idResenia);
+                    }
+
+                    CargarGrilla(TxtBuscar.Text.Trim()); // Refresh manteniendo el filtro actual
                 }
                 catch (Exception ex)
                 {
-                    lblError.Text = "Error al eliminar: " + ex.Message;
+                    lblError.Text = "Error: " + ex.Message;
                     lblError.Visible = true;
-
                 }
 
 
-            }
+         }
 
-        }
+        
 
         protected void BtnVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("PanelAdminCentral.aspx", false);
+        }
+
+        protected void BtnBuscar_Click(object sender, EventArgs e)
+        {
+            //pasamos el texto q escribieron ; 
+            CargarGrilla(TxtBuscar.Text.Trim());
+        }
+
+        //  Actualizamos el checkbox para q mantenga la busqueda ; 
+        protected void chkVerEliminadas_CheckedChanged(object sender, EventArgs e)
+        {
+            CargarGrilla(TxtBuscar.Text.Trim());
         }
 
     }
