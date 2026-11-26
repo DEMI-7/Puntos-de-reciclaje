@@ -16,8 +16,7 @@ TipoUsuario VARCHAR (20) NOT NULL
 EstadoCuenta VARCHAR (20) NOT NULL
 	CONSTRAINT CK_Usuarios_EstadoCuenta
 	CHECK (EstadoCuenta IN ('aprobado','pendiente','rechazado')),
-Activo BIT CONSTRAINT DF_Usuarios DEFAULT 1 NOT NULL
-),
+Activo BIT CONSTRAINT DF_Usuarios DEFAULT 1 NOT NULL,
 PalabraRecuperacion1 NVARCHAR (50) NULL,
 PalabraRecuperacion2 NVARCHAR (50) NULL
 );

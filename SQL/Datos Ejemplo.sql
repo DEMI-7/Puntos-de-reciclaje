@@ -34,19 +34,19 @@ INSERT INTO Usuarios (Nombre, Email, Contraseña_hash, TipoUsuario, EstadoCuenta
 GO
 
 -- Puntos reciclaje
-INSERT INTO Puntos_reciclaje (ID_UsuarioCreador, Direccion,Latitud, Longitud, Horario) VALUES (1, 'Guillermo Miller 178',-34.534306,-58.792742, 'Lun a Vie de 8AM hasta 16PM' )
+INSERT INTO Puntos_reciclaje (ID_UsuarioCreador, Direccion,Latitud, Longitud, Horario) VALUES (1, 'Guillermo Miller 178',-34.534306,-58.792742, 'Lunes a viernes de 08:00 a 16:00' )
 GO
 INSERT INTO Material_PuntoReciclaje (ID_Punto, ID_Material) VALUES (1,1), (1,2), (1,3);
 
 GO
 -- 1. Insertamos Puntos de Reciclaje en distintas zonas de Buenos Aires
 INSERT INTO Puntos_reciclaje (ID_UsuarioCreador, Direccion, Latitud, Longitud, Horario) VALUES 
-(1, 'Av. Santa Fe 3200, CABA', -34.588500, -58.407200, 'Lun a Sab de 9:00 a 18:00'),
-(1, 'Av. Cabildo 2100, CABA', -34.562300, -58.456100, 'Lun a Vie de 8:00 a 17:00'),
-(1, 'Av. Rivadavia 5400, CABA', -34.619800, -58.443500, 'Lun a Sáb de 10:00 a 19:00'),
-(1, 'Av. Centenario 450, San Isidro', -34.471200, -58.513400, 'Lun a Vie de 8:30 a 16:30'),
-(1, 'Av. Maipú 1200, Vicente López', -34.524100, -58.479800, 'Lunes a Domingo de 24hs'),
-(1, 'Av. Mitre 800, Avellaneda', -34.662300, -58.365400, 'Lun a Vie de 9:00 a 15:00');
+(1, 'Av. Santa Fe 3200, CABA', -34.588500, -58.407200, 'Lunes a sábado de 09:00 a 18:00'),
+(1, 'Av. Cabildo 2100, CABA', -34.562300, -58.456100, 'Lunes a viernes de 08:00 a 17:00'),
+(1, 'Av. Rivadavia 5400, CABA', -34.619800, -58.443500, 'Lunes a sábado de 10:00 a 19:00'),
+(1, 'Av. Centenario 450, San Isidro', -34.471200, -58.513400, 'Lunes a viernes de 09:00 a 17:00'),
+(1, 'Av. Maipú 1200, Vicente López', -34.524100, -58.479800, 'Todos los días de 00:00 a 00:00'),
+(1, 'Av. Mitre 800, Avellaneda', -34.662300, -58.365400, 'Lunes a viernes de 09:00 a 15:00');
 
 GO
 -- 2. Asociamos materiales (IDs del 1 al 10) a cada punto recién creado
