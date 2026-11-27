@@ -47,6 +47,31 @@
             </div>
         </asp:Panel>
 
+        <!-- recuadro para resetear clave, solo se muestra al tocar el botron -->
+        <asp:Panel ID="PnlResetearClave" runat="server" Visible="false" CssClass="card shadow-sm mb-4">
+            <div class="card-header text-white" style="background-color: #fd7e14;">
+                <h5 class="mb-0">Resetear clave de <asp:Label ID="LblNombreResetear" runat="server"></asp:Label></h5>
+            </div>
+            <div class="card-body">
+                <asp:HiddenField ID="HfIdUsuarioResetear" runat="server" />
+
+                <p class="text-muted">
+                    Usar unicamente si estamos seguros que la persona es la dueña de la cuenta.
+                    Pasarle la clave y pedirle que la cambie.
+                </p>
+
+                <div class="mb-3">
+                    <label class="form-label">Clave nueva:</label>
+                    <asp:TextBox ID="TxtClaveResetear" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
+                </div>
+
+                <asp:Label ID="LblErrorResetear" runat="server" CssClass="text-danger fw-bold d-block mb-3" Visible="false"></asp:Label>
+
+                <asp:Button ID="BtnGuardarResetear" runat="server" Text="Guardar clave" CssClass="btn btn-success" OnClick="BtnGuardarResetear_Click" />
+                <asp:Button ID="BtnCancelarResetear" runat="server" Text="Cancelar" CssClass="btn btn-outline-secondary" OnClick="BtnCancelarResetear_Click" />
+            </div>
+        </asp:Panel>
+
         <!-- -----------------------------------------------------------------------------------
             Cabecera con el título, el contador y el buscador
             Parte de usuarios activos
@@ -63,6 +88,9 @@
                 <asp:Button ID="BtnBuscar" runat="server" Text="Buscar" CssClass="btn btn-outline-primary" OnClick="btnBuscar_Click" />
             </div>
         </div>
+
+        <!-- mensaje de exito, por ejemplo al resetear una clave -->
+        <asp:Label ID="LblMensaje" runat="server" Visible="false" EnableViewState="false" CssClass="alert alert-success d-block"></asp:Label>
 
         <!-- Grilla de usuarios activos-->
         <asp:GridView ID="GrillaUsuarioActivos" runat="server"
@@ -84,10 +112,12 @@
                 <asp:BoundField DataField="Email" HeaderText="Correo Electrónico" />
                 <asp:BoundField DataField="TipoUsuario" HeaderText="Tipo de Usuario" />
 
-                <%-- Columna de Botones de Acción para dar de baja una cuenta --%>
+                <%-- Columna de accion para desactivar, editar y resetear clave --%>
                 <asp:TemplateField HeaderText="Acciones">
                     <ItemTemplate>
                         <asp:Button ID="BtnEditarUsuario" runat="server" Text="Editar" CssClass="btn btn-primary btn-sm" CommandName="Editar" CommandArgument='<%# Eval("ID_Usuario") %>' />
+                        <asp:Button ID="BtnResetearClave" runat="server" Text="Resetear clave" CssClass="btn btn-sm" style="background-color: #fd7e14; color: white;"
+                            CommandName="ResetearClave" CommandArgument='<%# Eval("ID_Usuario") %>' />
                         <asp:Button ID="btnDesactivar" runat="server" Text="Desactivar" CssClass="btn btn-danger btn-sm"
                             CommandName="Desactivar" CommandArgument='<%# Eval("ID_Usuario") %>'
                             OnClientClick="return pedirDetalle()" />

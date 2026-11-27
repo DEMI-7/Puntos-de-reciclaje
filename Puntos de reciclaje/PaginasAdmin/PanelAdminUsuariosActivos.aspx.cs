@@ -115,6 +115,23 @@ namespace Puntos_de_reciclaje
                     PnlEditarUsuario.Visible = true;
                 }
             }
+            //resetear clave, igual que editar, pero con otro panel
+            else if (e.CommandName == "ResetearClave")
+            {
+                long idUsuario = Convert.ToInt64(e.CommandArgument);
+                Usuario usuario = negocio.ListarActivos().FirstOrDefault(u => u.ID_Usuario == idUsuario);
+
+                if (usuario != null)
+                {
+                    HfIdUsuarioResetear.Value = usuario.ID_Usuario.ToString();
+                    LblNombreResetear.Text = usuario.Nombre;
+                    TxtClaveResetear.Text = "";
+                    LblErrorResetear.Visible = false;
+
+                    PnlResetearClave.Visible = true;
+                    PnlEditarUsuario.Visible = false;
+                }
+            }
 
             // Recargamos la grilla: el usuario sale de activos
             CargarGrillaUsuariosActivos(TxtBuscar.Text.Trim());
@@ -182,7 +199,45 @@ namespace Puntos_de_reciclaje
             PnlEditarUsuario.Visible = false;
         }
 
-        
+
+        protected void BtnGuardarResetear_Click(object sender, EventArgs e)
+        {
+            LblErrorResetear.Visible = false;
+
+            string claveNueva = TxtClaveResetear.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(claveNueva))
+            {
+                LblErrorResetear.Text = "Escriba la nueva clave.";
+                LblErrorResetear.Visible = true;
+                return;
+            }
+
+            try
+            {
+                long idUsuario = Convert.ToInt64(HfIdUsuarioResetear.Value);
+
+                // reutilizamos el mismo metodo que usa Cambiar clave
+                UsuarioNegocio negocio = new UsuarioNegocio();
+                negocio.CambiarClave(idUsuario, claveNueva);
+
+                PnlResetearClave.Visible = false;
+                LblMensaje.Text = "La clave de " + LblNombreResetear.Text + " se ha cambiado correctamente.";
+                LblMensaje.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                LblErrorResetear.Text = "Error al resetear la clave: " + ex.Message;
+                LblErrorResetear.Visible = true;
+            }
+        }
+
+        protected void BtnCancelarResetear_Click(object sender, EventArgs e)
+        {
+            HfIdUsuarioResetear.Value = "";
+            PnlResetearClave.Visible = false;
+        }
+
 
         protected void BtnVerBajas_Click(object sender, EventArgs e)
         {
