@@ -20,6 +20,8 @@ namespace Puntos_de_reciclaje
                 Response.Redirect("~/Error.aspx");
             }
 
+            LblErrorSesion.Visible = false;
+
             if (!IsPostBack)
             {
                 CargarGrillaUsuariosDesactivados("");

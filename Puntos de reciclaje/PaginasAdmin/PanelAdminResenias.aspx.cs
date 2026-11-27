@@ -20,6 +20,9 @@ namespace Puntos_de_reciclaje.PaginasAdmin
             {
                 Response.Redirect("~/Error.aspx");
             }
+            // establece las clases bootstrap para el checkbox y su etiqueta para que se vea como switch
+            chkVerEliminadas.InputAttributes["class"] = "form-check-input";
+            chkVerEliminadas.LabelAttributes["class"] = "form-check-label";
 
             if  (!IsPostBack)
             {

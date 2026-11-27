@@ -27,10 +27,10 @@
                        <!-- Fila superior: Checkbox a la izquierda, buscador a la derecha -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 
-                <!-- Checkbox normal -->
-                <div class="form-check ms-2">
-                    <asp:CheckBox ID="chkVerEliminadas" runat="server" Text="Eliminados" AutoPostBack="true"
-                        OnCheckedChanged="chkVerEliminadas_CheckedChanged" CssClass="form-check-input" />
+                <!-- switch para ver las reseñas eliminadas -->
+                <div class="form-check form-switch ms-2">
+                    <asp:CheckBox ID="chkVerEliminadas" runat="server" Text="Ver reseñas eliminadas" AutoPostBack="true"
+                        OnCheckedChanged="chkVerEliminadas_CheckedChanged" />
                 </div>
 
                 <!-- Buscador -->
