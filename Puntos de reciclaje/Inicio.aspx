@@ -47,6 +47,10 @@
             </div>
         </div>
 
+
+        <img src="ImagenesSistema/recimapLineaPunteada.png"
+            class="img-fluid d-block mx-auto rounded-3" 
+            style="max-width: 900px;"/>
         <hr class="my-5 border-success border-2 opacity-50" />
     </div>
 </asp:Content>

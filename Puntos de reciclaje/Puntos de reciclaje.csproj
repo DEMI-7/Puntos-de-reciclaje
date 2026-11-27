@@ -140,6 +140,8 @@
     <Content Include="ImagenesMateriales\Vidrio_logo.png" />
     <Content Include="ImagenesSistema\empresas.png" />
     <Content Include="ImagenesSistema\materialesAdmin.png" />
+    <Content Include="ImagenesSistema\ReciMapBanner1.png" />
+    <Content Include="ImagenesSistema\recimapLineaPunteada.png" />
     <Content Include="ImagenesSistema\reciMapLogo.png" />
     <Content Include="ImagenesSistema\registros.png" />
     <Content Include="ImagenesSistema\reseniasLogo.png" />
